@@ -76,6 +76,7 @@ Abstraction is a fundamental concept in Object-Oriented Programming (OOP) that f
 An abstract class in Java is a class that cannot be instantiated directly. It can have abstract methods (methods without an implementation), concrete methods (with an implementation), constructors, static methods, and final methods. Abstract classes provide partial abstraction by allowing some methods to be implemented while others are left to be defined by subclasses.
 
 **Key Points:**
+- We cannot instantiated an abstract class.
 - An abstract class can have both abstract and concrete methods.
 - It can have constructors, which can be called by its subclasses.
 
@@ -633,72 +634,148 @@ Association, Aggregation and Composition in Java describe how instances of class
 The four pillars of OOP—Encapsulation, Inheritance, Polymorphism, and Abstraction—are fundamental concepts that help in designing robust, flexible, and reusable code. Understanding and applying these principles is crucial for effective object-oriented software development.
 
 
-# Clean Coding
+# Clean Code: A Handbook of Agile Software Craftsmanship
+
+This documentation provides a concise summary of the key points from the first four chapters of *Clean Code* by Robert C. Martin.
+
+## Table of Contents
+1. [Chapter 1: Clean Code](#chapter-1-clean-code)
+2. [Chapter 2: Meaningful Names](#chapter-2-meaningful-names)
+3. [Chapter 3: Functions](#chapter-3-functions)
+4. [Chapter 4: Comments](#chapter-4-comments)
+
+---
+
+## Chapter 1: Clean Code
+This Book is about good programming. It's about how to write good code, and how to transform bad code into good code.
+
+### Why write bad code?
+
+- Are you in a rush?
+- Do you try to go "fast"?
+- Do not you have time to do a good job?
+- Are you tired of work in the same program/module?
+- Does your Boss push you to finish soon?
+
+The previous arguments could create a swamp of senseless code.
+
+If you say "I will back to fix it later" you could fall in the [LeBlanc's law](https://en.wikipedia.org/wiki/Talk%3AList_of_eponymous_laws#Proposal_to_add_LeBlanc.27s_law) "Later equals never"
+
+You are a professional and the code is your responsibility. Let's analyze the following anecdote:
+
+> What if you were a doctor and had a patient who demanded that you stop all the silly hand-washing in preparation for surgery because it was taking too much time? Clearly the patient is the boss; and yet the doctor should absolutely refuse to comply. Why? Because the doctor knows more than the patient about the risks of disease and infection. It would be unprofessional (never mind criminal) for the doctor to comply with the patient.
+
+So too it is unprofessional for programmers to bend to the will of managers who don’t understand the risks of making messes.
+
+Maybe sometime you think in go fast to make the deadline. The only way to go fast is to keep the code as clean as possible at all times.
+
+### What is Clean Code?
+
+In his book Uncle Bob says the next:
+
+> Consider this book a description of the Object Mentor School of Clean Code. The techniques and teachings within are the way that we practice our art. We are willing to claim that if you follow these teachings, you will enjoy the benefits that we have enjoyed, and you will learn to write code that is clean and professional. But don’t make the mistake of thinking that we are somehow “right” in any absolute sense. There are other schools and other masters that have just as much claim to professionalism as we. It would behoove you to learn from them as well.
+
+### The boy Scout Rule
+
+It’s not enough to write the code well. The code has to be kept clean over time. We have all seen code rot and degrade as time passes. So we must take an active role in preventing this degradation.
+
+It's a good practice apply the [Boy Scout Rule](http://programmer.97things.oreilly.com/wiki/index.php/The_Boy_Scout_Rule)
+
+> Always leave the campground cleaner than you found it.
 
 ## Chapter 2 - Meaningful Names
 
-#### 1. Name should tell the intent
-- Why it exists, what it does and how to use it
-- E.g. good name would be studentMarkInfo vs sMark.
+- Name should tell the intent
+    - Why it exists, what it does and how to use it
+    - E.g. good name would be studentMarkInfo vs sMark.
 
-#### 2. Avoid confusing names
-- I.e. using names that already imply something!
-- E.g. naming something unix, studentList(even if it is not a list).
+- Avoid confusing names
+    - I.e. using names that already imply something!
+    - E.g. naming something unix, studentList(even if it is not a list).
 
-#### 3. Choose clear names
-- Say what you mean and mean what you say
-E.g. deleteItems over burstThemDown, kill over whack.
+- Choose clear names
+    - Say what you mean and mean what you say
+    E.g. deleteItems over burstThemDown, kill over whack.
 
-#### 4. Use good Distinctions
-- Use distinctions that make sense and thus don't just use numbers
-- E.g. list1, list2, instead - productIds, productDetails etc.
-E.g. using productInfo and productDetails - means same and distinction is harder.
+- Use good Distinctions
+    - Use distinctions that make sense and thus don't just use numbers
+    - E.g. list1, list2, instead - productIds, productDetails etc.
+    E.g. using productInfo and productDetails - means same and distinction is harder.
 
-#### 5. Use pronounceable names
-- Programming is a social activity
-- E.g. Don't use variable name as dob for dateofBirth.
+- Use pronounceable names
+    - Programming is a social activity
+    - E.g. Don't use variable name as dob for dateofBirth.
 
-#### 6. Usse searchable names
-- E.g. Don't name variable as "e", "z" etc, use - Event, maxStudents etc.
+- Usse searchable names
+    - E.g. Don't name variable as "e", "z" etc, use - Event, maxStudents etc.
 
-#### 7. Don't encode types in names
-- Remember containers of variable can change.
-- E.g. phoneString, paymentInt etc are bad names, payment can be made float in future and thus name also has to now change.
+- Don't encode types in names
+    - Remember containers of variable can change.
+    - E.g. phoneString, paymentInt etc are bad names, payment can be made float in future and thus name also has to now change.
 
-#### 8. Avoid prefix to names
-- E.g. m_description -> member_description (easier to understand)
-- E.g. IShapeFactorty to mean it is an interface, instead use ShapeFactory and ShapeFactoryImpl.
+- Avoid prefix to names
+    - E.g. m_description -> member_description (easier to understand)
+    - E.g. IShapeFactorty to mean it is an interface, instead use ShapeFactory and ShapeFactoryImpl.
 
-#### 9. Class names - nouns, Function names - verbs
-- E.g. Class names - student, car, vehicle etc.
-- E.g. Function names - postPayment, startEngine etc.
+- Class names - nouns, Function names - verbs
+    - E.g. Class names - student, car, vehicle etc.
+    - E.g. Function names - postPayment, startEngine etc.
 
-#### 10. Use names consistently
-- Pick one concept and stick to it.
-- E.g. controller everywhere vs manager and controller used interchangeably, driver and controller used in same place.
+- Use names consistently
+    - Pick one concept and stick to it.
+    - E.g. controller everywhere vs manager and controller used interchangeably, driver and controller used in same place.
 
-#### 11. Don't use same name to mean two different things!
-- E.g. payInfo to represent amount to pay and payInfo to also represent who to pay and bank info, best employeePyament and employeeBankDetails.
+- Don't use same name to mean two different things!
+    - E.g. payInfo to represent amount to pay and payInfo to also represent who to pay and bank info, best employeePyament and employeeBankDetails.
 
-#### 12. Use Domain specific names
-- Remember your code is going to be read by computer engineers, helps them give context quickly.
-- E.g. accountVisitor (indicating visitor pattern), jobQueue - (indicating a queue), nameBuilder (indicating a builder).
+- Use Domain specific names
+    - Remember your code is going to be read by computer engineers, helps them give context quickly.
+    - E.g. accountVisitor (indicating visitor pattern), jobQueue - (indicating a queue), nameBuilder (indicating a builder).
 
-#### 13. Avoid - Too long names!
-- E.g. m_description -> member_description (easier to understand).
+- Avoid - Too long names!
+
+## Chapter 3: Functions
+- Write small functions
+- Do only one thing in a function
+  - Command and query separation
+  - Avoid side effects
+  - Avoid switch statements
+- Use minimum arguments - at most 2
+- DRY - do not repeat yourself
+- Prefer exceptions over error codes
 
 ## Chapter 4 - Comments
+
+#### Comments rules
+
+1. Always try to **explain yourself in code**. If it's not possible, take your time to write a good comment.
+2. Don't be redundant (e.g.: `i++; // increment i`).
+3. Don't add obvious noise.
+4. Don't use closing brace comments (e.g.: `} // end of function`).
+5. **Don't comment out code**. Just remove.
+6. Use as **explanation of intent**.
+7. Use as **clarification of code**.
+8. Use as **warning of consequences**.
+   
 #### When should you not use comments
 - Comments should not explain code, the code should
 - Change logs, Attributions
 - Position marker comments, ending braces comments
 - Not adding any new value - noise comments
-- Mumblings or frustration n comments
+- Mumblings or frustration in comments
 - Misleading or wrong comments
 - Confusing comments - Need a comment to explain comments!
 - Private API - Comments or all function - no!
 - Too much details in comments
 
+#### When should you use comments?
+Write software for humans to understand not for computers to execute.
+- Public API's
+- Reveal Intent
+- Explain rationable behind decisions made
+- To provide caution or amplify/ emphasis
+- Explaining the "why" program works, "how" is for code to tell
+- Difficult to understand code could use comments
 
 ## References
 - [GeeksforGeeks - Java Tutorial](https://www.geeksforgeeks.org/java/)
