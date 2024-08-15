@@ -420,7 +420,7 @@ Inheritance is a key concept in Object-Oriented Programming (OOP) where one clas
    - **Definition**: A combination of multiple and hierarchical inheritance. Java does not support hybrid inheritance directly with classes, but it can be managed using interfaces.
 
    ![Hybrid Inheritance](https://github.com/siddiqur-54/task_documentations/blob/main/images/OOP%20and%20Clean%20Coding/hybrid%20inheritance.jpg)
-   
+
    - **Example**:
      ```java
      // Base class
@@ -561,6 +561,7 @@ Association, Aggregation and Composition in Java describe how instances of class
 
 ### 1. Association
 **Definition:** Association is a general term that describes a relationship between two or more objects. It represents how objects interact with each other.
+
 **Characteristics:**
 - Can be one-to-one, one-to-many, many-to-one, or many-to-many.
 - Represents a loose relationship between objects.
@@ -582,6 +583,7 @@ Association, Aggregation and Composition in Java describe how instances of class
 
 ### 1. Aggregation
 **Definition:** Aggregation is a special type of association that represents a whole-part relationship where the part can exist independently of the whole.
+
 **Characteristics:**
 - It denotes a "has-a" relationship.
 - The lifetime of the part is independent of the whole.
@@ -603,6 +605,7 @@ Association, Aggregation and Composition in Java describe how instances of class
 
 ### 1. Composition
 **Definition:** Composition is a stronger form of aggregation where the part cannot exist independently of the whole. It implies a strict whole-part relationship with a dependent lifetime.
+
 **Characteristics:**
 - Also denotes a "has-a" relationship, but with a stronger association.
 - The lifetime of the part is bound to the lifetime of the whole.
