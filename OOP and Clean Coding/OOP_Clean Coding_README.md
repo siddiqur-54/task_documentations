@@ -581,7 +581,7 @@ Association, Aggregation and Composition in Java describe how instances of class
     }
     ```
 
-### 1. Aggregation
+### 2. Aggregation
 **Definition:** Aggregation is a special type of association that represents a whole-part relationship where the part can exist independently of the whole.
 
 **Characteristics:**
@@ -603,7 +603,7 @@ Association, Aggregation and Composition in Java describe how instances of class
     }
     ```
 
-### 1. Composition
+### 3. Composition
 **Definition:** Composition is a stronger form of aggregation where the part cannot exist independently of the whole. It implies a strict whole-part relationship with a dependent lifetime.
 
 **Characteristics:**
