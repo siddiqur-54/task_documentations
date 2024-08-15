@@ -244,7 +244,9 @@ Inheritance is a key concept in Object-Oriented Programming (OOP) where one clas
 
 1. **Single Inheritance**
    - **Definition**: A subclass inherits from a single superclass.
+
    ![Single Inheritance](https://github.com/siddiqur-54/task_documentations/blob/main/images/OOP%20and%20Clean%20Coding/single%20inheritance.jpg)
+
    - **Example**:
      ```java
      // Superclass
@@ -272,7 +274,9 @@ Inheritance is a key concept in Object-Oriented Programming (OOP) where one clas
 
 2. **Multilevel Inheritance**
    - **Definition**: A subclass inherits from another subclass, forming a chain of inheritance.
+
    ![Multilevel Inheritance](https://github.com/siddiqur-54/task_documentations/blob/main/images/OOP%20and%20Clean%20Coding/multilevel%20inheritance.jpg)
+
    - **Example**:
      ```java
      // Base class
@@ -308,7 +312,9 @@ Inheritance is a key concept in Object-Oriented Programming (OOP) where one clas
 
 3. **Hierarchy Inheritance**
    - **Definition**: Multiple subclasses inherit from a single superclass.
+
    ![Hierarchy Inheritance](https://github.com/siddiqur-54/task_documentations/blob/main/images/OOP%20and%20Clean%20Coding/hierarchical%20inheritance.jpg)
+
    - **Example**:
      ```java
      // Superclass
@@ -347,6 +353,7 @@ Inheritance is a key concept in Object-Oriented Programming (OOP) where one clas
 
 4. **Multiple Inheritance (via Interfaces)**
    - **Definition**: A class inherits from more than one superclass. Java does not support multiple inheritance directly with classes, but it can be achieved using interfaces.
+
    ![Multiple Inheritance](https://github.com/siddiqur-54/task_documentations/blob/main/images/OOP%20and%20Clean%20Coding/multiple%20inheritance.jpg)
 
    - **Why Java does not support multiple inheritance?**
@@ -411,7 +418,9 @@ Inheritance is a key concept in Object-Oriented Programming (OOP) where one clas
 
 5. **Hybrid Inheritance**
    - **Definition**: A combination of multiple and hierarchical inheritance. Java does not support hybrid inheritance directly with classes, but it can be managed using interfaces.
+
    ![Hybrid Inheritance](https://github.com/siddiqur-54/task_documentations/blob/main/images/OOP%20and%20Clean%20Coding/hybrid%20inheritance.jpg)
+   
    - **Example**:
      ```java
      // Base class
@@ -547,6 +556,7 @@ Dynamic polymorphism, also known as run-time polymorphism, is achieved through m
     ```
 ## 6. Association, Aggregation and Composition
 Association, Aggregation and Composition in Java describe how instances of classes relate to each other.
+
 ![Association, Aggregation and Composition](https://github.com/siddiqur-54/task_documentations/blob/main/images/OOP%20and%20Clean%20Coding/Association.png)
 
 ### 1. Association
