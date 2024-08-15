@@ -358,8 +358,8 @@ IV. **Multiple Inheritance (via Interfaces)**
 
    - **Why Java does not support multiple inheritance?**
    Java does not support multiple inheritance of classes primarily to avoid the complexity and ambiguity that can arise from it. Here are some key reasons:
-   1. **Diamond Problem:** In multiple inheritance, a class can inherit from more than one class. This can lead to a situation known as the "diamond problem," where a class inherits from two classes that have a common ancestor. This creates ambiguity in determining which methods or attributes to inherit.
-   2. **Complexity and Ambiguity:** Multiple inheritance can make the inheritance hierarchy complex and hard to manage. It can create ambiguity in method resolution and increase the potential for conflicts.
+   i. **Diamond Problem:** In multiple inheritance, a class can inherit from more than one class. This can lead to a situation known as the "diamond problem," where a class inherits from two classes that have a common ancestor. This creates ambiguity in determining which methods or attributes to inherit.
+   ii. **Complexity and Ambiguity:** Multiple inheritance can make the inheritance hierarchy complex and hard to manage. It can create ambiguity in method resolution and increase the potential for conflicts.
 
    ![Diamond Problem](https://github.com/siddiqur-54/task_documentations/blob/main/images/OOP%20and%20Clean%20Coding/diamond%20problem.png)
 
