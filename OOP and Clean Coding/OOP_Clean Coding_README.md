@@ -71,7 +71,7 @@ Abstraction is a fundamental concept in Object-Oriented Programming (OOP) that f
 **Real-Life Example:**
 - A remote control for home appliances, such as a television or air conditioner, is a perfect example of abstraction. When using a remote, you interact with a simple interface of buttons for power, volume, and channel control, without needing to understand the complex internal workings of the appliance.
 
-### 1. Abstract Class (0 to 100% Abstraction)
+### I. Abstract Class (0 to 100% Abstraction)
 
 An abstract class in Java is a class that cannot be instantiated directly. It can have abstract methods (methods without an implementation), concrete methods (with an implementation), constructors, static methods, and final methods. Abstract classes provide partial abstraction by allowing some methods to be implemented while others are left to be defined by subclasses.
 
@@ -116,7 +116,7 @@ An abstract class in Java is a class that cannot be instantiated directly. It ca
     }
     ```
 
-### 2. Interface (100% Abstraction)
+### II. Interface (100% Abstraction)
 
 In Java, an interface is a reference type that defines a contract for what methods a class should implement. Interfaces achieve 100% abstraction by declaring methods without providing implementations. This allows you to define what functionality a class should offer while hiding the implementation details.
 
@@ -165,8 +165,8 @@ Encapsulation is a core principle of Object-Oriented Programming (OOP) that invo
 
 To achieve encapsulation in Java, follow these steps:
 
-1. **Declare Variables as Private**: Make the data members (variables) of the class private to restrict direct access from outside the class.
-2. **Provide Public Getters and Setters**: Define public methods (getters and setters) to access and update the private variables. This allows controlled access to the data.
+i. **Declare Variables as Private**: Make the data members (variables) of the class private to restrict direct access from outside the class.
+ii. **Provide Public Getters and Setters**: Define public methods (getters and setters) to access and update the private variables. This allows controlled access to the data.
 
 **Advantages of Encapsulation:**
 - **Control Over Data**: You can add logic to setter methods to validate data before setting it, ensuring that only valid data is stored.
@@ -242,7 +242,7 @@ Inheritance is a key concept in Object-Oriented Programming (OOP) where one clas
 
 #### Types of Inheritance in Java
 
-1. **Single Inheritance**
+I. **Single Inheritance**
    - **Definition**: A subclass inherits from a single superclass.
 
    ![Single Inheritance](https://github.com/siddiqur-54/task_documentations/blob/main/images/OOP%20and%20Clean%20Coding/single%20inheritance.jpg)
@@ -272,7 +272,7 @@ Inheritance is a key concept in Object-Oriented Programming (OOP) where one clas
      }
      ```
 
-2. **Multilevel Inheritance**
+II. **Multilevel Inheritance**
    - **Definition**: A subclass inherits from another subclass, forming a chain of inheritance.
 
    ![Multilevel Inheritance](https://github.com/siddiqur-54/task_documentations/blob/main/images/OOP%20and%20Clean%20Coding/multilevel%20inheritance.jpg)
@@ -310,7 +310,7 @@ Inheritance is a key concept in Object-Oriented Programming (OOP) where one clas
      }
      ```
 
-3. **Hierarchy Inheritance**
+III. **Hierarchy Inheritance**
    - **Definition**: Multiple subclasses inherit from a single superclass.
 
    ![Hierarchy Inheritance](https://github.com/siddiqur-54/task_documentations/blob/main/images/OOP%20and%20Clean%20Coding/hierarchical%20inheritance.jpg)
@@ -351,7 +351,7 @@ Inheritance is a key concept in Object-Oriented Programming (OOP) where one clas
      }
      ```
 
-4. **Multiple Inheritance (via Interfaces)**
+IV. **Multiple Inheritance (via Interfaces)**
    - **Definition**: A class inherits from more than one superclass. Java does not support multiple inheritance directly with classes, but it can be achieved using interfaces.
 
    ![Multiple Inheritance](https://github.com/siddiqur-54/task_documentations/blob/main/images/OOP%20and%20Clean%20Coding/multiple%20inheritance.jpg)
@@ -359,7 +359,7 @@ Inheritance is a key concept in Object-Oriented Programming (OOP) where one clas
    - **Why Java does not support multiple inheritance?**
    Java does not support multiple inheritance of classes primarily to avoid the complexity and ambiguity that can arise from it. Here are some key reasons:
    1. **Diamond Problem:** In multiple inheritance, a class can inherit from more than one class. This can lead to a situation known as the "diamond problem," where a class inherits from two classes that have a common ancestor. This creates ambiguity in determining which methods or attributes to inherit.
-   2. Complexity and Ambiguity: Multiple inheritance can make the inheritance hierarchy complex and hard to manage. It can create ambiguity in method resolution and increase the potential for conflicts.
+   2. **Complexity and Ambiguity:** Multiple inheritance can make the inheritance hierarchy complex and hard to manage. It can create ambiguity in method resolution and increase the potential for conflicts.
 
    ![Diamond Problem](https://github.com/siddiqur-54/task_documentations/blob/main/images/OOP%20and%20Clean%20Coding/diamond%20problem.png)
 
@@ -416,7 +416,7 @@ Inheritance is a key concept in Object-Oriented Programming (OOP) where one clas
         }
         ```
 
-5. **Hybrid Inheritance**
+V. **Hybrid Inheritance**
    - **Definition**: A combination of multiple and hierarchical inheritance. Java does not support hybrid inheritance directly with classes, but it can be managed using interfaces.
 
    ![Hybrid Inheritance](https://github.com/siddiqur-54/task_documentations/blob/main/images/OOP%20and%20Clean%20Coding/hybrid%20inheritance.jpg)
@@ -468,7 +468,7 @@ Polymorphism is a fundamental concept in Object-Oriented Programming (OOP) that 
 
 Polymorphism enhances flexibility and reusability in programming by allowing one interface to be used for a general class of actions, with the specific action determined by the actual object type at runtime. In Java, polymorphism is achieved through two main mechanisms: method overloading (static polymorphism) and method overriding (dynamic polymorphism).
 
-### 1. Static or Compile-Time Polymorphism
+### I. Static or Compile-Time Polymorphism
 
 Static polymorphism, also known as compile-time polymorphism, is achieved through method overloading. Method overloading occurs when multiple methods in a class have the same name but different parameter lists (i.e., different number or types of parameters). The compiler determines which method to call based on the method signature.
 
@@ -506,7 +506,7 @@ Static polymorphism, also known as compile-time polymorphism, is achieved throug
     ```
 
 
-### 2. Dynamic or Run-Time Polymorphism
+### II. Dynamic or Run-Time Polymorphism
 
 Dynamic polymorphism, also known as run-time polymorphism, is achieved through method overriding. Method overriding occurs when a subclass provides a specific implementation of a method that is already defined in its superclass. At runtime, the Java Virtual Machine (JVM) determines the actual object's type and invokes the appropriate overridden method.
 
@@ -559,7 +559,7 @@ Association, Aggregation and Composition in Java describe how instances of class
 
 ![Association, Aggregation and Composition](https://github.com/siddiqur-54/task_documentations/blob/main/images/OOP%20and%20Clean%20Coding/Association.png)
 
-### 1. Association
+### I. Association
 **Definition:** Association is a general term that describes a relationship between two or more objects. It represents how objects interact with each other.
 
 **Characteristics:**
@@ -581,7 +581,7 @@ Association, Aggregation and Composition in Java describe how instances of class
     }
     ```
 
-### 2. Aggregation
+### II. Aggregation
 **Definition:** Aggregation is a special type of association that represents a whole-part relationship where the part can exist independently of the whole.
 
 **Characteristics:**
@@ -603,7 +603,7 @@ Association, Aggregation and Composition in Java describe how instances of class
     }
     ```
 
-### 3. Composition
+### III. Composition
 **Definition:** Composition is a stronger form of aggregation where the part cannot exist independently of the whole. It implies a strict whole-part relationship with a dependent lifetime.
 
 **Characteristics:**
