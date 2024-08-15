@@ -683,7 +683,7 @@ It's a good practice apply the [Boy Scout Rule](http://programmer.97things.oreil
 
 > Always leave the campground cleaner than you found it.
 
-## Chapter 2 - Meaningful Names
+## Chapter 2: Meaningful Names
 
 - Name should tell the intent
     - Why it exists, what it does and how to use it
@@ -744,7 +744,7 @@ It's a good practice apply the [Boy Scout Rule](http://programmer.97things.oreil
 - DRY - do not repeat yourself
 - Prefer exceptions over error codes
 
-## Chapter 4 - Comments
+## Chapter 4: Comments
 
 #### Comments rules
 
