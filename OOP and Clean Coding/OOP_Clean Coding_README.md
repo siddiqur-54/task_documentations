@@ -633,12 +633,6 @@ Association, Aggregation and Composition in Java describe how instances of class
 The four pillars of OOP—Encapsulation, Inheritance, Polymorphism, and Abstraction—are fundamental concepts that help in designing robust, flexible, and reusable code. Understanding and applying these principles is crucial for effective object-oriented software development.
 
 
-## References
-- [GeeksforGeeks - Java Tutorial](https://www.geeksforgeeks.org/java/)
-- [JavaTpoint - Java Tutorial](https://www.javatpoint.com/java-tutorial)
-- [W3Schools - Java Tutorial](https://www.w3schools.com/java/)
-
-
 # Clean Coding
 
 ## Chapter 2 - Meaningful Names
@@ -686,7 +680,7 @@ E.g. using productInfo and productDetails - means same and distinction is harder
 #### 11. Don't use same name to mean two different things!
 - E.g. payInfo to represent amount to pay and payInfo to also represent who to pay and bank info, best employeePyament and employeeBankDetails.
 
-#### 12. Use DOmain specific names
+#### 12. Use Domain specific names
 - Remember your code is going to be read by computer engineers, helps them give context quickly.
 - E.g. accountVisitor (indicating visitor pattern), jobQueue - (indicating a queue), nameBuilder (indicating a builder).
 
@@ -705,3 +699,8 @@ E.g. using productInfo and productDetails - means same and distinction is harder
 - Private API - Comments or all function - no!
 - Too much details in comments
 
+
+## References
+- [GeeksforGeeks - Java Tutorial](https://www.geeksforgeeks.org/java/)
+- [JavaTpoint - Java Tutorial](https://www.javatpoint.com/java-tutorial)
+- [W3Schools - Java Tutorial](https://www.w3schools.com/java/)
