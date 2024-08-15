@@ -637,3 +637,71 @@ The four pillars of OOP—Encapsulation, Inheritance, Polymorphism, and Abstract
 - [GeeksforGeeks - Java Tutorial](https://www.geeksforgeeks.org/java/)
 - [JavaTpoint - Java Tutorial](https://www.javatpoint.com/java-tutorial)
 - [W3Schools - Java Tutorial](https://www.w3schools.com/java/)
+
+
+# Clean Coding
+
+## Chapter 2 - Meaningful Names
+
+#### 1. Name should tell the intent
+- Why it exists, what it does and how to use it
+- E.g. good name would be studentMarkInfo vs sMark.
+
+#### 2. Avoid confusing names
+- I.e. using names that already imply something!
+- E.g. naming something unix, studentList(even if it is not a list).
+
+#### 3. Choose clear names
+- Say what you mean and mean what you say
+E.g. deleteItems over burstThemDown, kill over whack.
+
+#### 4. Use good Distinctions
+- Use distinctions that make sense and thus don't just use numbers
+- E.g. list1, list2, instead - productIds, productDetails etc.
+E.g. using productInfo and productDetails - means same and distinction is harder.
+
+#### 5. Use pronounceable names
+- Programming is a social activity
+- E.g. Don't use variable name as dob for dateofBirth.
+
+#### 6. Usse searchable names
+- E.g. Don't name variable as "e", "z" etc, use - Event, maxStudents etc.
+
+#### 7. Don't encode types in names
+- Remember containers of variable can change.
+- E.g. phoneString, paymentInt etc are bad names, payment can be made float in future and thus name also has to now change.
+
+#### 8. Avoid prefix to names
+- E.g. m_description -> member_description (easier to understand)
+- E.g. IShapeFactorty to mean it is an interface, instead use ShapeFactory and ShapeFactoryImpl.
+
+#### 9. Class names - nouns, Function names - verbs
+- E.g. Class names - student, car, vehicle etc.
+- E.g. Function names - postPayment, startEngine etc.
+
+#### 10. Use names consistently
+- Pick one concept and stick to it.
+- E.g. controller everywhere vs manager and controller used interchangeably, driver and controller used in same place.
+
+#### 11. Don't use same name to mean two different things!
+- E.g. payInfo to represent amount to pay and payInfo to also represent who to pay and bank info, best employeePyament and employeeBankDetails.
+
+#### 12. Use DOmain specific names
+- Remember your code is going to be read by computer engineers, helps them give context quickly.
+- E.g. accountVisitor (indicating visitor pattern), jobQueue - (indicating a queue), nameBuilder (indicating a builder).
+
+#### 13. Avoid - Too long names!
+- E.g. m_description -> member_description (easier to understand).
+
+## Chapter 4 - Comments
+#### When should you not use comments
+- Comments should not explain code, the code should
+- Change logs, Attributions
+- Position marker comments, ending braces comments
+- Not adding any new value - noise comments
+- Mumblings or frustration n comments
+- Misleading or wrong comments
+- Confusing comments - Need a comment to explain comments!
+- Private API - Comments or all function - no!
+- Too much details in comments
+
