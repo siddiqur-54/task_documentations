@@ -237,7 +237,7 @@ Inheritance is a key concept in Object-Oriented Programming (OOP) where one clas
 I. **Single Inheritance**
    - A subclass inherits from a single superclass.
 
-   ![Single Inheritance](https://github.com/siddiqur-54/task_documentations/blob/main/images/OOP%20and%20Clean%20Coding/single%20inheritance.jpg)
+        ![Single Inheritance](https://github.com/siddiqur-54/task_documentations/blob/main/images/OOP%20and%20Clean%20Coding/single%20inheritance.jpg)
 
    - **Example**:
         ```java
@@ -268,7 +268,7 @@ I. **Single Inheritance**
 II. **Multilevel Inheritance**
    - A subclass inherits from another subclass, forming a chain of inheritance.
 
-   ![Multilevel Inheritance](https://github.com/siddiqur-54/task_documentations/blob/main/images/OOP%20and%20Clean%20Coding/multilevel%20inheritance.jpg)
+        ![Multilevel Inheritance](https://github.com/siddiqur-54/task_documentations/blob/main/images/OOP%20and%20Clean%20Coding/multilevel%20inheritance.jpg)
 
    - **Example**:
         ```java
@@ -307,7 +307,7 @@ II. **Multilevel Inheritance**
 III. **Hierarchy Inheritance**
    - Multiple subclasses inherit from a single superclass.
 
-   ![Hierarchy Inheritance](https://github.com/siddiqur-54/task_documentations/blob/main/images/OOP%20and%20Clean%20Coding/hierarchical%20inheritance.jpg)
+        ![Hierarchy Inheritance](https://github.com/siddiqur-54/task_documentations/blob/main/images/OOP%20and%20Clean%20Coding/hierarchical%20inheritance.jpg)
 
    - **Example**:
         ```java
@@ -349,7 +349,7 @@ III. **Hierarchy Inheritance**
 IV. **Multiple Inheritance (via Interfaces)**
    - A class inherits from more than one superclass. Java does not support multiple inheritance directly with classes, but it can be achieved using interfaces.
 
-   ![Multiple Inheritance](https://github.com/siddiqur-54/task_documentations/blob/main/images/OOP%20and%20Clean%20Coding/multiple%20inheritance.jpg)
+        ![Multiple Inheritance](https://github.com/siddiqur-54/task_documentations/blob/main/images/OOP%20and%20Clean%20Coding/multiple%20inheritance.jpg)
 
    - **Why Java does not support multiple inheritance?**
    Java does not support multiple inheritance of classes primarily to avoid the complexity and ambiguity that can arise from it. Here are some key reasons:
@@ -428,7 +428,7 @@ IV. **Multiple Inheritance (via Interfaces)**
 V. **Hybrid Inheritance**
    - A combination of multiple and hierarchical inheritance. Java does not support hybrid inheritance directly with classes, but it can be managed using interfaces.
 
-   ![Hybrid Inheritance](https://github.com/siddiqur-54/task_documentations/blob/main/images/OOP%20and%20Clean%20Coding/hybrid%20inheritance.jpg)
+        ![Hybrid Inheritance](https://github.com/siddiqur-54/task_documentations/blob/main/images/OOP%20and%20Clean%20Coding/hybrid%20inheritance.jpg)
 
    - **Example**:
         ```java
