@@ -1,84 +1,82 @@
 # Object-Oriented Programming (OOP)
 
 ## Introduction
-Object-Oriented Programming (OOP) is a programming paradigm based on the concept of "objects", which can contain data and code. The data is in the form of fields (often known as attributes or properties), and the code is in the form of procedures (often known as methods). OOP provides a clear modular structure for programs and allows for code reuse through inheritance.
-
-![OOP Concepts](https://github.com/siddiqur-54/task_documentations/blob/main/images/OOP%20and%20Clean%20Coding/Object-Oriented-Programming-Concepts.jpg)
+Object-Oriented Programming (OOP) is a programming paradigm centered around "objects," which encapsulate data as attributes and behavior as methods. OOP promotes a modular structure through key principles like encapsulation, abstraction, inheritance, and polymorphism. These principles enhance code readability, maintainability, and reusability.
 
 ## 1. Class and Object
 
-### 1. Class
+### I. Class
 
-- **Definition**: A class is a blueprint or prototype from which objects are created. It defines the structure and behavior that the objects will have.
-
+- A class is a blueprint or prototype from which objects are created.
+- It defines the structure and behavior that the objects will have.
 - **Components**:
   - **Attributes**: Define the properties or state of the class (e.g., `brand`, `model`, `year`).
   - **Methods**: Define the behaviors or actions that objects of the class can perform (e.g., `startEngine()`).
 
-- **Encapsulation**: Classes encapsulate data and methods, providing a modular structure to the code and hiding internal details.
+### II. Object
 
-- **Example**:
-    ```java
-    public class Car {
-        // Attributes
-        String brand;
-        String model;
-        int year;
-  
-        // Method
-        void startEngine() {
-            System.out.println("Engine started!");
-        }
-    }
-    ```
-
-### 2. Object
-
-- **Definition**: An object is an instance of a class. It represents a concrete entity with state and behavior.
-
-- **Creation**: Memory is allocated for an object when it is instantiated from a class.
-
+- An object is an instance of a class.
+- It represents a concrete entity with state and behavior.
+- Memory is allocated for an object when it is instantiated from a class.
 - **Attributes and Methods**:
   - **Attributes**: Store the current state or values of the object (e.g., `myCar.brand`, `myCar.model`).
   - **Methods**: Perform actions on the object's data or define the object’s behavior (e.g., `myCar.startEngine()`).
 
 - **Example**:
     ```java
+    // Define the Vehicle class
+    class Vehicle {
+        // Attributes of Vehicle
+        String brand;
+        int speed;
+
+        // Method to display vehicle information
+        void displayInfo() {
+            System.out.println("Brand: " + brand);
+            System.out.println("Speed: " + speed + " km/h");
+        }
+
+        // Method to accelerate the vehicle
+        void accelerate(int increment) {
+            speed += increment;
+            System.out.println("Vehicle accelerated. New speed: " + speed + " km/h");
+        }
+    }
+
+    // Main class to run the program
     public class Main {
         public static void main(String[] args) {
-            // Creating an object of class Car
-            Car myCar = new Car();
-            myCar.brand = "Toyota";
-            myCar.model = "Corolla";
-            myCar.year = 2020;
-  
-            // Calling a method on the object
-            myCar.startEngine();
+            // Create an object of the Vehicle class
+            Vehicle myVehicle = new Vehicle();
+
+            // Set attributes for the object
+            myVehicle.brand = "Toyota";
+            myVehicle.speed = 100;
+
+            // Call methods on the object
+            myVehicle.displayInfo();
+            myVehicle.accelerate(20);
         }
     }
     ```
 
 ## 2. Abstraction
 
-Abstraction is a fundamental concept in Object-Oriented Programming (OOP) that focuses on hiding the implementation details of an object and exposing only the essential functionality to the user. It allows users to interact with objects at a high level without needing to understand the internal workings.
+Abstraction is a fundamental concept in Object-Oriented Programming (OOP) that focuses on hiding the implementation details of an object and exposing only the essential functionality to the user.
 
-**Key Points:**
 - **Focus**: Abstraction emphasizes "what" an object does rather than "how" it does it.
 - **Implementation**: There are two primary ways to achieve abstraction in Java:
   - **Abstract Classes**: Classes that cannot be instantiated on their own and may contain abstract methods (methods without a body).
   - **Interfaces**: Fully abstract types that can only contain abstract methods and final, static constants.
 
-**Real-Life Example:**
-- A remote control for home appliances, such as a television or air conditioner, is a perfect example of abstraction. When using a remote, you interact with a simple interface of buttons for power, volume, and channel control, without needing to understand the complex internal workings of the appliance.
-
 ### I. Abstract Class (0 to 100% Abstraction)
+- An abstract class cannot be instantiated directly and can have both abstract methods (without implementation) and concrete methods (with implementation).
+- It can include constructors, static methods, and final methods that cannot be overridden by subclasses.
 
-An abstract class in Java is a class that cannot be instantiated directly. It can have abstract methods (methods without an implementation), concrete methods (with an implementation), constructors, static methods, and final methods. Abstract classes provide partial abstraction by allowing some methods to be implemented while others are left to be defined by subclasses.
-
-**Key Points:**
-- We cannot instantiated an abstract class.
-- An abstract class can have both abstract and concrete methods.
-- It can have constructors, which can be called by its subclasses.
+### II. Interface (100% Abstraction)
+- An interface cannot be instantiated directly and can only have abstract methods (implicitly public and abstract) and static methods.
+- It cannot have constructors but can include constants (static final variables).
+- A class can implement multiple interfaces, supporting multiple inheritance.
 
 - **Example**:
     ```java
@@ -98,44 +96,21 @@ An abstract class in Java is a class that cannot be instantiated directly. It ca
         }
     }
 
-    // Subclass (inherited from Vehicle)
-    class Car extends Vehicle {
-        // Providing implementation for abstract method
-        @Override
-        void start() {
-            System.out.println("Car started.");
-        }
-    }
-
-    public class Main {
-        public static void main(String[] args) {
-            // Create an object of the subclass
-            Car myCar = new Car();
-            myCar.start();  // Output: Car started.
-            myCar.stop();   // Output: Vehicle stopped.
-        }
-    }
-    ```
-
-### II. Interface (100% Abstraction)
-
-In Java, an interface is a reference type that defines a contract for what methods a class should implement. Interfaces achieve 100% abstraction by declaring methods without providing implementations. This allows you to define what functionality a class should offer while hiding the implementation details.
-
-**Key Points:**
-- **Method Declaration**: Interfaces declare abstract methods without providing method bodies. This ensures that any class implementing the interface must provide implementations for these methods.
-- **Implementation**: Classes that implement an interface must provide concrete implementations for all of its methods. This enforces a contract that the class must adhere to.
-- **Abstraction**: Interfaces provide complete abstraction by exposing only method signatures and hiding implementation details. This allows users to interact with objects at a high level of abstraction.
-
-- **Example**:
-    ```java
     // Interface definition
     interface Drivable {
         void accelerate();
         void brake();
     }
 
-    // Implementing the interface
-    class Car implements Drivable {
+    // Subclass (inherited from Vehicle) and implementing Drivable interface
+    class Car extends Vehicle implements Drivable {
+        // Providing implementation for abstract method
+        @Override
+        void start() {
+            System.out.println("Car started.");
+        }
+
+        // Implementing interface methods
         @Override
         public void accelerate() {
             System.out.println("Car is accelerating.");
@@ -147,88 +122,89 @@ In Java, an interface is a reference type that defines a contract for what metho
         }
     }
 
+    // Main class
     public class Main {
         public static void main(String[] args) {
-            Drivable myCar = new Car(); // Creating an instance of Car
-            myCar.accelerate();        // Output: Car is accelerating.
-            myCar.brake();             // Output: Car is braking.
+            // Create an object of the subclass
+            Car myCar = new Car();
+            
+            // Using methods from the abstract class
+            myCar.start();   // Output: Car started.
+            myCar.stop();    // Output: Vehicle stopped.
+
+            // Using methods from the Drivable interface
+            myCar.accelerate(); // Output: Car is accelerating.
+            myCar.brake();      // Output: Car is braking.
         }
     }
     ```
 
 ## 3. Encapsulation
-Encapsulation is a core principle of Object-Oriented Programming (OOP) that involves bundling the data (attributes) and methods (functions) that operate on the data into a single unit, typically a class. It restricts direct access to some of the object's components, which can prevent the accidental modification of data and ensure a controlled way of accessing and updating it.
-
-**Real-Life Example:**
-- Consider a capsule that contains a mix of several medicines. The individual medicines are hidden within the capsule, and the user interacts only with the external form of the capsule without knowing the specifics of the contents. Similarly, encapsulation in programming hides the internal details and exposes only necessary information through a controlled interface.
+Encapsulation is a core principle of Object-Oriented Programming (OOP) that involves bundling the data (attributes) and methods (functions) into a single unit, typically a class. It restricts direct access to some of the object's components.
 
 ### Achieving Encapsulation in Java
-
-To achieve encapsulation in Java, follow these steps:
-
 i. **Declare Variables as Private**: Make the data members (variables) of the class private to restrict direct access from outside the class.
 ii. **Provide Public Getters and Setters**: Define public methods (getters and setters) to access and update the private variables. This allows controlled access to the data.
 
 **Advantages of Encapsulation:**
 - **Control Over Data**: You can add logic to setter methods to validate data before setting it, ensuring that only valid data is stored.
 - **Data Hiding**: By making data members private, you hide the internal state of the object from the outside world, protecting it from unintended interference.
-- **Easy to Test**: Encapsulated classes can be easily tested in isolation, as their data is controlled through well-defined methods.
 
 - **Example:**
-
     ```java
     // Encapsulated class
-    public class Person {
+    public class Vehicle {
         // Private variables
-        private String name;
-        private int age;
+        private String brand;
+        private int speed;
 
         // Public constructor
-        public Person(String name, int age) {
-            this.name = name;
-            setAge(age); // Using setter to enforce validation
+        public Vehicle(String brand, int speed) {
+            this.brand = brand;
+            setSpeed(speed); // Using setter to enforce validation
         }
 
-        // Getter for name
-        public String getName() {
-            return name;
+        // Getter for brand
+        public String getBrand() {
+            return brand;
         }
 
-        // Setter for name
-        public void setName(String name) {
-            this.name = name;
+        // Setter for brand
+        public void setBrand(String brand) {
+            this.brand = brand;
         }
 
-        // Getter for age
-        public int getAge() {
-            return age;
+        // Getter for speed
+        public int getSpeed() {
+            return speed;
         }
 
-        // Setter for age with validation
-        public void setAge(int age) {
-            if (age > 0) { // Validation logic
-                this.age = age;
+        // Setter for speed with validation
+        public void setSpeed(int speed) {
+            if (speed >= 0) { // Validation logic
+                this.speed = speed;
             } else {
-                System.out.println("Age must be positive.");
+                System.out.println("Speed must be non-negative.");
             }
         }
     }
 
+    // Main class to test the Vehicle class
     public class Main {
         public static void main(String[] args) {
-            // Creating an object of the Person class
-            Person person = new Person("John Doe", 30);
-            
+            // Creating an object of the Vehicle class
+            Vehicle vehicle = new Vehicle("Toyota", 120);
+
             // Accessing and modifying data through getters and setters
-            System.out.println("Name: " + person.getName()); // Output: Name: John Doe
-            System.out.println("Age: " + person.getAge());   // Output: Age: 30
-            
-            // Updating age
-            person.setAge(35);
-            System.out.println("Updated Age: " + person.getAge()); // Output: Updated Age: 35
-            
-            // Attempting to set an invalid age
-            person.setAge(-5); // Output: Age must be positive.
+            System.out.println("Brand: " + vehicle.getBrand()); // Output: Brand: Toyota
+            System.out.println("Speed: " + vehicle.getSpeed() + " km/h"); // Output: Speed: 120 km/h
+
+            // Updating speed
+            vehicle.setSpeed(150);
+            System.out.println("Updated Speed: " + vehicle.getSpeed() + " km/h"); // Output: Updated Speed: 150 km/h
+
+            // Attempting to set an invalid speed
+            vehicle.setSpeed(-10); // Output: Speed must be non-negative.
         }
     }
     ```
@@ -236,10 +212,7 @@ ii. **Provide Public Getters and Setters**: Define public methods (getters and s
 
 ## 4. Inheritance
 
-Inheritance is a key concept in Object-Oriented Programming (OOP) where one class (subclass or derived class) inherits the properties and methods of another class (superclass or base class). This mechanism allows for code reuse and establishes an "is-a" relationship between the classes. In Java, inheritance is implemented using the `extends` keyword.
-
-**Real-Life Example:**
-- Consider the hierarchy of celestial bodies: The planet Earth and Mars inherit properties from the superclass Solar System, and the Solar System inherits from the Milky Way Galaxy. Thus, the Milky Way Galaxy is the top-level superclass for Solar System, Earth, and Mars.
+Inheritance is a key concept in Object-Oriented Programming (OOP) where one class (subclass or derived class) inherits the properties and methods of another class (superclass or base class).
 
 #### Types of Inheritance in Java
 
@@ -249,29 +222,30 @@ I. **Single Inheritance**
    ![Single Inheritance](https://github.com/siddiqur-54/task_documentations/blob/main/images/OOP%20and%20Clean%20Coding/single%20inheritance.jpg)
 
    - **Example**:
-     ```java
-     // Superclass
-     class Animal {
-         void eat() {
-             System.out.println("This animal eats food.");
-         }
-     }
+        ```java
+        // Superclass
+        class Vehicle {
+            void start() {
+                System.out.println("The vehicle starts.");
+            }
+        }
 
-     // Subclass
-     class Dog extends Animal {
-         void bark() {
-             System.out.println("The dog barks.");
-         }
-     }
+        // Subclass
+        class Car extends Vehicle {
+            void honk() {
+                System.out.println("The car honks.");
+            }
+        }
 
-     public class Main {
-         public static void main(String[] args) {
-             Dog myDog = new Dog();
-             myDog.eat();  // Output: This animal eats food.
-             myDog.bark(); // Output: The dog barks.
-         }
-     }
-     ```
+        // Main class
+        public class Main {
+            public static void main(String[] args) {
+                Car myCar = new Car();
+                myCar.start(); // Output: The vehicle starts.
+                myCar.honk();  // Output: The car honks.
+            }
+        }
+        ```
 
 II. **Multilevel Inheritance**
    - **Definition**: A subclass inherits from another subclass, forming a chain of inheritance.
@@ -279,37 +253,38 @@ II. **Multilevel Inheritance**
    ![Multilevel Inheritance](https://github.com/siddiqur-54/task_documentations/blob/main/images/OOP%20and%20Clean%20Coding/multilevel%20inheritance.jpg)
 
    - **Example**:
-     ```java
-     // Base class
-     class Animal {
-         void eat() {
-             System.out.println("This animal eats food.");
-         }
-     }
+        ```java
+        // Base class
+        class Vehicle {
+            void start() {
+                System.out.println("The vehicle starts.");
+            }
+        }
 
-     // Intermediate class
-     class Mammal extends Animal {
-         void walk() {
-             System.out.println("This mammal walks.");
-         }
-     }
+        // Intermediate class
+        class MotorVehicle extends Vehicle {
+            void drive() {
+                System.out.println("The motor vehicle drives.");
+            }
+        }
 
-     // Subclass
-     class Dog extends Mammal {
-         void bark() {
-             System.out.println("The dog barks.");
-         }
-     }
+        // Subclass
+        class Car extends MotorVehicle {
+            void honk() {
+                System.out.println("The car honks.");
+            }
+        }
 
-     public class Main {
-         public static void main(String[] args) {
-             Dog myDog = new Dog();
-             myDog.eat();  // Output: This animal eats food.
-             myDog.walk(); // Output: This mammal walks.
-             myDog.bark(); // Output: The dog barks.
-         }
-     }
-     ```
+        // Main class
+        public class Main {
+            public static void main(String[] args) {
+                Car myCar = new Car();
+                myCar.start(); // Output: The vehicle starts.
+                myCar.drive(); // Output: The motor vehicle drives.
+                myCar.honk();  // Output: The car honks.
+            }
+        }
+        ```
 
 III. **Hierarchy Inheritance**
    - **Definition**: Multiple subclasses inherit from a single superclass.
@@ -317,40 +292,41 @@ III. **Hierarchy Inheritance**
    ![Hierarchy Inheritance](https://github.com/siddiqur-54/task_documentations/blob/main/images/OOP%20and%20Clean%20Coding/hierarchical%20inheritance.jpg)
 
    - **Example**:
-     ```java
-     // Superclass
-     class Animal {
-         void eat() {
-             System.out.println("This animal eats food.");
-         }
-     }
+        ```java
+        // Superclass
+        class Vehicle {
+            void start() {
+                System.out.println("The vehicle starts.");
+            }
+        }
 
-     // Subclass 1
-     class Dog extends Animal {
-         void bark() {
-             System.out.println("The dog barks.");
-         }
-     }
+        // Subclass 1
+        class Car extends Vehicle {
+            void honk() {
+                System.out.println("The car honks.");
+            }
+        }
 
-     // Subclass 2
-     class Cat extends Animal {
-         void meow() {
-             System.out.println("The cat meows.");
-         }
-     }
+        // Subclass 2
+        class Motorcycle extends Vehicle {
+            void rev() {
+                System.out.println("The motorcycle revs.");
+            }
+        }
 
-     public class Main {
-         public static void main(String[] args) {
-             Dog myDog = new Dog();
-             myDog.eat();  // Output: This animal eats food.
-             myDog.bark(); // Output: The dog barks.
+        // Main class
+        public class Main {
+            public static void main(String[] args) {
+                Car myCar = new Car();
+                myCar.start(); // Output: The vehicle starts.
+                myCar.honk();  // Output: The car honks.
 
-             Cat myCat = new Cat();
-             myCat.eat();  // Output: This animal eats food.
-             myCat.meow(); // Output: The cat meows.
-         }
-     }
-     ```
+                Motorcycle myMotorcycle = new Motorcycle();
+                myMotorcycle.start(); // Output: The vehicle starts.
+                myMotorcycle.rev();   // Output: The motorcycle revs.
+            }
+        }
+        ```
 
 IV. **Multiple Inheritance (via Interfaces)**
    - **Definition**: A class inherits from more than one superclass. Java does not support multiple inheritance directly with classes, but it can be achieved using interfaces.
@@ -359,60 +335,44 @@ IV. **Multiple Inheritance (via Interfaces)**
 
    - **Why Java does not support multiple inheritance?**
    Java does not support multiple inheritance of classes primarily to avoid the complexity and ambiguity that can arise from it. Here are some key reasons:
-   i. **Diamond Problem:** In multiple inheritance, a class can inherit from more than one class. This can lead to a situation known as the "diamond problem," where a class inherits from two classes that have a common ancestor. This creates ambiguity in determining which methods or attributes to inherit.
+
+   i. **Diamond Problem:** In multiple inheritance, a class can inherit from more than one class. This can lead to a situation known as the "diamond problem," where a class inherits from two classes that have a common ancestor.
+
    ii. **Complexity and Ambiguity:** Multiple inheritance can make the inheritance hierarchy complex and hard to manage. It can create ambiguity in method resolution and increase the potential for conflicts.
 
    ![Diamond Problem](https://github.com/siddiqur-54/task_documentations/blob/main/images/OOP%20and%20Clean%20Coding/diamond%20problem.png)
-
-   - **Example**:
-        ```java
-        class A {
-        void method() {}
-        }
-
-        class B extends A {
-            void method() {}
-        }
-
-        class C extends A {
-            void method() {}
-        }
-
-        class D extends B, C {  // Error: Java does not support this
-            // Which method() should be inherited?
-        }
-        ```
-
-    - **Achieving multiple inheritance using Interface**
+ 
+   - **Achieving multiple inheritance using Interface**
         ```java
         // First interface
-        interface CanRun {
-            void run();
+        interface CanDrive {
+            void drive();
         }
 
         // Second interface
-        interface CanJump {
-            void jump();
+        interface CanFloat {
+            void floatOnWater();
         }
 
         // Class implementing multiple interfaces
-        class Athlete implements CanRun, CanJump {
+        class Amphibian implements CanDrive, CanFloat {
             @Override
-            public void run() {
-                System.out.println("The athlete runs quickly.");
+            public void drive() {
+                System.out.println("The amphibian drives on land.");
             }
 
             @Override
-            public void jump() {
-                System.out.println("The athlete jumps high.");
+            public void floatOnWater() {
+                System.out.println("The amphibian floats on water.");
             }
         }
 
+        // Main class
         public class Main {
             public static void main(String[] args) {
-                Athlete athlete = new Athlete();
-                athlete.run();  // Output: The athlete runs quickly.
-                athlete.jump(); // Output: The athlete jumps high.
+                Amphibian amphibian = new Amphibian();
+                amphibian.drive();        // Output: The amphibian drives on land.
+                amphibian.floatOnWater(); // Output: The amphibian floats on water.
             }
         }
         ```
@@ -423,85 +383,87 @@ V. **Hybrid Inheritance**
    ![Hybrid Inheritance](https://github.com/siddiqur-54/task_documentations/blob/main/images/OOP%20and%20Clean%20Coding/hybrid%20inheritance.jpg)
 
    - **Example**:
-     ```java
-     // Base class
-     class Animal {
-         void eat() {
-             System.out.println("This animal eats food.");
-         }
-     }
+        ```java
+        // Base class
+        class Vehicle {
+            void start() {
+                System.out.println("The vehicle starts.");
+            }
+        }
 
-     // Intermediate class 1
-     class Mammal extends Animal {
-         void walk() {
-             System.out.println("This mammal walks.");
-         }
-     }
+        // Intermediate class 1
+        class Car extends Vehicle {
+            void drive() {
+                System.out.println("The car drives.");
+            }
+        }
 
-     // Intermediate class 2
-     class Bird extends Animal {
-         void fly() {
-             System.out.println("This bird flies.");
-         }
-     }
+        // Intermediate class 2
+        class Boat extends Vehicle {
+            void floatOnWater() {
+                System.out.println("The boat floats on water.");
+            }
+        }
 
-     // Class implementing hybrid inheritance via interfaces
-     class Bat extends Mammal implements Flyable {
-         @Override
-         public void fly() {
-             System.out.println("The bat flies.");
-         }
-     }
+        // Interface for flying vehicles
+        interface Flyable {
+            void fly();
+        }
 
-     public class Main {
-         public static void main(String[] args) {
-             Bat myBat = new Bat();
-             myBat.eat();  // Output: This animal eats food.
-             myBat.walk(); // Output: This mammal walks.
-             myBat.fly();  // Output: The bat flies.
-         }
-     }
-     ```
+        // Class implementing hybrid inheritance via interfaces
+        class FlyingCar extends Car implements Flyable {
+            @Override
+            public void fly() {
+                System.out.println("The flying car flies.");
+            }
+        }
+
+        // Main class
+        public class Main {
+            public static void main(String[] args) {
+                FlyingCar myFlyingCar = new FlyingCar();
+                myFlyingCar.start();        // Output: The vehicle starts.
+                myFlyingCar.drive();        // Output: The car drives.
+                myFlyingCar.fly();          // Output: The flying car flies.
+            }
+        }
+        ```
 
 ## 5. Polymorphism in Java
 
-Polymorphism is a fundamental concept in Object-Oriented Programming (OOP) that allows objects to be treated as instances of their parent class rather than their actual class. The term "polymorphism" comes from the Greek words "poly" (many) and "morph" (forms), meaning "many forms."
-
-Polymorphism enhances flexibility and reusability in programming by allowing one interface to be used for a general class of actions, with the specific action determined by the actual object type at runtime. In Java, polymorphism is achieved through two main mechanisms: method overloading (static polymorphism) and method overriding (dynamic polymorphism).
+The term "polymorphism" comes from the Greek words "poly" (many) and "morph" (forms), meaning "many forms". Polymorphism enhances flexibility and reusability in programming by allowing one interface to be used for a general class of actions. In Java, polymorphism is achieved through two main mechanisms:
 
 ### I. Static or Compile-Time Polymorphism
 
-Static polymorphism, also known as compile-time polymorphism, is achieved through method overloading. Method overloading occurs when multiple methods in a class have the same name but different parameter lists (i.e., different number or types of parameters). The compiler determines which method to call based on the method signature.
-
-**Key Points:**
+Static polymorphism, also known as compile-time polymorphism, is achieved through method overloading.
 - Method overloading allows methods to have the same name but different parameter lists.
 - The return type alone is not sufficient to differentiate overloaded methods.
 
 - **Example**:
-     ```java
-     public class Printer {
-    // Method to print an integer
-    void print(int i) {
-        System.out.println("Printing integer: " + i);
-    }
+    ```java
+    public class Vehicle {
+        // Method to display vehicle information based on speed
+        void displayInfo(int speed) {
+            System.out.println("Vehicle speed: " + speed + " km/h");
+        }
 
-    // Method to print a string
-    void print(String s) {
-        System.out.println("Printing string: " + s);
-    }
+        // Method to display vehicle information based on fuel level
+        void displayInfo(String fuelLevel) {
+            System.out.println("Vehicle fuel level: " + fuelLevel);
+        }
 
-    // Method to print a double
-    void print(double d) {
-        System.out.println("Printing double: " + d);
-    }
+        // Method to display vehicle information based on model year
+        void displayInfo(double modelYear) {
+            System.out.println("Vehicle model year: " + modelYear);
+        }
     }
 
     public class Main {
         public static void main(String[] args) {
-            Printer printer = new Printer();
-            printer.print(100);       // Output: Printing integer: 100
-            printer.print("Hello");   // Output: Printing string: Hello
-            printer.print(99.99);     // Output: Printing double: 99.99
+            Vehicle vehicle = new Vehicle();
+            vehicle.displayInfo(80);          // Output: Vehicle speed: 80 km/h
+            vehicle.displayInfo("Full");      // Output: Vehicle fuel level: Full
+            vehicle.displayInfo(2024.0);      // Output: Vehicle model year: 2024.0
         }
     }
     ```
@@ -509,49 +471,46 @@ Static polymorphism, also known as compile-time polymorphism, is achieved throug
 
 ### II. Dynamic or Run-Time Polymorphism
 
-Dynamic polymorphism, also known as run-time polymorphism, is achieved through method overriding. Method overriding occurs when a subclass provides a specific implementation of a method that is already defined in its superclass. At runtime, the Java Virtual Machine (JVM) determines the actual object's type and invokes the appropriate overridden method.
-
-**Key Points:**
+Dynamic polymorphism, also known as run-time polymorphism, is achieved through method overriding.
 - Method overriding allows a subclass to provide a specific implementation for a method that is already defined in its superclass.
 - The method in the subclass must have the same name, return type, and parameter list as the method in the superclass.
-- The actual method that gets executed is determined at runtime based on the object's actual type, not the reference type.
 
 - **Example**:
-     ```java
-     // Superclass
-    class Animal {
-        void makeSound() {
-            System.out.println("Animal makes a sound");
+    ```java
+    // Superclass
+    class Vehicle {
+        void start() {
+            System.out.println("Vehicle starts.");
         }
     }
 
-    // Subclass
-    class Dog extends Animal {
+    // Subclass 1
+    class Car extends Vehicle {
         @Override
-        void makeSound() {
-            System.out.println("Dog barks");
+        void start() {
+            System.out.println("Car starts with a roar.");
         }
     }
 
-    // Another subclass
-    class Cat extends Animal {
+    // Subclass 2
+    class Boat extends Vehicle {
         @Override
-        void makeSound() {
-            System.out.println("Cat meows");
+        void start() {
+            System.out.println("Boat starts with a splash.");
         }
     }
 
     public class Main {
         public static void main(String[] args) {
-            Animal myAnimal;
+            Vehicle myVehicle;
 
-            // Creating an object of Dog
-            myAnimal = new Dog();
-            myAnimal.makeSound();  // Output: Dog barks
+            // Creating an object of Car
+            myVehicle = new Car();
+            myVehicle.start();  // Output: Car starts with a roar.
 
-            // Creating an object of Cat
-            myAnimal = new Cat();
-            myAnimal.makeSound();  // Output: Cat meows
+            // Creating an object of Boat
+            myVehicle = new Boat();
+            myVehicle.start();  // Output: Boat starts with a splash.
         }
     }
     ```
@@ -647,7 +606,7 @@ This documentation provides a concise summary of the key points from the first f
 ---
 
 ## Chapter 1: Clean Code
-This Book is about good programming. It's about how to write good code, and how to transform bad code into good code.
+It's about how to write good code, and how to transform bad code into good code.
 
 ### Why write bad code?
 
@@ -655,11 +614,6 @@ This Book is about good programming. It's about how to write good code, and how 
 - Do you try to go "fast"?
 - Do not you have time to do a good job?
 - Are you tired of work in the same program/module?
-- Does your Boss push you to finish soon?
-
-The previous arguments could create a swamp of senseless code.
-
-If you say "I will back to fix it later" you could fall in the [LeBlanc's law](https://en.wikipedia.org/wiki/Talk%3AList_of_eponymous_laws#Proposal_to_add_LeBlanc.27s_law) "Later equals never"
 
 You are a professional and the code is your responsibility. Let's analyze the following anecdote:
 
@@ -667,117 +621,159 @@ You are a professional and the code is your responsibility. Let's analyze the fo
 
 So too it is unprofessional for programmers to bend to the will of managers who don’t understand the risks of making messes.
 
-Maybe sometime you think in go fast to make the deadline. The only way to go fast is to keep the code as clean as possible at all times.
-
 ### What is Clean Code?
+- **Readable:** Code should be easily understandable, even without detailed knowledge of the implementation.
+- **Simple:** Avoid complexity by following the principle of simplicity in design and implementation.
+- **Well-Structured:** Code should follow consistent conventions and patterns.
+- **Testable:** Clean code is written with testing in mind.
 
-In his book Uncle Bob says the next:
+### The Importance of Clean Code
+- Clean code is essential for maintaining long-term software projects.
+- It reduces the risk of bugs, makes the codebase easier to navigate, and helps in onboarding new developers.
+- It is crucial for the scalability and evolution of software.
 
-> Consider this book a description of the Object Mentor School of Clean Code. The techniques and teachings within are the way that we practice our art. We are willing to claim that if you follow these teachings, you will enjoy the benefits that we have enjoyed, and you will learn to write code that is clean and professional. But don’t make the mistake of thinking that we are somehow “right” in any absolute sense. There are other schools and other masters that have just as much claim to professionalism as we. It would behoove you to learn from them as well.
+### The Role of the Developer and the Trade-offs:
+- Developers are responsible for writing clean code. This involves adopting best practices, continuously improving coding skills to ensure the codebase remains clean and maintainable.
+- While striving for clean code, developers may face trade-offs such as balancing between ideal design and practical constraints.
 
 ### The boy Scout Rule
-
-It’s not enough to write the code well. The code has to be kept clean over time. We have all seen code rot and degrade as time passes. So we must take an active role in preventing this degradation.
-
-It's a good practice apply the [Boy Scout Rule](http://programmer.97things.oreilly.com/wiki/index.php/The_Boy_Scout_Rule)
-
-> Always leave the campground cleaner than you found it.
+> Always leave the code better than you found it.
+- **Continuous Improvement:** The rule encourages developers to improve the codebase every time they work on it, even if they are just making minor changes or fixes. 
+- **Responsibility:** Each developer should take ownership of the quality of the code they work on.
+- **Practical Application:** This rule can be applied in various scenarios, such as when fixing bugs, adding new features, or performing routine maintenance. 
 
 ## Chapter 2: Meaningful Names
 
-- Name should tell the intent
-    - Why it exists, what it does and how to use it
-    - E.g. good name would be studentMarkInfo vs sMark.
+Naming is crucial for writing clean code. Good names enhance readability and maintainability.
 
-- Avoid confusing names
-    - I.e. using names that already imply something!
-    - E.g. naming something unix, studentList(even if it is not a list).
+- **Names Should Tell the Intent**
+  - Names should clearly indicate why they exist, what they do, and how to use them.
+  - **Example**: `studentMarkInfo` is preferred over `sMark`.
 
-- Choose clear names
-    - Say what you mean and mean what you say
-    E.g. deleteItems over burstThemDown, kill over whack.
+- **Avoid Confusing Names**
+  - Avoid names that might imply something misleading or incorrect.
+  - **Example**: Avoid names like `unix`, `studentList` (if not a list).
 
-- Use good Distinctions
-    - Use distinctions that make sense and thus don't just use numbers
-    - E.g. list1, list2, instead - productIds, productDetails etc.
-    E.g. using productInfo and productDetails - means same and distinction is harder.
+- **Choose Clear Names**
+  - Use names that convey meaning precisely and clearly.
+  - **Example**: Use `deleteItems` rather than `burstThemDown`, and `kill` instead of `whack`.
 
-- Use pronounceable names
-    - Programming is a social activity
-    - E.g. Don't use variable name as dob for dateofBirth.
+- **Use Good Distinctions**
+  - Make distinctions meaningful rather than relying on arbitrary numbers.
+  - **Example**: Use `productIds` and `productDetails` rather than `list1`, `list2`.
 
-- Usse searchable names
-    - E.g. Don't name variable as "e", "z" etc, use - Event, maxStudents etc.
+- **Use Pronounceable Names**
+  - Code is a social activity; names should be easy to pronounce and understand.
+  - **Example**: Use `dateOfBirth` instead of `dob`.
 
-- Don't encode types in names
-    - Remember containers of variable can change.
-    - E.g. phoneString, paymentInt etc are bad names, payment can be made float in future and thus name also has to now change.
+- **Use Searchable Names**
+  - Names should be descriptive and easy to search for.
+  - **Example**: Use `Event` and `maxStudents` rather than `e`, `z`.
 
-- Avoid prefix to names
-    - E.g. m_description -> member_description (easier to understand)
-    - E.g. IShapeFactorty to mean it is an interface, instead use ShapeFactory and ShapeFactoryImpl.
+- **Don’t Encode Types in Names**
+  - Avoid including types in names, as these may change over time.
+  - **Example**: Use `payment` instead of `paymentInt`.
 
-- Class names - nouns, Function names - verbs
-    - E.g. Class names - student, car, vehicle etc.
-    - E.g. Function names - postPayment, startEngine etc.
+- **Avoid Prefixes in Names**
+  - Use descriptive names without unnecessary prefixes.
+  - **Example**: Use `description` rather than `m_description`, and `ShapeFactory` instead of `IShapeFactory`.
 
-- Use names consistently
-    - Pick one concept and stick to it.
-    - E.g. controller everywhere vs manager and controller used interchangeably, driver and controller used in same place.
+- **Class Names - Nouns, Function Names - Verbs**
+  - Use nouns for class names and verbs for function names.
+  - **Example**: `Student`, `Car` for classes, and `postPayment`, `startEngine` for functions.
 
-- Don't use same name to mean two different things!
-    - E.g. payInfo to represent amount to pay and payInfo to also represent who to pay and bank info, best employeePyament and employeeBankDetails.
+- **Use Names Consistently**
+  - Stick to a single naming convention for related concepts.
+  - **Example**: Use `controller` consistently instead of mixing `manager` and `controller`.
 
-- Use Domain specific names
-    - Remember your code is going to be read by computer engineers, helps them give context quickly.
-    - E.g. accountVisitor (indicating visitor pattern), jobQueue - (indicating a queue), nameBuilder (indicating a builder).
+- **Don’t Use the Same Name for Different Things**
+  - Avoid reusing names for different purposes.
+  - **Example**: Use `employeePayment` and `employeeBankDetails` rather than `payInfo` for both.
 
-- Avoid - Too long names!
+- **Use Domain-Specific Names**
+  - Choose names that reflect the domain and provide context.
+  - **Example**: Use `accountVisitor` (for the visitor pattern), `jobQueue` (for a queue), and `nameBuilder` (for a builder).
+
+- **Avoid Too Long Names**
+  - While names should be descriptive, they should also be concise and not excessively long.
 
 ## Chapter 3: Functions
-- Write small functions
-- Do only one thing in a function
-  - Command and query separation
-  - Avoid side effects
-  - Avoid switch statements
-- Use minimum arguments - at most 2
-- DRY - do not repeat yourself
-- Prefer exceptions over error codes
+
+Functions are the building blocks of clean code. They should be designed to perform a single task and be easy to understand.
+
+- **Functions Should Do One Thing**
+  - A function should perform a single responsibility or task. This makes it easier to understand, test, and maintain.
+  - **Example**: Instead of having a function that processes data and then formats it, split it into separate functions for processing and formatting.
+
+- **Functions Should Have Descriptive Names**
+  - Use names that convey what the function does. This improves readability and makes the code self-documenting.
+  - **Example**: Use `calculateTax` rather than `compute`, and `sendEmail` instead of `performAction`.
+
+- **Keep Functions Small**
+  - Aim to keep functions short and focused. Small functions are easier to understand and manage.
+  - **Example**: A function should ideally fit within a single screen of code.
+
+- **Avoid Side Effects**
+  - Functions should avoid modifying variables or states outside their scope. This prevents unexpected behavior and makes functions more predictable.
+  - **Example**: Instead of modifying a global variable, return values from functions and handle state changes explicitly.
+
+- **Use Parameters Wisely**
+  - Limit the number of parameters. Ideally, a function should have zero to three parameters. Use parameter objects if you need more.
+  - **Example**: Instead of passing multiple parameters, use a configuration object.
+
+- **Avoid Functions with Multiple Exit Points**
+  - Aim for a single exit point (return statement) in a function. This makes it easier to follow the function’s logic.
+  - **Example**: Instead of having multiple `return` statements scattered throughout a function, structure it to return at the end.
+
+- **Use Error Handling Appropriately**
+  - Handle errors gracefully and use exceptions where appropriate. Avoid using error codes or multiple return values for error handling.
+  - **Example**: Use `try-catch` blocks to handle exceptions rather than returning error codes.
+
+- **Keep Function Interfaces Simple**
+  - Ensure that functions have a simple and clear interface. Avoid complex interactions with other parts of the system.
+  - **Example**: A function should not rely heavily on external state or configuration.
+
+- **Document Function Behavior**
+  - Use comments or documentation to describe the function’s purpose, parameters, and return values, especially if the function's behavior is complex.
+  - **Example**: Document what each parameter represents and what the function returns.
 
 ## Chapter 4: Comments
+Comments are crucial for explaining and clarifying code. However, they should be used judiciously and not as a substitute for writing clear, self-explanatory code.
 
-#### Comments rules
+- **Comments Should Not Be Used to Explain Bad Code**
+  - If code is difficult to understand, it likely needs refactoring. Write clean, expressive code that minimizes the need for comments.
+  - **Example**: Refactor complex logic into simpler functions with descriptive names rather than adding comments to explain it.
 
-1. Always try to **explain yourself in code**. If it's not possible, take your time to write a good comment.
-2. Don't be redundant (e.g.: `i++; // increment i`).
-3. Don't add obvious noise.
-4. Don't use closing brace comments (e.g.: `} // end of function`).
-5. **Don't comment out code**. Just remove.
-6. Use as **explanation of intent**.
-7. Use as **clarification of code**.
-8. Use as **warning of consequences**.
-   
-#### When should you not use comments
-- Comments should not explain code, the code should
-- Change logs, Attributions
-- Position marker comments, ending braces comments
-- Not adding any new value - noise comments
-- Mumblings or frustration in comments
-- Misleading or wrong comments
-- Confusing comments - Need a comment to explain comments!
-- Private API - Comments or all function - no!
-- Too much details in comments
+- **Use Comments to Explain Why, Not What**
+  - Comments should explain the intent or rationale behind the code, not just what the code is doing. The code itself should be clear about what it does.
+  - **Example**: Explain why a particular algorithm is used or why certain decisions were made, rather than describing each line of code.
 
-#### When should you use comments?
-Write software for humans to understand not for computers to execute.
-- Public API's
-- Reveal Intent
-- Explain rationable behind decisions made
-- To provide caution or amplify/ emphasis
-- Explaining the "why" program works, "how" is for code to tell
-- Difficult to understand code could use comments
+- **Avoid Redundant Comments**
+  - Do not state the obvious or repeat what the code already conveys. Redundant comments add clutter and can become misleading if the code changes.
+  - **Example**: Avoid comments like `// increment i by 1` if the code already clearly shows `i++`.
+
+- **Keep Comments Up-to-Date**
+  - Ensure that comments are updated along with code changes. Outdated comments can mislead and confuse.
+  - **Example**: Regularly review comments during code reviews and updates to ensure they accurately reflect the current state of the code.
+
+- **Use Comments for Documentation**
+  - Use comments to provide high-level overviews, explanations of complex sections, or documentation for public APIs.
+  - **Example**: Use Javadoc comments to describe the purpose, parameters, and return values of public methods.
+
+- **Avoid Commenting Out Code**
+  - Do not leave commented-out code in your source files. If code is not needed, remove it to keep the codebase clean.
+  - **Example**: Use version control to track changes rather than leaving obsolete code in the comments.
+
+- **Be Concise and Clear**
+  - Write comments that are clear and to the point. Avoid verbosity and ensure comments are easily understandable.
+  - **Example**: Use clear language and avoid jargon or abbreviations that might be confusing.
+
+- **Use TODO Comments Sparingly**
+  - TODO comments should be used to indicate areas that need attention or future improvements. Follow up on these comments to address the noted issues.
+  - **Example**: Use `// TODO: Refactor this method for better performance` and ensure that the TODO items are resolved.
 
 ## References
+- [Clean Code: A Handbook of Agile Software Craftsmanship](https://www.amazon.com/Clean-Code-Handbook-Software-Craftsmanship/dp/0132350882)
 - [GeeksforGeeks - Java Tutorial](https://www.geeksforgeeks.org/java/)
 - [JavaTpoint - Java Tutorial](https://www.javatpoint.com/java-tutorial)
 - [W3Schools - Java Tutorial](https://www.w3schools.com/java/)
