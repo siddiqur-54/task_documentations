@@ -347,34 +347,64 @@ IV. **Multiple Inheritance (via Interfaces)**
    - **Achieving multiple inheritance using Interface**
         ```java
         // First interface
-        interface CanDrive {
-            void drive();
+        interface Vehicle {
+            void move(); // Method defined in Vehicle interface
         }
 
         // Second interface
-        interface CanFloat {
-            void floatOnWater();
+        interface Watercraft {
+            void move(); // Method defined in Watercraft interface
         }
 
-        // Class implementing multiple interfaces
-        class Amphibian implements CanDrive, CanFloat {
+        // Class implementing both interfaces
+        class AmphibiousVehicle implements Vehicle, Watercraft {
             @Override
-            public void drive() {
-                System.out.println("The amphibian drives on land.");
-            }
-
-            @Override
-            public void floatOnWater() {
-                System.out.println("The amphibian floats on water.");
+            public void move() {
+                System.out.println("The amphibious vehicle moves on land and water.");
             }
         }
 
         // Main class
         public class Main {
             public static void main(String[] args) {
-                Amphibian amphibian = new Amphibian();
-                amphibian.drive();        // Output: The amphibian drives on land.
-                amphibian.floatOnWater(); // Output: The amphibian floats on water.
+                AmphibiousVehicle amphibiousVehicle = new AmphibiousVehicle();
+                amphibiousVehicle.move(); // Output: The amphibious vehicle moves on land and water.
+            }
+        }
+        ```
+
+   - **Avoiding Diamond Problem using interface having only Default Methods**
+        ```java
+        // First interface with default method
+        interface Vehicle {
+            // Default method in Vehicle interface
+            default void move() {
+                System.out.println("Vehicle moves.");
+            }
+        }
+
+        // Second interface with default method
+        interface Watercraft {
+            // Default method in Watercraft interface
+            default void move() {
+                System.out.println("Watercraft moves.");
+            }
+        }
+
+        // Class implementing both interfaces
+        class AmphibiousVehicle implements Vehicle, Watercraft {
+            // Overriding the move() method to resolve ambiguity
+            @Override
+            public void move() {
+                System.out.println("The amphibious vehicle moves on land and water.");
+            }
+        }
+
+        // Main class
+        public class Main {
+            public static void main(String[] args) {
+                AmphibiousVehicle amphibiousVehicle = new AmphibiousVehicle();
+                amphibiousVehicle.move(); // Output: The amphibious vehicle moves on land and water.
             }
         }
         ```
