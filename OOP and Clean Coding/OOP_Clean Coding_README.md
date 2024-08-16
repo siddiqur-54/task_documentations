@@ -144,10 +144,12 @@ Encapsulation is a core principle of Object-Oriented Programming (OOP) that invo
 
 ### Achieving Encapsulation in Java
 i. **Declare Variables as Private**: Make the data members (variables) of the class private to restrict direct access from outside the class.
+
 ii. **Provide Public Getters and Setters**: Define public methods (getters and setters) to access and update the private variables. This allows controlled access to the data.
 
 **Advantages of Encapsulation:**
 - **Control Over Data**: You can add logic to setter methods to validate data before setting it, ensuring that only valid data is stored.
+
 - **Data Hiding**: By making data members private, you hide the internal state of the object from the outside world, protecting it from unintended interference.
 
 - **Example:**
@@ -217,7 +219,7 @@ Inheritance is a key concept in Object-Oriented Programming (OOP) where one clas
 #### Types of Inheritance in Java
 
 I. **Single Inheritance**
-   - **Definition**: A subclass inherits from a single superclass.
+   - A subclass inherits from a single superclass.
 
    ![Single Inheritance](https://github.com/siddiqur-54/task_documentations/blob/main/images/OOP%20and%20Clean%20Coding/single%20inheritance.jpg)
 
@@ -248,7 +250,7 @@ I. **Single Inheritance**
         ```
 
 II. **Multilevel Inheritance**
-   - **Definition**: A subclass inherits from another subclass, forming a chain of inheritance.
+   - A subclass inherits from another subclass, forming a chain of inheritance.
 
    ![Multilevel Inheritance](https://github.com/siddiqur-54/task_documentations/blob/main/images/OOP%20and%20Clean%20Coding/multilevel%20inheritance.jpg)
 
@@ -287,7 +289,7 @@ II. **Multilevel Inheritance**
         ```
 
 III. **Hierarchy Inheritance**
-   - **Definition**: Multiple subclasses inherit from a single superclass.
+   - Multiple subclasses inherit from a single superclass.
 
    ![Hierarchy Inheritance](https://github.com/siddiqur-54/task_documentations/blob/main/images/OOP%20and%20Clean%20Coding/hierarchical%20inheritance.jpg)
 
@@ -329,7 +331,7 @@ III. **Hierarchy Inheritance**
         ```
 
 IV. **Multiple Inheritance (via Interfaces)**
-   - **Definition**: A class inherits from more than one superclass. Java does not support multiple inheritance directly with classes, but it can be achieved using interfaces.
+   - A class inherits from more than one superclass. Java does not support multiple inheritance directly with classes, but it can be achieved using interfaces.
 
    ![Multiple Inheritance](https://github.com/siddiqur-54/task_documentations/blob/main/images/OOP%20and%20Clean%20Coding/multiple%20inheritance.jpg)
 
@@ -378,7 +380,7 @@ IV. **Multiple Inheritance (via Interfaces)**
         ```
 
 V. **Hybrid Inheritance**
-   - **Definition**: A combination of multiple and hierarchical inheritance. Java does not support hybrid inheritance directly with classes, but it can be managed using interfaces.
+   - A combination of multiple and hierarchical inheritance. Java does not support hybrid inheritance directly with classes, but it can be managed using interfaces.
 
    ![Hybrid Inheritance](https://github.com/siddiqur-54/task_documentations/blob/main/images/OOP%20and%20Clean%20Coding/hybrid%20inheritance.jpg)
 
