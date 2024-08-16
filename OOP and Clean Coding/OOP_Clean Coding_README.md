@@ -8,7 +8,6 @@ Object-Oriented Programming (OOP) is a programming paradigm centered around "obj
 ## 1. Class and Object
 
 ### I. Class
-
 - A class is a blueprint or prototype from which objects are created.
 - It defines the structure and behavior that the objects will have.
 - **Components**:
@@ -63,7 +62,6 @@ Object-Oriented Programming (OOP) is a programming paradigm centered around "obj
     ```
 
 ## 2. Abstraction
-
 Abstraction is a fundamental concept in Object-Oriented Programming (OOP) that focuses on hiding the implementation details of an object and exposing only the essential functionality to the user. It allows users to interact with objects at a high level without needing to understand the internal workings.
 
 **Key Points:**
@@ -483,9 +481,13 @@ V. **Hybrid Inheritance**
 
 The term "polymorphism" comes from the Greek words "poly" (many) and "morph" (forms), meaning "many forms". Polymorphism enhances flexibility and reusability in programming by allowing one interface to be used for a general class of actions. In Java, polymorphism is achieved through two main mechanisms:
 
-### I. Static or Compile-Time Polymorphism
+**Real-Life Example:**
+Just like in a real payment system, the action of making a payment is common across different payment methods, but the process varies. Polymorphism allows the system to treat all payment types in a uniform way while still allowing each type to behave differently as needed.
 
-Static polymorphism, also known as compile-time polymorphism, is achieved through method overloading.
+### I. Static or Compile-Time Polymorphism
+Static polymorphism, also known as compile-time polymorphism, is achieved through method overloading. The compiler determines which method to call based on the method signature.
+
+**Key Points:**
 - Method overloading allows methods to have the same name but different parameter lists.
 - The return type alone is not sufficient to differentiate overloaded methods.
 
@@ -520,10 +522,12 @@ Static polymorphism, also known as compile-time polymorphism, is achieved throug
 
 
 ### II. Dynamic or Run-Time Polymorphism
+Dynamic polymorphism, also known as run-time polymorphism, is achieved through method overriding. At runtime, the Java Virtual Machine (JVM) determines the actual object's type and invokes the appropriate overridden method.
 
-Dynamic polymorphism, also known as run-time polymorphism, is achieved through method overriding.
+**Key Points:**
 - Method overriding allows a subclass to provide a specific implementation for a method that is already defined in its superclass.
 - The method in the subclass must have the same name, return type, and parameter list as the method in the superclass.
+- The actual method that gets executed is determined at runtime based on the object's actual type, not the reference type.
 
 - **Example**:
     ```java
