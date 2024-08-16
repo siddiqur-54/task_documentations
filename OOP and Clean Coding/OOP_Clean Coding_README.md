@@ -795,8 +795,18 @@ Functions are the building blocks of clean code. They should be designed to perf
 Comments are crucial for explaining and clarifying code. However, they should be used judiciously and not as a substitute for writing clear, self-explanatory code.
 
 - **Comments Should Not Be Used to Explain Bad Code**
-  - If code is difficult to understand, it likely needs refactoring. Write clean, expressive code that minimizes the need for comments.
-  - **Example**: Refactor complex logic into simpler functions with descriptive names rather than adding comments to explain it.
+  - If code is difficult to understand, it likely needs refactoring. Write clean, expressive code that minimizes the need for comments. Refactor complex logic into simpler functions with descriptive names rather than adding comments to explain it.
+  - **Example**:
+    ```java
+    // Check to see if the employee is eligible for full benefits
+    if ((employee.flags & HOURLY_FLAG) && (employee.age > 65))
+    ```
+
+    vs
+
+    ```java
+    if (employee.isEligibleForFullBenefits())
+    ```
 
 - **Use Comments to Explain Why, Not What**
   - Comments should explain the intent or rationale behind the code, not just what the code is doing. The code itself should be clear about what it does.
@@ -804,7 +814,19 @@ Comments are crucial for explaining and clarifying code. However, they should be
 
 - **Avoid Redundant Comments**
   - Do not state the obvious or repeat what the code already conveys. Redundant comments add clutter and can become misleading if the code changes.
-  - **Example**: Avoid comments like `// increment i by 1` if the code already clearly shows `i++`.
+  - **Example**:
+    ```java
+    // Utility method that returns when this.closed is true. Throws an exception
+    // if the timeout is reached.
+    public synchronized void waitForClose(final long timeoutMillis) throws Exception {
+        if(!closed) {
+            wait(timeoutMillis);
+            if(!closed)
+            throw new Exception("MockResponseSender could not be closed");
+        }
+    }
+    ```
+    What purpose does this comment serve? It’s certainly not more informative than the code. It does not justify the code, or provide intent or rationale. It is not easier to read than the code.
 
 - **Keep Comments Up-to-Date**
   - Ensure that comments are updated along with code changes. Outdated comments can mislead and confuse.
@@ -824,7 +846,14 @@ Comments are crucial for explaining and clarifying code. However, they should be
 
 - **Use TODO Comments Sparingly**
   - TODO comments should be used to indicate areas that need attention or future improvements. Follow up on these comments to address the noted issues.
-  - **Example**: Use `// TODO: Refactor this method for better performance` and ensure that the TODO items are resolved.
+  - **Example**:
+    ```java
+    //TODO-MdM these are not needed
+    // We expect this to go away when we do the checkout model
+    protected VersionInfo makeVersion() throws Exception {
+        return null;
+    }
+    ```
 
 ## References
 - [Clean Code: A Handbook of Agile Software Craftsmanship](https://www.amazon.com/Clean-Code-Handbook-Software-Craftsmanship/dp/0132350882)
