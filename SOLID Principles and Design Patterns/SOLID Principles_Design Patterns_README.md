@@ -3,6 +3,7 @@
 ## 1. S: Single Responsibility Principle (SRP)
 
 **Definition:**
+
 A class should have a single reason to change, meaning it should be focused on one specific task or responsibility.
 
 By ensuring that a class is dedicated to a single responsibility, it becomes simpler, more focused, and easier to manage. This also makes the class more reusable and maintainable.
@@ -10,6 +11,7 @@ By ensuring that a class is dedicated to a single responsibility, it becomes sim
 When a class is burdened with multiple responsibilities, it can become complex and difficult to work with. This increases the risk of errors, as changes made to address one responsibility might unintentionally impact others.
 
 **Example:**
+
 Consider a class called `UserManager` that handles user authentication, user profile management, and email notifications.
 
 ```java
@@ -34,6 +36,7 @@ This class violates the SRP because it has multiple responsibilities: authentica
 If you need to change the way user authentication is handled, you might inadvertently affect the email notification logic, or vice versa.
 
 **Solution:**
+
 To adhere to the SRP, we can split this class into three separate classes, each with a single responsibility:
 
 ```java
@@ -62,11 +65,13 @@ public class EmailNotificationManager {
 ## 2. O: Open/Closed Principle (OCP)
 
 **Definition:**
+
 Software entities such as classes, modules, and functions should be open to extension but closed to modification.
 
 This principle encourages designing software in a way that allows adding new features or behavior without altering the existing code. This approach helps minimize the risk of introducing bugs or errors when enhancing functionality.
 
 **Example:**
+
 Consider a `ShapeCalculator` class that calculates the area and perimeter of different shapes, such as rectangles and circles.
 
 ```java
@@ -99,6 +104,7 @@ public class ShapeCalculator {
 In this design, adding support for a new shape, such as a triangle, would require modifying the existing methods calculateArea and calculatePerimeter. This violates the Open/Closed Principle because the existing code must be changed to introduce new functionality.
 
 **Solution:**
+
 To comply with the OCP, we can refactor the code by creating an abstract base class or interface for shapes and then implementing specific shape classes. This way, new shapes can be added without changing the existing code.
 
 ```java
@@ -167,11 +173,13 @@ public class ShapeCalculator {
 ## 3. L: Liskov Substitution Principle (LSP)
 
 **Definition:**
+
 Objects of a superclass should be replaceable with objects of its subclasses without affecting the correctness of the program.
 
 This principle ensures that if you have a base class and one or more derived classes, instances of the derived classes should be able to replace instances of the base class without causing issues or altering the expected behavior of the program.
 
 **Example:**
+
 Consider a `Vehicle` base class and two derived classes: `Car` and `Bicycle`.
 
 **Without adhering to LSP:**
@@ -204,6 +212,7 @@ public class Bicycle extends Vehicle {
 In this example, the Bicycle class violates the Liskov Substitution Principle because it provides an implementation for the startEngine method that doesn’t apply to bicycles. If you replace a Vehicle instance with a Bicycle instance, it could lead to errors or unexpected behavior since a bicycle doesn’t have an engine.
 
 **Solution:**
+
 To adhere to the LSP, we should modify the design so that all subclasses fulfill the contract established by the base class in a meaningful way.
 
 ```java
@@ -234,11 +243,13 @@ public class Bicycle extends Vehicle {
 ## 4. I: Interface Segregation Principle (ISP)
 
 **Definition:**
+
 No client should be forced to depend on interfaces they don't use.
 
 The Interface Segregation Principle (ISP) aims to prevent the creation of "fat" or "bloated" interfaces that include methods irrelevant to all implementing classes. By breaking down interfaces into smaller, more specific ones, each client only needs to interact with the methods it actually requires. This approach promotes loose coupling and enhances code organization.
 
 **Example:**
+
 Consider a media player application that handles different types of media files, such as audio files (MP3, WAV) and video files (MP4, AVI).
 
 **Without applying ISP:**
@@ -256,6 +267,7 @@ public interface MediaPlayer {
 In this scenario, any class that implements the MediaPlayer interface would be required to implement all methods, even if some are irrelevant to its functionality. For instance, an audio player would have to provide implementations for playVideo, stopVideo, and adjustVideoBrightness, which are not applicable to audio playback.
 
 **Solution:**
+
 To adhere to the ISP, we can break the large interface into smaller, more focused interfaces:
 
 ```java
@@ -274,6 +286,7 @@ public interface VideoPlayer {
 ```
 
 **Implementations:**
+
 Now, separate classes can implement the interfaces they require:
 
 ```java
@@ -343,11 +356,13 @@ public class MultiMediaPlayer implements AudioPlayer, VideoPlayer {
 ## 5. D: Dependency Inversion Principle (DIP)
 
 **Definition:**
+
 High-level modules should not depend on low-level modules; both should depend on abstractions.
 
 The Dependency Inversion Principle (DIP) asserts that high-level components of a system should not be directly dependent on low-level components. Instead, both should rely on abstractions (e.g., interfaces). This approach minimizes the coupling between different parts of the system and enhances code reusability and flexibility.
 
 **Example:**
+
 Consider a scenario where we have an `EmailService` class responsible for sending emails using a specific email provider, such as Gmail.
 
 **Without adhering to DIP:**
@@ -376,6 +391,7 @@ public class EmailService {
 In this design, the EmailService class directly depends on the GmailClient class, which is a low-level module. This tight coupling makes it difficult to change the email provider or add new ones without modifying the EmailService class.
 
 **Solution:**
+
 To follow the Dependency Inversion Principle, we should introduce an abstraction (interface) for email clients and have the EmailService class depend on this abstraction. Then, specific implementations of email clients can depend on the abstraction.
 
 ```java
@@ -415,6 +431,7 @@ public class EmailService {
 ```
 
 **Usage Example:**
+
 To use the EmailService with different email clients, simply provide the desired implementation of EmailClient:
 
 ```java
