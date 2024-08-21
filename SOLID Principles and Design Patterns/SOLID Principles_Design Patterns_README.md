@@ -66,7 +66,7 @@ To adhere to the SRP, we can split this class into three separate classes, each 
 
 ```java
 // Class responsible for user authentication
-public class AuthenticationManager {
+class AuthenticationManager {
     public void authenticateUser(String username, String password) {
         // Simplified authentication logic
         if ("user123".equals(username) && "password".equals(password)) {
@@ -78,7 +78,7 @@ public class AuthenticationManager {
 }
 
 // Class responsible for user profile management
-public class UserProfileManager {
+class UserProfileManager {
     public void updateUserProfile(String username, String newProfileInfo) {
         // Simplified profile update logic
         System.out.println("Profile of user '" + username + "' updated with new information: " + newProfileInfo);
@@ -86,7 +86,7 @@ public class UserProfileManager {
 }
 
 // Class responsible for email notifications
-public class EmailNotificationManager {
+class EmailNotificationManager {
     public void sendEmailNotification(String email, String message) {
         // Simplified email notification logic
         System.out.println("Email sent to " + email + " with message: " + message);
@@ -94,7 +94,7 @@ public class EmailNotificationManager {
 }
 
 // Main class to demonstrate the use of the classes adhering to SRP
-public class UserManagerSRP {
+public class UserManager {
 
     public static void main(String[] args) {
         // Creating instances of the responsible classes
@@ -210,13 +210,13 @@ To comply with the OCP, we can refactor the code by creating an abstract base cl
 
 ```java
 // Abstract Shape class
-public abstract class Shape {
+abstract class Shape {
     public abstract double calculateArea();
     public abstract double calculatePerimeter();
 }
 
 // Rectangle class
-public class Rectangle extends Shape {
+class Rectangle extends Shape {
     private double width;
     private double height;
 
@@ -237,7 +237,7 @@ public class Rectangle extends Shape {
 }
 
 // Circle class
-public class Circle extends Shape {
+class Circle extends Shape {
     private double radius;
 
     public Circle(double radius) {
@@ -288,7 +288,7 @@ Consider a `Vehicle` base class and two derived classes: `Car` and `Bicycle`.
 **Without adhering to LSP:**
 ```java
 // Base class
-public class Vehicle {
+class Vehicle {
     public void startEngine() {
         // Logic to start engine
         System.out.println("Engine started.");
@@ -296,7 +296,7 @@ public class Vehicle {
 }
 
 // Derived class Car
-public class Car extends Vehicle {
+class Car extends Vehicle {
     @Override
     public void startEngine() {
         // Car-specific engine start logic
@@ -305,7 +305,7 @@ public class Car extends Vehicle {
 }
 
 // Derived class Bicycle
-public class Bicycle extends Vehicle {
+class Bicycle extends Vehicle {
     @Override
     public void startEngine() {
         // This doesn't make sense for a bicycle
@@ -341,12 +341,12 @@ To adhere to the LSP, we should modify the design so that all subclasses fulfill
 
 ```java
 // Base class with a more general method
-public abstract class Vehicle {
+abstract class Vehicle {
     public abstract void start();
 }
 
 // Derived class Car
-public class Car extends Vehicle {
+class Car extends Vehicle {
     @Override
     public void start() {
         // Car-specific start logic
@@ -355,7 +355,7 @@ public class Car extends Vehicle {
 }
 
 // Derived class Bicycle
-public class Bicycle extends Vehicle {
+class Bicycle extends Vehicle {
     @Override
     public void start() {
         // Bicycle-specific start logic
@@ -395,7 +395,7 @@ Consider a media player application that handles different types of media files,
 
 ```java
 // A single, large interface
-public interface MediaPlayer {
+interface MediaPlayer {
     void playAudio(String file);
     void stopAudio();
     void playVideo(String file);
@@ -404,7 +404,7 @@ public interface MediaPlayer {
 }
 
 // A class that only plays audio, but is forced to implement all methods
-public class AudioPlayer implements MediaPlayer {
+class AudioPlayer implements MediaPlayer {
 
     @Override
     public void playAudio(String file) {
@@ -462,20 +462,20 @@ To adhere to the ISP, we can break the large interface into smaller, more focuse
 
 ```java
 // Interface for audio operations
-public interface AudioPlayer {
+interface AudioPlayer {
     void playAudio(String file);
     void stopAudio();
 }
 
 // Interface for video operations
-public interface VideoPlayer {
+interface VideoPlayer {
     void playVideo(String file);
     void stopVideo();
     void adjustVideoBrightness(int level);
 }
 
 // Audio player implementation
-public class MP3Player implements AudioPlayer {
+class MP3Player implements AudioPlayer {
     @Override
     public void playAudio(String file) {
         System.out.println("Playing audio file: " + file);
@@ -488,7 +488,7 @@ public class MP3Player implements AudioPlayer {
 }
 
 // Video player implementation
-public class MP4Player implements VideoPlayer {
+class MP4Player implements VideoPlayer {
     @Override
     public void playVideo(String file) {
         System.out.println("Playing video file: " + file);
@@ -506,7 +506,7 @@ public class MP4Player implements VideoPlayer {
 }
 
 // Class supporting both audio and video playback
-public class MultiMediaPlayer implements AudioPlayer, VideoPlayer {
+class MultiMediaPlayer implements AudioPlayer, VideoPlayer {
     @Override
     public void playAudio(String file) {
         System.out.println("Playing audio file: " + file);
@@ -574,7 +574,7 @@ Consider a scenario where we have an `EmailService` class responsible for sendin
 
 ```java
 // Low-level class for Gmail client
-public class GmailClient {
+class GmailClient {
     public void sendEmail(String recipient, String message) {
         // Logic to send email via Gmail
         System.out.println("Sending email to " + recipient + " via Gmail: " + message);
@@ -582,7 +582,7 @@ public class GmailClient {
 }
 
 // High-level class directly depending on GmailClient
-public class EmailService {
+class EmailService {
     private GmailClient gmailClient;
 
     public EmailService() {
@@ -595,7 +595,7 @@ public class EmailService {
 }
 
 // Main class to test the code
-public class EmailService {
+public class EmailServiceTest {
     public static void main(String[] args) {
         EmailService emailService = new EmailService();
         emailService.sendEmail("test@example.com", "Hello, this is a test email.");
@@ -610,12 +610,12 @@ To follow the Dependency Inversion Principle, we should introduce an abstraction
 
 ```java
 // Abstraction for email clients
-public interface EmailClient {
+interface EmailClient {
     void sendEmail(String recipient, String message);
 }
 
 // Low-level Gmail client implementation
-public class GmailClient implements EmailClient {
+class GmailClient implements EmailClient {
     @Override
     public void sendEmail(String recipient, String message) {
         // Logic to send email via Gmail
@@ -624,7 +624,7 @@ public class GmailClient implements EmailClient {
 }
 
 // Low-level Outlook client implementation
-public class OutlookClient implements EmailClient {
+class OutlookClient implements EmailClient {
     @Override
     public void sendEmail(String recipient, String message) {
         // Logic to send email via Outlook
@@ -633,7 +633,7 @@ public class OutlookClient implements EmailClient {
 }
 
 // High-level class depending on abstraction
-public class EmailService {
+class EmailService {
     private EmailClient emailClient;
 
     public EmailService(EmailClient emailClient) {
@@ -646,7 +646,7 @@ public class EmailService {
 }
 
 // Main class to test the code
-public class EmailService {
+public class EmailServiceTest {
     public static void main(String[] args) {
         // Using Gmail client
         EmailClient gmailClient = new GmailClient();
