@@ -17,16 +17,41 @@ Consider a class called `UserManager` that handles user authentication, user pro
 ```java
 // This class violates the SRP
 public class UserManager {
+
+    // Method to authenticate the user
     public void authenticateUser(String username, String password) {
-        // Authentication logic
+        // Simplified authentication logic
+        if ("user123".equals(username) && "password".equals(password)) {
+            System.out.println("User authenticated successfully.");
+        } else {
+            System.out.println("Authentication failed.");
+        }
     }
 
+    // Method to update the user profile
     public void updateUserProfile(String username, String newProfileInfo) {
-        // Profile management logic
+        // Simplified profile update logic
+        System.out.println("Profile of user '" + username + "' updated with new information: " + newProfileInfo);
     }
 
+    // Method to send an email notification
     public void sendEmailNotification(String email, String message) {
-        // Email notification logic
+        // Simplified email notification logic
+        System.out.println("Email sent to " + email + " with message: " + message);
+    }
+
+    // Main method to run the program
+    public static void main(String[] args) {
+        UserManager userManager = new UserManager();
+        
+        // Authenticating user
+        userManager.authenticateUser("user123", "password");
+        
+        // Updating user profile
+        userManager.updateUserProfile("user123", "New Profile Info");
+        
+        // Sending email notification
+        userManager.sendEmailNotification("user@example.com", "Welcome to our service!");
     }
 }
 ```
@@ -43,21 +68,48 @@ To adhere to the SRP, we can split this class into three separate classes, each 
 // Class responsible for user authentication
 public class AuthenticationManager {
     public void authenticateUser(String username, String password) {
-        // Authentication logic
+        // Simplified authentication logic
+        if ("user123".equals(username) && "password".equals(password)) {
+            System.out.println("User authenticated successfully.");
+        } else {
+            System.out.println("Authentication failed.");
+        }
     }
 }
 
 // Class responsible for user profile management
 public class UserProfileManager {
     public void updateUserProfile(String username, String newProfileInfo) {
-        // Profile management logic
+        // Simplified profile update logic
+        System.out.println("Profile of user '" + username + "' updated with new information: " + newProfileInfo);
     }
 }
 
 // Class responsible for email notifications
 public class EmailNotificationManager {
     public void sendEmailNotification(String email, String message) {
-        // Email notification logic
+        // Simplified email notification logic
+        System.out.println("Email sent to " + email + " with message: " + message);
+    }
+}
+
+// Main class to demonstrate the use of the classes adhering to SRP
+public class UserManagerSRP {
+
+    public static void main(String[] args) {
+        // Creating instances of the responsible classes
+        AuthenticationManager authManager = new AuthenticationManager();
+        UserProfileManager profileManager = new UserProfileManager();
+        EmailNotificationManager emailManager = new EmailNotificationManager();
+
+        // Authenticating user
+        authManager.authenticateUser("user123", "password");
+        
+        // Updating user profile
+        profileManager.updateUserProfile("user123", "New Profile Info");
+        
+        // Sending email notification
+        emailManager.sendEmailNotification("user@example.com", "Welcome to our service!");
     }
 }
 ```
@@ -75,8 +127,42 @@ This principle encourages designing software in a way that allows adding new fea
 Consider a `ShapeCalculator` class that calculates the area and perimeter of different shapes, such as rectangles and circles.
 
 ```java
-// This class violates the OCP
+// Class representing a Rectangle
+class Rectangle {
+    private double width;
+    private double height;
+
+    public Rectangle(double width, double height) {
+        this.width = width;
+        this.height = height;
+    }
+
+    public double getWidth() {
+        return width;
+    }
+
+    public double getHeight() {
+        return height;
+    }
+}
+
+// Class representing a Circle
+class Circle {
+    private double radius;
+
+    public Circle(double radius) {
+        this.radius = radius;
+    }
+
+    public double getRadius() {
+        return radius;
+    }
+}
+
+// Class that violates the Open/Closed Principle
 public class ShapeCalculator {
+
+    // Method to calculate area of a shape
     public double calculateArea(Object shape) {
         if (shape instanceof Rectangle) {
             Rectangle rectangle = (Rectangle) shape;
@@ -88,6 +174,7 @@ public class ShapeCalculator {
         return 0;
     }
 
+    // Method to calculate perimeter of a shape
     public double calculatePerimeter(Object shape) {
         if (shape instanceof Rectangle) {
             Rectangle rectangle = (Rectangle) shape;
@@ -97,6 +184,20 @@ public class ShapeCalculator {
             return 2 * Math.PI * circle.getRadius();
         }
         return 0;
+    }
+
+    // Main method to run the program
+    public static void main(String[] args) {
+        ShapeCalculator calculator = new ShapeCalculator();
+
+        Rectangle rectangle = new Rectangle(5, 7);
+        Circle circle = new Circle(3);
+
+        System.out.println("Rectangle Area: " + calculator.calculateArea(rectangle));
+        System.out.println("Rectangle Perimeter: " + calculator.calculatePerimeter(rectangle));
+
+        System.out.println("Circle Area: " + calculator.calculateArea(circle));
+        System.out.println("Circle Perimeter: " + calculator.calculatePerimeter(circle));
     }
 }
 ```
@@ -153,19 +254,21 @@ public class Circle extends Shape {
         return 2 * Math.PI * radius;
     }
 }
-```
 
-Now, the ShapeCalculator class can be designed to work with any object that extends the Shape class:
-
-```java
-// ShapeCalculator class adhering to OCP
+// Main class to demonstrate OCP adherence
 public class ShapeCalculator {
-    public double calculateArea(Shape shape) {
-        return shape.calculateArea();
-    }
 
-    public double calculatePerimeter(Shape shape) {
-        return shape.calculatePerimeter();
+    public static void main(String[] args) {
+        // Creating instances of different shapes
+        Shape rectangle = new Rectangle(5, 7);
+        Shape circle = new Circle(3);
+
+        // Calculating area and perimeter using polymorphism
+        System.out.println("Rectangle Area: " + rectangle.calculateArea());
+        System.out.println("Rectangle Perimeter: " + rectangle.calculatePerimeter());
+
+        System.out.println("Circle Area: " + circle.calculateArea());
+        System.out.println("Circle Perimeter: " + circle.calculatePerimeter());
     }
 }
 ```
@@ -188,6 +291,7 @@ Consider a `Vehicle` base class and two derived classes: `Car` and `Bicycle`.
 public class Vehicle {
     public void startEngine() {
         // Logic to start engine
+        System.out.println("Engine started.");
     }
 }
 
@@ -196,6 +300,7 @@ public class Car extends Vehicle {
     @Override
     public void startEngine() {
         // Car-specific engine start logic
+        System.out.println("Car engine started.");
     }
 }
 
@@ -205,6 +310,25 @@ public class Bicycle extends Vehicle {
     public void startEngine() {
         // This doesn't make sense for a bicycle
         throw new UnsupportedOperationException("Bicycles do not have engines.");
+    }
+}
+
+// Main class to demonstrate Liskov violation
+public class VehicleTest {
+
+    public static void main(String[] args) {
+        Vehicle car = new Car();
+        Vehicle bicycle = new Bicycle();
+
+        // Starting engine for a car (this works as expected)
+        car.startEngine();
+
+        // Attempting to start engine for a bicycle (this violates LSP)
+        try {
+            bicycle.startEngine(); // This will throw an exception
+        } catch (UnsupportedOperationException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
     }
 }
 ```
@@ -238,6 +362,21 @@ public class Bicycle extends Vehicle {
         System.out.println("Bicycle is ready to ride.");
     }
 }
+
+// Main class to demonstrate LSP adherence
+public class VehicleTest {
+
+    public static void main(String[] args) {
+        Vehicle car = new Car();
+        Vehicle bicycle = new Bicycle();
+
+        // Starting the car (this works as expected)
+        car.start();
+
+        // Starting the bicycle (this also works as expected, maintaining LSP)
+        bicycle.start();
+    }
+}
 ```
 
 ## 4. I: Interface Segregation Principle (ISP)
@@ -263,6 +402,57 @@ public interface MediaPlayer {
     void stopVideo();
     void adjustVideoBrightness(int level);
 }
+
+// A class that only plays audio, but is forced to implement all methods
+public class AudioPlayer implements MediaPlayer {
+
+    @Override
+    public void playAudio(String file) {
+        System.out.println("Playing audio file: " + file);
+    }
+
+    @Override
+    public void stopAudio() {
+        System.out.println("Stopping audio.");
+    }
+
+    @Override
+    public void playVideo(String file) {
+        // AudioPlayer doesn't need this method, but must implement it
+        throw new UnsupportedOperationException("AudioPlayer cannot play video.");
+    }
+
+    @Override
+    public void stopVideo() {
+        // AudioPlayer doesn't need this method, but must implement it
+        throw new UnsupportedOperationException("AudioPlayer cannot stop video.");
+    }
+
+    @Override
+    public void adjustVideoBrightness(int level) {
+        // AudioPlayer doesn't need this method, but must implement it
+        throw new UnsupportedOperationException("AudioPlayer cannot adjust video brightness.");
+    }
+}
+
+// Main class to demonstrate ISP violation
+public class MediaPlayerTest {
+
+    public static void main(String[] args) {
+        MediaPlayer audioPlayer = new AudioPlayer();
+
+        // Playing audio (this works as expected)
+        audioPlayer.playAudio("song.mp3");
+        audioPlayer.stopAudio();
+
+        // Attempting to play video (this violates ISP)
+        try {
+            audioPlayer.playVideo("video.mp4");
+        } catch (UnsupportedOperationException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+}
 ```
 In this scenario, any class that implements the MediaPlayer interface would be required to implement all methods, even if some are irrelevant to its functionality. For instance, an audio player would have to provide implementations for playVideo, stopVideo, and adjustVideoBrightness, which are not applicable to audio playback.
 
@@ -283,23 +473,17 @@ public interface VideoPlayer {
     void stopVideo();
     void adjustVideoBrightness(int level);
 }
-```
 
-**Implementations:**
-
-Now, separate classes can implement the interfaces they require:
-
-```java
 // Audio player implementation
 public class MP3Player implements AudioPlayer {
     @Override
     public void playAudio(String file) {
-        // Audio playback logic
+        System.out.println("Playing audio file: " + file);
     }
 
     @Override
     public void stopAudio() {
-        // Stop audio logic
+        System.out.println("Stopping audio.");
     }
 }
 
@@ -307,48 +491,69 @@ public class MP3Player implements AudioPlayer {
 public class MP4Player implements VideoPlayer {
     @Override
     public void playVideo(String file) {
-        // Video playback logic
+        System.out.println("Playing video file: " + file);
     }
 
     @Override
     public void stopVideo() {
-        // Stop video logic
+        System.out.println("Stopping video.");
     }
 
     @Override
     public void adjustVideoBrightness(int level) {
-        // Adjust video brightness logic
+        System.out.println("Adjusting video brightness to level: " + level);
     }
 }
-```
-If a class needs to support both audio and video playback, it can implement both interfaces:
 
-```java
 // Class supporting both audio and video playback
 public class MultiMediaPlayer implements AudioPlayer, VideoPlayer {
     @Override
     public void playAudio(String file) {
-        // Audio playback logic
+        System.out.println("Playing audio file: " + file);
     }
 
     @Override
     public void stopAudio() {
-        // Stop audio logic
+        System.out.println("Stopping audio.");
     }
 
     @Override
     public void playVideo(String file) {
-        // Video playback logic
+        System.out.println("Playing video file: " + file);
     }
 
     @Override
     public void stopVideo() {
-        // Stop video logic
+        System.out.println("Stopping video.");
     }
 
     @Override
     public void adjustVideoBrightness(int level) {
-        // Adjust video brightness logic
+        System.out.println("Adjusting video brightness to level: " + level);
+    }
+}
+
+// Main class to test the code
+public class MediaPlayer {
+    public static void main(String[] args) {
+        // Test MP3Player
+        AudioPlayer mp3Player = new MP3Player();
+        mp3Player.playAudio("song.mp3");
+        mp3Player.stopAudio();
+
+        // Test MP4Player
+        VideoPlayer mp4Player = new MP4Player();
+        mp4Player.playVideo("movie.mp4");
+        mp4Player.stopVideo();
+        mp4Player.adjustVideoBrightness(5);
+
+        // Test MultiMediaPlayer
+        MultiMediaPlayer multiMediaPlayer = new MultiMediaPlayer();
+        multiMediaPlayer.playAudio("podcast.mp3");
+        multiMediaPlayer.playVideo("documentary.mp4");
+        multiMediaPlayer.adjustVideoBrightness(10);
+        multiMediaPlayer.stopAudio();
+        multiMediaPlayer.stopVideo();
     }
 }
 ```
@@ -372,6 +577,7 @@ Consider a scenario where we have an `EmailService` class responsible for sendin
 public class GmailClient {
     public void sendEmail(String recipient, String message) {
         // Logic to send email via Gmail
+        System.out.println("Sending email to " + recipient + " via Gmail: " + message);
     }
 }
 
@@ -380,11 +586,19 @@ public class EmailService {
     private GmailClient gmailClient;
 
     public EmailService() {
-        this.gmailClient = new GmailClient();
+        this.gmailClient = new GmailClient(); // Direct dependency on a concrete class
     }
 
     public void sendEmail(String recipient, String message) {
         gmailClient.sendEmail(recipient, message);
+    }
+}
+
+// Main class to test the code
+public class EmailService {
+    public static void main(String[] args) {
+        EmailService emailService = new EmailService();
+        emailService.sendEmail("test@example.com", "Hello, this is a test email.");
     }
 }
 ```
@@ -405,6 +619,7 @@ public class GmailClient implements EmailClient {
     @Override
     public void sendEmail(String recipient, String message) {
         // Logic to send email via Gmail
+        System.out.println("Sending email to " + recipient + " via Gmail: " + message);
     }
 }
 
@@ -413,6 +628,7 @@ public class OutlookClient implements EmailClient {
     @Override
     public void sendEmail(String recipient, String message) {
         // Logic to send email via Outlook
+        System.out.println("Sending email to " + recipient + " via Outlook: " + message);
     }
 }
 
@@ -428,22 +644,19 @@ public class EmailService {
         emailClient.sendEmail(recipient, message);
     }
 }
-```
 
-**Usage Example:**
-
-To use the EmailService with different email clients, simply provide the desired implementation of EmailClient:
-
-```java
-public class Main {
+// Main class to test the code
+public class EmailService {
     public static void main(String[] args) {
+        // Using Gmail client
         EmailClient gmailClient = new GmailClient();
         EmailService emailService = new EmailService(gmailClient);
-        emailService.sendEmail("example@example.com", "Hello, world!");
+        emailService.sendEmail("example@example.com", "Hello from Gmail!");
 
+        // Using Outlook client
         EmailClient outlookClient = new OutlookClient();
         emailService = new EmailService(outlookClient);
-        emailService.sendEmail("example@example.com", "Hello, world!");
+        emailService.sendEmail("example@example.com", "Hello from Outlook!");
     }
 }
 ```
