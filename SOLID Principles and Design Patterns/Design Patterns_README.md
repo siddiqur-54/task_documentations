@@ -111,7 +111,7 @@ public class PrototypePattern {
 }
 ```
 
-#### VI. Output
+**Output**
 ```css
 Circle{radius=5, color='Red'}
 Rectangle{width=10, height=20, color='Blue'}
@@ -235,7 +235,7 @@ public class ObserverPattern {
 }
 ```
 
-#### VI. Output
+**Output**
 ```css
 Siddiqur, a new video titled "Observer Pattern Explained" has been uploaded to Nemo.
 Rahman, a new video titled "Observer Pattern Explained" has been uploaded to Nemo.
