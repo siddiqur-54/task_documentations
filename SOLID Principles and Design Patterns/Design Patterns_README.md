@@ -194,7 +194,7 @@ public interface Subscriber {
 In this example, we'll create a `YoutubeSubscriber` class that represents a subscriber to a YouTube channel.
 
 ```java
-class YouTubeSubscriber implements Subscriber {
+public class YouTubeSubscriber implements Subscriber {
     private String subscriberName;
     private YouTubeChannel channel;
 
