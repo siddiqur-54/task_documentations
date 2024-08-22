@@ -88,33 +88,35 @@ public class PrototypeRegistry {
 The driver code creates prototypes, adds them to the registry, clones them, and modifies the cloned objects.
 
 ```java
-public class PrototypeDemo {
+public class PrototypePattern {
     public static void main(String[] args) {
-        // Creating prototypes
         Circle circlePrototype = new Circle(5, "Red");
         Rectangle rectanglePrototype = new Rectangle(10, 20, "Blue");
-
-        // Adding prototypes to the registry
+        
         PrototypeRegistry registry = new PrototypeRegistry();
         registry.addPrototype("Large Red Circle", circlePrototype);
         registry.addPrototype("Large Blue Rectangle", rectanglePrototype);
 
-        // Cloning prototypes
         Circle clonedCircle = (Circle) registry.getPrototype("Large Red Circle");
         Rectangle clonedRectangle = (Rectangle) registry.getPrototype("Large Blue Rectangle");
 
-        // Displaying cloned objects
-        System.out.println(clonedCircle);  // Output: Circle{radius=5, color='Red'}
-        System.out.println(clonedRectangle);  // Output: Rectangle{width=10, height=20, color='Blue'}
+        System.out.println(clonedCircle);
+        System.out.println(clonedRectangle);
 
-        // Modifying cloned objects without affecting the originals
         clonedCircle = new Circle(7, "Green");
-        System.out.println(clonedCircle);  // Output: Circle{radius=7, color='Green'}
+        System.out.println(clonedCircle);
 
-        // Original remains unchanged
-        System.out.println(registry.getPrototype("Large Red Circle"));  // Output: Circle{radius=5, color='Red'}
+        System.out.println(registry.getPrototype("Large Red Circle"));
     }
 }
+```
+
+#### VI. Output
+```css
+Circle{radius=5, color='Red'}
+Rectangle{width=10, height=20, color='Blue'}
+Circle{radius=7, color='Green'}
+Circle{radius=5, color='Red'}
 ```
 
 ## 2. Observer Design Pattern
@@ -231,4 +233,12 @@ public class ObserverPattern {
         techChannel.uploadVideo("Prototype Pattern Tutorial");
     }
 }
+```
+
+#### VI. Output
+```css
+Siddiqur, a new video titled "Observer Pattern Explained" has been uploaded to Nemo.
+Rahman, a new video titled "Observer Pattern Explained" has been uploaded to Nemo.
+Siddiqur, a new video titled "Prototype Pattern Tutorial" has been uploaded to Nemo.
+Rahman, a new video titled "Prototype Pattern Tutorial" has been uploaded to Nemo.
 ```
