@@ -66,28 +66,22 @@ class PrototypeRegistry {
 // Main method: Client Code
 public class PrototypePattern {
     public static void main(String[] args) {
-        // Creating prototypes
         Circle circlePrototype = new Circle(5, "Red");
         Rectangle rectanglePrototype = new Rectangle(10, 20, "Blue");
-
-        // Adding prototypes to the registry
+        
         PrototypeRegistry registry = new PrototypeRegistry();
         registry.addPrototype("Large Red Circle", circlePrototype);
         registry.addPrototype("Large Blue Rectangle", rectanglePrototype);
 
-        // Cloning prototypes
         Circle clonedCircle = (Circle) registry.getPrototype("Large Red Circle");
         Rectangle clonedRectangle = (Rectangle) registry.getPrototype("Large Blue Rectangle");
 
-        // Displaying cloned objects
-        System.out.println(clonedCircle);  // Output: Circle{radius=5, color='Red'}
-        System.out.println(clonedRectangle);  // Output: Rectangle{width=10, height=20, color='Blue'}
+        System.out.println(clonedCircle);
+        System.out.println(clonedRectangle);
 
-        // Modifying cloned objects without affecting the originals
         clonedCircle = new Circle(7, "Green");
-        System.out.println(clonedCircle);  // Output: Circle{radius=7, color='Green'}
+        System.out.println(clonedCircle);
 
-        // Original remains unchanged
-        System.out.println(registry.getPrototype("Large Red Circle"));  // Output: Circle{radius=5, color='Red'}
+        System.out.println(registry.getPrototype("Large Red Circle"));
     }
 }
