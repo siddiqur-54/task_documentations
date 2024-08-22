@@ -18,7 +18,7 @@ Concrete prototype classes implement the Prototype interface and override the cl
 
 **Circle Class**
 ```java
-public class Circle implements Prototype {
+class Circle implements Prototype {
     private int radius;
     private String color;
 
@@ -41,7 +41,7 @@ public class Circle implements Prototype {
 
 **Rectangle Class**
 ```java
-public class Rectangle implements Prototype {
+class Rectangle implements Prototype {
     private int width;
     private int height;
     private String color;
@@ -71,7 +71,7 @@ A prototype registry maintains a collection of prototype objects, allowing clien
 import java.util.HashMap;
 import java.util.Map;
 
-public class PrototypeRegistry {
+class PrototypeRegistry {
     private Map<String, Prototype> prototypes = new HashMap<>();
 
     public void addPrototype(String ind, Prototype prototype) {
@@ -84,8 +84,8 @@ public class PrototypeRegistry {
 }
 ```
 
-#### IV. The Dirver Code
-The driver code creates prototypes, adds them to the registry, clones them, and modifies the cloned objects.
+#### IV. The Client Code
+The client code creates prototypes, adds them to the registry, clones them, and modifies the cloned objects.
 
 ```java
 public class PrototypePattern {
@@ -129,7 +129,7 @@ The Observer design pattern is a behavioral design pattern that allows one objec
 The `Channel` interface declares methods for attaching, detaching, and notifying observers. This interface is the foundation of the pattern.
 
 ```java
-public interface Channel {
+interface Channel {
     void subscribe(Subscriber subscriber);
     void unsubscribe(Subscriber subscriber);
     void notifySubscribers();
@@ -140,7 +140,7 @@ public interface Channel {
 we'll create a `YouTubeChannel` class that will notify its subscribers when a new video is uploaded.
 
 ```java
-public class YouTubeChannel implements Channel {
+class YouTubeChannel implements Channel {
     private List<Subscriber> subscribers = new ArrayList<>();
     private String channelName;
     private String latestVideo;
@@ -185,7 +185,7 @@ public class YouTubeChannel implements Channel {
 The `Subscriber` interface defines the update method that will be called when the subject changes. This interface ensures that all observers implement a common method for receiving updates.
 
 ```java
-public interface Subscriber {
+interface Subscriber {
     void update();
 }
 ```
@@ -194,7 +194,7 @@ public interface Subscriber {
 In this example, we'll create a `YoutubeSubscriber` class that represents a subscriber to a YouTube channel.
 
 ```java
-public class YouTubeSubscriber implements Subscriber {
+YouTubeSubscriber implements Subscriber {
     private String subscriberName;
     private YouTubeChannel channel;
 
@@ -215,8 +215,8 @@ public class YouTubeSubscriber implements Subscriber {
 }
 ```
 
-#### V. The Driver Code
-The driver code creates instances of the channel and subscribers, attaches the subscribers to the channel, and updates the changes.
+#### V. The Client Code
+The client code creates instances of the channel and subscribers, attaches the subscribers to the channel, and updates the changes.
 
 ```java
 public class ObserverPattern {
@@ -241,4 +241,74 @@ Siddiqur, a new video titled "Observer Pattern Explained" has been uploaded to N
 Rahman, a new video titled "Observer Pattern Explained" has been uploaded to Nemo.
 Siddiqur, a new video titled "Prototype Pattern Tutorial" has been uploaded to Nemo.
 Rahman, a new video titled "Prototype Pattern Tutorial" has been uploaded to Nemo.
+```
+
+## 3. Facade Design Pattern
+
+```java
+class Memory {
+    public void load(long position, byte[] data) {
+        System.out.println("Memory: Loading data at position " + position);
+    }
+}
+```
+
+```java
+class HardDrive {
+    public byte[] read(long lba, int size) {
+        System.out.println("HardDrive: Reading data from sector " + lba + " with size " + size);
+        return new byte[size];
+    }
+}
+```
+
+```java
+class CPU {
+    public void freeze() { System.out.println("CPU: Freezing processor."); }
+    public void jump(long position) { System.out.println("CPU: Jumping to position " + position); }
+    public void execute() { System.out.println("CPU: Executing instructions."); }
+}
+```
+
+```java
+class ComputerFacade {
+    private CPU cpu;
+    private Memory memory;
+    private HardDrive hardDrive;
+
+    public ComputerFacade() {
+        this.cpu = new CPU();
+        this.memory = new Memory();
+        this.hardDrive = new HardDrive();
+    }
+
+    public void start() {
+        System.out.println("ComputerFacade: Starting the computer...");
+        cpu.freeze();
+        memory.load(0, hardDrive.read(0, 1024));
+        cpu.jump(0);
+        cpu.execute();
+        System.out.println("ComputerFacade: Computer has started.");
+    }
+}
+```
+
+```java
+public class FacadePattern {
+    public static void main(String[] args) {
+        ComputerFacade computer = new ComputerFacade();
+        computer.start();
+    }
+}
+```
+
+**Output**
+```css
+ComputerFacade: Starting the computer...
+CPU: Freezing processor.
+HardDrive: Reading data from sector 0 with size 1024
+Memory: Loading data at position 0
+CPU: Jumping to position 0
+CPU: Executing instructions.
+ComputerFacade: Computer has started.
 ```
