@@ -7,13 +7,14 @@
 - [4. I: Interface Segregation Principle (ISP)](#4-i-interface-segregation-principle-isp)
 - [5. D: Dependency Inversion Principle (DIP)](#5-d-dependency-inversion-principle-dip)
 
+
 ## 1. S: Single Responsibility Principle (SRP)
 
 A class should have a single reason to change, meaning it should be focused on one specific task or responsibility.
 
 By ensuring that a class is dedicated to a single responsibility, it becomes simpler, more focused, and easier to manage. This also makes the class more reusable and maintainable.
 
-**Example of Not Maintaining SRP**
+#### Example of Not Maintaining SRP
 
 Consider a class called `UserManager` that handles user authentication, user profile management, and email notifications.
 
@@ -49,7 +50,7 @@ Profile of user 'user123' updated with new information: New Profile Info
 
 This class violates the SRP because it has multiple responsibilities: authentication and profile management.
 
-**Example of Maintaining SRP**
+#### Example of Maintaining SRP
 
 To adhere to the SRP, we can split this class into two separate classes, each with a single responsibility:
 
@@ -94,7 +95,7 @@ Software entities such as classes, modules, and functions should be open to exte
 
 This principle encourages designing software in a way that allows adding new features or behavior without altering the existing code. This approach helps minimize the risk of introducing bugs or errors when enhancing functionality.
 
-**Example of Not Maintaining OCP**
+#### Example of Not Maintaining OCP
 
 Consider a `ShapeCalculator` class that calculates the area of different shapes, such as rectangles and circles.
 
@@ -162,7 +163,7 @@ Circle Area: 28.274333882308138
 
 In this design, adding support for a new shape, such as a triangle, would require modifying the existing method calculateArea. This violates the Open/Closed Principle because the existing code must be changed to introduce new functionality.
 
-**Example of Maintaining OCP**
+#### Example of Maintaining OCP
 
 To comply with the OCP, we can refactor the code by creating an abstract base class or interface for shapes and then implementing specific shape classes. This way, new shapes can be added without changing the existing code.
 
@@ -223,7 +224,7 @@ Objects of a superclass should be replaceable with objects of its subclasses wit
 
 This principle ensures that if you have a base class and one or more derived classes, instances of the derived classes should be able to replace instances of the base class without causing issues or altering the expected behavior of the program.
 
-**Example of Not Maintaining LSP**
+#### Example of Not Maintaining LSP
 
 Consider a `Vehicle` base class and two derived classes: `Car` and `Bicycle`.
 
@@ -274,7 +275,7 @@ Error: Bicycles do not have engines.
 
 In this example, the Bicycle class violates the Liskov Substitution Principle because it provides an implementation for the startEngine method that doesn’t apply to bicycles. If you replace a Vehicle instance with a Bicycle instance, it could lead to errors or unexpected behavior since a bicycle doesn’t have an engine.
 
-**Example of Maintaining LSP**
+#### Example of Maintaining LSP
 
 To adhere to the LSP, we should modify the design so that all subclasses fulfill the contract established by the base class in a meaningful way.
 
@@ -321,7 +322,7 @@ No client should be forced to depend on interfaces they don't use.
 
 The Interface Segregation Principle (ISP) aims to prevent the creation of "fat" or "bloated" interfaces that include methods irrelevant to all implementing classes. By breaking down interfaces into smaller, more specific ones, each client only needs to interact with the methods it actually requires. This approach promotes loose coupling and enhances code organization.
 
-**Example of Not Maintaining ISP**
+#### Example of Not Maintaining ISP
 
 Consider a media player application that handles different types of media files, such as audio files (MP3, WAV) and video files (MP4, AVI).
 
@@ -375,7 +376,7 @@ Error: AudioPlayer cannot play video.
 
 In this scenario, any class that implements the MediaPlayer interface would be required to implement all methods, even if some are irrelevant to its functionality. For instance, an audio player would have to provide implementations for playVideo and adjustVideoBrightness, which are not applicable to audio playback.
 
-**Example of Maintaining ISP**
+#### Example of Maintaining ISP
 
 To adhere to the ISP, we can break the large interface into smaller, more focused interfaces:
 
@@ -457,7 +458,7 @@ High-level modules should not depend on low-level modules; both should depend on
 
 The Dependency Inversion Principle (DIP) asserts that high-level components of a system should not be directly dependent on low-level components. Instead, both should rely on abstractions (e.g., interfaces). This approach minimizes the coupling between different parts of the system and enhances code reusability and flexibility.
 
-**Example of Not Maintaining DIP**
+#### Example of Not Maintaining DIP
 
 Consider a scenario where we have an `EmailService` class responsible for sending emails using a specific email provider, such as Gmail.
 
@@ -497,7 +498,7 @@ Sending email to test@example.com via Gmail: Hello!
 
 In this design, the EmailService class directly depends on the GmailClient class, which is a low-level module. This tight coupling makes it difficult to change the email provider or add new ones without modifying the EmailService class.
 
-**Example of Maintaining DIP**
+#### Example of Maintaining DIP
 
 To follow the Dependency Inversion Principle, we should introduce an abstraction (interface) for email clients and have the EmailService class depend on this abstraction. Then, specific implementations of email clients can depend on the abstraction.
 
