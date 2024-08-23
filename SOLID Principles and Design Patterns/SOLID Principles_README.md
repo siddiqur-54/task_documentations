@@ -1,5 +1,12 @@
 # SOLID Principles
 
+## Table of Contents
+- [1. S: Single Responsibility Principle (SRP)](#1-s-single-responsibility-principle-srp)
+- [2. O: Open/Closed Principle (OCP)](#2-o-openclosed-principle-ocp)
+- [3. L: Liskov Substitution Principle (LSP)](#3-l-liskov-substitution-principle-lsp)
+- [4. I: Interface Segregation Principle (ISP)](#4-i-interface-segregation-principle-isp)
+- [5. D: Dependency Inversion Principle (DIP)](#5-d-dependency-inversion-principle-dip)
+
 ## 1. S: Single Responsibility Principle (SRP)
 
 A class should have a single reason to change, meaning it should be focused on one specific task or responsibility.
