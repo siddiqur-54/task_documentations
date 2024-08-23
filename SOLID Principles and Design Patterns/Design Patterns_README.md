@@ -6,6 +6,7 @@
 - [3. Facade Design Pattern](#3-facade-design-pattern)
 - [4. Singleton Design Pattern](#4-singleton-design-pattern)
 - [5. Factory Design Pattern](#5-factory-design-pattern)
+- [6. Builder Design Pattern](#6-builder-design-pattern)
 
 
 
@@ -437,4 +438,94 @@ public class FactoryPattern {
 ```css
 Booting Windows OS...
 Booting Linux OS...
+```
+
+## 6. Builder Design Pattern
+The Builder design pattern is a creational design pattern that provides a flexible solution for constructing complex objects. The pattern separates the construction of a complex object from its representation, allowing the same construction process to create different representations.
+
+### Steps to Implement the Factory Design Pattern
+
+#### I. Define the Product
+Define the class `Computer` that represents the complex object. This class contains attributes that need to be initialized in a controlled manner.
+
+```java
+class Computer {
+    private String CPU;
+    private String RAM;
+    private String storage;
+    private String GPU;
+
+    public Computer(String CPU, String RAM, String storage, String GPU) {
+        this.CPU = CPU;
+        this.RAM = RAM;
+        this.storage = storage;
+        this.GPU = GPU;
+    }
+
+    @Override
+    public String toString() {
+        return "Computer [CPU=" + CPU + ", RAM=" + RAM + ", Storage=" + storage + ", GPU=" + GPU + "]";
+    }
+}
+```
+
+
+#### II. Create the Builder Class
+Create the `ComputerBuilder` class, which will build the `Computer` object step by step.
+
+```java
+class ComputerBuilder {
+    private String CPU;
+    private String RAM;
+    private String storage;
+    private String GPU;
+
+    public ComputerBuilder setCPU(String CPU) {
+        this.CPU = CPU;
+        return this;
+    }
+
+    public ComputerBuilder setRAM(String RAM) {
+        this.RAM = RAM;
+        return this;
+    }
+
+    public ComputerBuilder setStorage(String storage) {
+        this.storage = storage;
+        return this;
+    }
+
+    public ComputerBuilder setGPU(String GPU) {
+        this.GPU = GPU;
+        return this;
+    }
+
+    public Computer build() {
+        return new Computer(CPU, RAM, storage, GPU);
+    }
+}
+```
+
+
+#### III. Client Code
+Use the `ComputerBuilder` class to construct a `Computer` object in a flexible and controlled manner.
+
+```java
+public class BuilderPattern {
+    public static void main(String[] args) {
+        Computer myComputer = new ComputerBuilder()
+                .setCPU("Intel i9")
+                .setRAM("32GB")
+                .setStorage("1TB SSD")
+                .setGPU("NVIDIA RTX 3080")
+                .build();
+
+        System.out.println(myComputer);
+    }
+}
+```
+
+**Output:**
+```css
+Computer [CPU=Intel i9, RAM=32GB, Storage=1TB SSD, GPU=NVIDIA RTX 3080]
 ```
