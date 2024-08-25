@@ -1,14 +1,15 @@
 # Design Patterns
 
 ## Table of Contents
-- [1. Prototype Design Pattern](#1-prototype-design-pattern)
-- [2. Observer Design Pattern](#2-observer-design-pattern)
-- [3. Facade Design Pattern](#3-facade-design-pattern)
-- [4. Singleton Design Pattern](#4-singleton-design-pattern)
-- [5. Factory Design Pattern](#5-factory-design-pattern)
-- [6. Builder Design Pattern](#6-builder-design-pattern)
-
-
+[1. Prototype Design Pattern](#1-prototype-design-pattern)
+[2. Observer Design Pattern](#2-observer-design-pattern)
+[3. Facade Design Pattern](#3-facade-design-pattern)
+[4. Singleton Design Pattern](#4-singleton-design-pattern)
+[5. Factory Design Pattern](#5-factory-design-pattern)
+[6. Builder Design Pattern](#6-builder-design-pattern)
+[7. Strategy Design Pattern](#7-strategy-design-pattern)
+[8. Command Design Pattern](#8-command-design-pattern)
+[9. Chain of Responsibility Design Pattern](#9-chain-of-responsibility-design-pattern)
 
 
 ## 1. Prototype Design Pattern
@@ -357,6 +358,7 @@ Unlike other methods that require synchronized blocks or methods, the Bill Pugh 
 **IV. Effective Resource Management**
 By delaying the creation of the instance until it's needed and ensuring that only one instance is created, this method effectively manages resources, making it suitable for scenarios where the Singleton instance is resource-intensive to create.
 
+
 ## 5. Factory Design Pattern
 The Factory Design Pattern is a creational pattern used to create objects without specifying the exact class of the object that will be created. It provides a way to delegate the instantiation logic to subclasses or a factory class. This pattern is particularly useful when you need to manage or manipulate a collection of related objects that share a common interface.
 
@@ -507,7 +509,7 @@ class ComputerBuilder {
 ```
 
 
-#### III. Client Code
+#### III. The Client Code
 Use the `ComputerBuilder` class to construct a `Computer` object in a flexible and controlled manner.
 
 ```java
@@ -528,4 +530,393 @@ public class BuilderPattern {
 **Output:**
 ```css
 Computer [CPU=Intel i9, RAM=32GB, Storage=1TB SSD, GPU=NVIDIA RTX 3080]
+```
+
+## 7. Strategy Design Pattern
+The Strategy Pattern is a behavioral design pattern that enables selecting an algorithm from a family of algorithms at runtime. It allows you to define a strategy interface, implement various strategy classes, and use them interchangeably in the client code.
+
+### Steps to Implement the Strategy Design Pattern
+
+#### I. Define the Strategy Interface
+The `PaymentStrategy` interface declares the `pay(int amount)` method. This method must be implemented by all concrete strategy classes to perform payment operations.
+
+```java
+interface PaymentStrategy {
+    void pay(int amount);
+}
+```
+
+#### II. Create Concrete Strategy Classes
+Concrete strategy classes like `CreditCardPayment`, `PayPalPayment`, and `BitcoinPayment` implement the `PaymentStrategy` interface. Each class provides a specific implementation of the `pay` method.
+
+**BitcoinPayment Class**
+```java
+public class BitcoinPayment implements PaymentStrategy {
+    private String walletAddress;
+
+    public BitcoinPayment(String walletAddress) {
+        this.walletAddress = walletAddress;
+    }
+
+    @Override
+    public void pay(int amount) {
+        System.out.println("Paid " + amount + " using Bitcoin from wallet: " + walletAddress);
+    }
+}
+```
+
+**CreditCardPayment Class**
+```java
+class CreditCardPayment implements PaymentStrategy {
+    private String cardNumber;
+    private String cardHolderName;
+
+    public CreditCardPayment(String cardNumber, String cardHolderName) {
+        this.cardNumber = cardNumber;
+        this.cardHolderName = cardHolderName;
+    }
+
+    @Override
+    public void pay(int amount) {
+        System.out.println("Paid " + amount + " using Credit Card. Card Holder: " + cardHolderName);
+    }
+}
+```
+**PayPalPayment Class**
+```java
+class PayPalPayment implements PaymentStrategy {
+    private String email;
+
+    public PayPalPayment(String email) {
+        this.email = email;
+    }
+
+    @Override
+    public void pay(int amount) {
+        System.out.println("Paid " + amount + " using PayPal from account: " + email);
+    }
+}
+```
+
+#### III. Implement the Context Class
+The `ShoppingCart` class serves as the context in which the selected `PaymentStrategy` is used. The `setPaymentStrategy(PaymentStrategy paymentStrategy)` method allows you to set the desired payment strategy, and the `checkout()` method processes the payment using the chosen strategy.
+
+**ShoppingCart Class**
+
+```java
+class ShoppingCart {
+    private List<Integer> items = new ArrayList<>();
+    private PaymentStrategy paymentStrategy;
+
+    public void addItem(int price) {
+        items.add(price);
+    }
+
+    public void setPaymentStrategy(PaymentStrategy paymentStrategy) {
+        this.paymentStrategy = paymentStrategy;
+    }
+
+    public void checkout() {
+        int totalAmount = items.stream().mapToInt(Integer::intValue).sum();
+        paymentStrategy.pay(totalAmount);
+    }
+}
+```
+
+#### IV. The Client Code
+The `StrategyPattern` class demonstrates the flexibility of the Strategy Pattern. By setting different strategies (`BitcoinPayment`, `CreditCardPayment`, `PayPalPayment`) using the `setPaymentStrategy` method, the payment process can be altered dynamically.
+
+```java
+public class StrategyPatternDemo {
+    public static void main(String[] args) {
+        ShoppingCart cart = new ShoppingCart();
+        cart.addItem(100);
+        cart.addItem(200);
+
+        cart.setPaymentStrategy(new CreditCardPayment("123456789", "John Doe"));
+        cart.checkout();
+
+        cart.setPaymentStrategy(new PayPalPayment("john.doe@example.com"));
+        cart.checkout();
+
+        cart.setPaymentStrategy(new BitcoinPayment("1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa"));
+        cart.checkout();
+    }
+}
+```
+
+**Output**
+```css
+Paid 300 using Credit Card. Card Holder: John Doe
+Paid 300 using PayPal from account: john.doe@example.com
+Paid 300 using Bitcoin from wallet: 1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa
+```
+
+## 8. Command Design Pattern
+The Command Pattern is a behavioral design pattern that turns a request into a stand-alone object containing all the information about the request. This transformation allows the parameterization of clients with queues, requests, and operations, and supports undoable operations.
+
+### Steps to Implement the Command Design Pattern
+
+#### I. Define the Command Interface
+The `Command` interface declares the `execute()` method, which all concrete command classes must implement. This method encapsulates the request as an object.
+
+```java
+interface Command {
+    void execute();
+    void undo();
+}
+```
+
+#### II. Create the Receiver Class
+The `Light` class acts as the receiver, containing the actual business logic that needs to be performed, such as turning the light on or off.
+
+```java
+class Light {
+    public void on() {
+        System.out.println("Light is ON");
+    }
+
+    public void off() {
+        System.out.println("Light is OFF");
+    }
+}
+```
+#### III. Implement Concrete Command Classes
+Concrete command classes, such as `LightOnCommand` and `LightOffCommand`, implement the `Command` interface and define the binding between an action and the receiver.
+
+**LightOnCommand Class**
+
+```java
+class LightOnCommand implements Command {
+    private Light light;
+
+    public LightOnCommand(Light light) {
+        this.light = light;
+    }
+
+    @Override
+    public void execute() {
+        light.on();
+    }
+
+    @Override
+    public void undo() {
+        light.off();
+    }
+}
+```
+
+**LightOffCommand Class**
+
+```java
+class LightOffCommand implements Command {
+    private Light light;
+
+    public LightOffCommand(Light light) {
+        this.light = light;
+    }
+
+    @Override
+    public void execute() {
+        light.off();
+    }
+
+    @Override
+    public void undo() {
+        light.on();
+    }
+}
+```
+
+#### IV. Implement the Invoker Class
+The `RemoteControl` class acts as the invoker, storing the command objects and invoking the `execute()` method when a specific action is requested.
+
+```java
+class RemoteControl {
+    private Command command;
+
+    public void setCommand(Command command) {
+        this.command = command;
+    }
+
+    public void pressButton() {
+        command.execute();
+    }
+}
+```
+
+#### V. Extend the Invoker to Support Undo
+The `RemoteControlWithUndo` class adds functionality to undo the last executed command by storing a reference to the last command executed.
+
+```java
+class RemoteControlWithUndo {
+    private Command command;
+    private Command lastCommand;
+
+    public void setCommand(Command command) {
+        this.command = command;
+    }
+
+    public void pressButton() {
+        command.execute();
+        lastCommand = command;
+    }
+
+    public void pressUndo() {
+        if (lastCommand != null) {
+            lastCommand.undo();
+        }
+    }
+}
+```
+
+#### VI. The Client Code
+The `CommandPattern` class demonstrates how to use the `RemoteControl` and `RemoteControlWithUndo` to turn the light on and off, and undo the operation.
+
+```java
+public class CommandPattern {
+    public static void main(String[] args) {
+        Light light = new Light();
+
+        Command lightOn = new LightOnCommand(light);
+        Command lightOff = new LightOffCommand(light);
+
+        RemoteControl remote = new RemoteControl();
+        remote.setCommand(lightOn);
+        remote.pressButton();
+
+        remote.setCommand(lightOff);
+        remote.pressButton();
+
+        System.out.println("----- With Undo -----");
+
+        RemoteControlWithUndo remoteWithUndo = new RemoteControlWithUndo();
+        remoteWithUndo.setCommand(lightOn);
+        remoteWithUndo.pressButton();
+        remoteWithUndo.pressUndo();
+
+        remoteWithUndo.setCommand(lightOff);
+        remoteWithUndo.pressButton();
+        remoteWithUndo.pressUndo();
+    }
+}
+```
+
+**Output**
+```css
+Light is ON
+Light is OFF
+----- With Undo -----
+Light is ON
+Light is OFF
+Light is OFF
+Light is ON
+```
+
+## 9. Chain of Responsibility Design Pattern
+The Chain of Responsibility Pattern is a behavioral design pattern that allows an object to pass a request along a chain of potential handlers until the request is handled. This pattern decouples the sender of a request from its receiver by giving more than one object the opportunity to handle the request.
+
+### Steps to Implement the Chain of Responsibility Design Pattern
+
+#### I. Define the Handler Interface
+The `SupportHandler` interface declares two methods: `setNextHandler(SupportHandler nextHandler)` to link the handlers and `handleRequest(String issue)` to process or pass on the request.
+
+```java
+interface SupportHandler {
+    void setNextHandler(SupportHandler nextHandler);
+    void handleRequest(String issue);
+}
+```
+
+#### II. Implement Concrete Handlers
+Each concrete handler (`LevelOneSupport`, `LevelTwoSupport`, `LevelThreeSupport`) handles a specific issue type. If it can't handle the request, it passes it to the next handler.
+
+**LevelOneSupport Class**
+```java
+class LevelOneSupport implements SupportHandler {
+    private SupportHandler nextHandler;
+    @Override
+    public void setNextHandler(SupportHandler nextHandler) {
+        this.nextHandler = nextHandler;
+    }
+    @Override
+    public void handleRequest(String issue) {
+        if (issue.equals("basic")) {
+            System.out.println("Level 1 support handling the issue.");
+        } else if (nextHandler != null) {
+            nextHandler.handleRequest(issue);
+        }
+    }
+}
+```
+
+**LevelTwoSupport Class**
+```java
+class LevelTwoSupport implements SupportHandler {
+    private SupportHandler nextHandler;
+
+    @Override
+    public void setNextHandler(SupportHandler nextHandler) {
+        this.nextHandler = nextHandler;
+    }
+
+    @Override
+    public void handleRequest(String issue) {
+        if (issue.equals("intermediate")) {
+            System.out.println("Level 2 support handling the issue.");
+        } else {
+            if (nextHandler != null) {
+                nextHandler.handleRequest(issue);
+            }
+        }
+    }
+}
+```
+
+**LevelThreeSupport Class**
+```java
+class LevelThreeSupport implements SupportHandler {
+    @Override
+    public void setNextHandler(SupportHandler nextHandler) {
+    }
+
+    @Override
+    public void handleRequest(String issue) {
+        if (issue.equals("complex")) {
+            System.out.println("Level 3 support handling the issue.");
+        } else {
+            System.out.println("Issue could not be handled.");
+        }
+    }
+}
+```
+
+#### III. The Client Code
+The client sends requests to `LevelOneSupport`. Link the handlers (LevelOneSupport -> LevelTwoSupport -> LevelThreeSupport). The chain passes requests until they are handled or reach the end. If it can’t handle the request, it passes it down the chain.
+
+
+```java
+public class ChainOfResponsibilityDemo {
+    public static void main(String[] args) {
+        SupportHandler levelOneSupport = new LevelOneSupport();
+        SupportHandler levelTwoSupport = new LevelTwoSupport();
+        SupportHandler levelThreeSupport = new LevelThreeSupport();
+        
+        levelOneSupport.setNextHandler(levelTwoSupport);
+        levelTwoSupport.setNextHandler(levelThreeSupport);
+        
+        levelOneSupport.handleRequest("basic");
+        levelOneSupport.handleRequest("intermediate");
+        levelOneSupport.handleRequest("complex");
+        levelOneSupport.handleRequest("unknown");
+    }
+}
+```
+
+**Output**
+```css
+Level 1 support handling the issue.
+Level 2 support handling the issue.
+Level 3 support handling the issue.
+Issue could not be handled.
 ```
