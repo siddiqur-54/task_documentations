@@ -1,15 +1,15 @@
 # Design Patterns
 
 ## Table of Contents
-[1. Prototype Design Pattern](#1-prototype-design-pattern)
-[2. Observer Design Pattern](#2-observer-design-pattern)
-[3. Facade Design Pattern](#3-facade-design-pattern)
-[4. Singleton Design Pattern](#4-singleton-design-pattern)
-[5. Factory Design Pattern](#5-factory-design-pattern)
-[6. Builder Design Pattern](#6-builder-design-pattern)
-[7. Strategy Design Pattern](#7-strategy-design-pattern)
-[8. Command Design Pattern](#8-command-design-pattern)
-[9. Chain of Responsibility Design Pattern](#9-chain-of-responsibility-design-pattern)
+- [1. Prototype Design Pattern](#1-prototype-design-pattern)
+- [2. Observer Design Pattern](#2-observer-design-pattern)
+- [3. Facade Design Pattern](#3-facade-design-pattern)
+- [4. Singleton Design Pattern](#4-singleton-design-pattern)
+- [5. Factory Design Pattern](#5-factory-design-pattern)
+- [6. Builder Design Pattern](#6-builder-design-pattern)
+- [7. Strategy Design Pattern](#7-strategy-design-pattern)
+- [8. Command Design Pattern](#8-command-design-pattern)
+- [9. Chain of Responsibility Design Pattern](#9-chain-of-responsibility-design-pattern)
 
 
 ## 1. Prototype Design Pattern
