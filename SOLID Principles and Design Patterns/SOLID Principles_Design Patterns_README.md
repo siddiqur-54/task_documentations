@@ -1,16 +1,18 @@
 # Table of Contents
 
 ## 1. SOLID Principles
-    1.1 [S: Single Responsibility Principle (SRP)](#11-s-single-responsibility-principle-srp)
-    1.2 [O: Open/Closed Principle (OCP)](#12-o-openclosed-principle-ocp)
-    1.3 [L: Liskov Substitution Principle (LSP)](#13-l-liskov-substitution-principle-lsp)
-    1.4 [I: Interface Segregation Principle (ISP)](#14-i-interface-segregation-principle-isp)
-    1.5 [D: Dependency Inversion Principle (DIP)](#15-d-dependency-inversion-principle-dip)
+
+1.1 [S: Single Responsibility Principle (SRP)](#11-s-single-responsibility-principle-srp)
+1.2 [O: Open/Closed Principle (OCP)](#12-o-openclosed-principle-ocp)
+1.3 [L: Liskov Substitution Principle (LSP)](#13-l-liskov-substitution-principle-lsp)
+1.4 [I: Interface Segregation Principle (ISP)](#14-i-interface-segregation-principle-isp)
+1.5 [D: Dependency Inversion Principle (DIP)](#15-d-dependency-inversion-principle-dip)
 
 ## 2. Design Patterns
-    2.1 [Prototype Design Pattern](#21-prototype-design-pattern)
-    2.2 [Observer Design Pattern](#22-observer-design-pattern)
-    2.3 [Facade Design Pattern](#23-facade-design-pattern)
+
+2.1 [Prototype Design Pattern](#21-prototype-design-pattern)
+2.2 [Observer Design Pattern](#22-observer-design-pattern)
+2.3 [Facade Design Pattern](#23-facade-design-pattern)
 
 
 ## 1.1 S: Single Responsibility Principle (SRP)
