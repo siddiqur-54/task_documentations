@@ -855,7 +855,7 @@ class ComputerFacade {
 }
 ```
 
-#### IV. The Client Code
+#### III. The Client Code
 The client interacts with the system through the `ComputerFacade` without needing to understand the underlying subsystem classes.
 
 ```java
