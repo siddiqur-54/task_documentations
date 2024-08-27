@@ -675,6 +675,15 @@ Unchanged Original: Shape - Dimension: 5, Color: Red
 
 The Observer design pattern is a behavioral design pattern that allows one object (the subject) to notify other objects (the observers) about changes in its state. This pattern is useful for scenarios where changes in one object should trigger updates in other dependent objects.
 
+### Components of Observer Design Pattern
+i. **Subject:** The subject maintains a list of observers (subscribers or listeners). It Provides methods to register and unregister observers dynamically and defines a method to notify observers of changes in its state.
+
+ii. **Observer:** Observer defines an interface with an update method that concrete observers must implement and ensures a common or consistent way for concrete observers to receive updates from the subject.
+
+iii. **ConcreteSubject:** ConcreteSubjects are specific implementations of the subject. They hold the actual state or data that observers want to track. When this state changes, concrete subjects notify their observers.
+
+iv. **ConcreteObserver:** Concrete Observer implements the observer interface. They register with a concrete subject and react when notified of a state change.
+
 ### Steps to Implement the Observer Design Pattern
 
 #### I. Define the Subject Interface
@@ -795,6 +804,34 @@ Siddiqur, a new video titled "Prototype Pattern Tutorial" has been uploaded to N
 Rahman, a new video titled "Prototype Pattern Tutorial" has been uploaded to Nemo.
 ```
 
+### When to use the Observer Design Pattern?
+
+i. **One-to-Many Dependence:** Use the Observer pattern when there is a one-to-many relationship between objects, and changes in one object should notify multiple dependent objects.
+
+ii. **Decoupling:** Use the Observer pattern to achieve loose coupling between objects. This allows the subject (publisher) and observers (subscribers) to interact without being aware of each other’s specific details.
+
+iii. **Dynamic Composition:** If you need to support dynamic composition of objects with runtime registration and deregistration of observers, the Observer pattern is suitable. New observers can be added or existing ones removed without modifying the subject.
+
+### Advantages
+
+i. **Loose Coupling:** The subject and observers are loosely coupled. The subject only knows that observers implement a specific interface, allowing for flexibility and reducing dependencies between them.
+   
+ii. **Dynamic Relationships:** Observers can be added or removed at runtime. This allows for dynamic changes in the behavior of the system as different observers can register or deregister to the subject as needed.
+   
+iii. **Broadcast Communication:** The pattern enables the subject to broadcast updates to multiple observers simultaneously, ensuring that all interested parties are notified of changes.
+   
+iv. **Improved Scalability:** The pattern supports the addition of new observers with minimal changes to the existing code. This aligns with the Open/Closed Principle, as new behavior can be added without modifying the subject.
+
+### Disadvantages
+
+i. **Potential Performance Overhead:** If there are many observers, notifying all of them can lead to performance issues, especially if the update operation is costly. This can become problematic in systems with a large number of observers.
+   
+ii. **Unexpected Updates:** Observers may receive updates unexpectedly, which could lead to inconsistent states if they are not designed to handle such updates appropriately.
+   
+iii. **Complex Debugging:** Because observers are updated automatically, it can be difficult to trace the flow of updates and understand how changes propagate through the system, leading to potential difficulties in debugging.
+   
+iv. **Memory Leaks:** If observers are not properly removed from the subject when they are no longer needed, it can lead to memory leaks, as the subject may keep references to unused observers.
+   
 ## 2.3 Facade Design Pattern
 The Facade Design Pattern provides a simplified interface to a complex system of classes, libraries, or frameworks. This pattern is particularly useful when dealing with complex systems where clients require a simplified interface to interact with the system's core functionality.
 
