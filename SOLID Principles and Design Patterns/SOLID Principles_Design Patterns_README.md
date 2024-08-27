@@ -574,102 +574,115 @@ Design patterns are reusable solutions to common problems in software design. Th
 ## 2.1 Prototype Design Pattern
 The Prototype design pattern is a creational design pattern used when the cost of creating a new object is high, and you need to create multiple instances of objects that are identical or similar to each other. Instead of creating new objects from scratch, the Prototype pattern allows you to clone existing objects.
 
+### Components of Prototype Design Pattern
+
+- i. **Prototype Interface:** The Prototype Interface or Abstract Class declares the method(s) for cloning an object. It defines the common interface that concrete prototypes must implement.
+
+- ii. **Concrete Prototype:** The Concrete Prototype is a class that implements the prototype interface or extends the abstract class. It’s the class representing a specific type of object that you want to clone.
+
+- iii. **Client:** The Client is the code or module that requests the creation of new objects by interacting with the prototype.
+
+- iv. **Clone Method:** The Clone Method is declared in the prototype interface or abstract class. It specifies how an object should be copied or cloned. It Describes how the object’s internal state should be duplicated to create a new, independent instance.
+
 ### Steps to Implement the Protoype Design Pattern
 
-#### I. Prototype Interface
-The `ShapePrototype` interface declares a method for cloning objects. This method is usually named `clone`. The `clone` method is responsible for creating a copy of the object.
+#### i. Prototype Interface (Shape)
+We define an interface called `Shape` that acts as the prototype.It declares two methods: `clone()` for making a copy of itself and `draw()` for drawing the shape.
 
 ```java
-public interface ShapePrototype {
-    ShapePrototype clone();
+public interface Shape {
+    Shape clone();
+    void draw();
 }
 ```
-#### II. Concrete Prototype Class
-Create a class named `Shape` that implements the `ShapePrototype` interface. Implement the `clone` method to create and return a new instance of `Shape` with the same property values.
 
-**Shape Class**
+#### ii. Concrete Prototype (Circle)
+We implement the `Shape` interface with a concrete class `Circle`. The Circle class has a private field color and a constructor to set the color when creating a circle. It implements the clone() method to create a copy of itself (a new Circle with the same color).
+
 ```java
-class Shape implements ShapePrototype {
-    private int dimension;
+public class Circle implements Shape {
     private String color;
-
-    public Shape(int dimension, String color) {
-        this.dimension = dimension;
+ 
+    public Circle(String color) {
         this.color = color;
     }
-
+ 
     @Override
     public Shape clone() {
-        return new Shape(this.dimension, this.color);
+        return new Circle(this.color);
     }
-
-    public int getDimension() {
-        return dimension;
-    }
-
-    public String getColor() {
-        return color;
-    }
-
+ 
     @Override
-    public String toString() {
-        return "Shape - Dimension: " + dimension + ", Color: " + color;
+    public String draw() {
+        return "Drawing a " + color + " circle.";
+    }
+
+    public void setColor(String color) {
+        this.color = color;
     }
 }
 ```
 
-#### III. PrototypeRegistry Class
-The `PrototypeRegistry` class is responsible for storing a collection of prototype objects. This allows the client to retrieve and clone these prototypes as needed.
-
-```java
-import java.util.HashMap;
-import java.util.Map;
-
-class PrototypeRegistry {
-    private Map<String, ShapePrototype> prototypes = new HashMap<>();
-
-    public void registerPrototype(String prototypeKey, ShapePrototype prototype) {
-        prototypes.put(prototypeKey, prototype);
-    }
-
-    public ShapePrototype getPrototype(String prototypeKey) {
-        return prototypes.get(prototypeKey).clone();
-    }
-}
-
-```
-
-#### IV. The Client Code
-Create an instance of `Shape` and register it in the `PrototypeRegistry`. Retrieve and clone the prototype from the registry, modify the cloned instance, and print its details, ensuring that the original instance remains unchanged.
+#### iii. The Client Code
+An instance of `Circle` is created with the color "red". This instance serves as the prototype for creating new Circle objects. The `clone()` method of the circlePrototype is called to create a new Circle instance with the same color as the prototype ("red").
 
 ```java
 public class PrototypePattern {
     public static void main(String[] args) {
-        PrototypeRegistry registry = new PrototypeRegistry();
-
-        Shape originalShape = new Shape(5, "Red");
-        registry.registerPrototype("RedShape", originalShape);
-
-        System.out.println("Original: " + originalShape);
-
-        Shape clonedShape = (Shape) registry.getPrototype("RedShape");
-        System.out.println("Cloned: " + clonedShape);
-
-        clonedShape = new Shape(10, "Blue");
-        System.out.println("Modified Cloned: " + clonedShape);
-
-        System.out.println("Unchanged Original: " + originalShape);
+        Shape circlePrototype = new Circle("red");
+        Shape redCircle = circlePrototype.clone();
+        
+        System.out.println("Original prototype:");
+        circlePrototype.draw();
+        
+        System.out.println("Cloned circle:");
+        redCircle.draw();
+        
+        redCircle.setColor("blue");
+        
+        System.out.println("Modified cloned circle:");
+        redCircle.draw();
+        
+        System.out.println("Original prototype after cloning and modifying:");
+        circlePrototype.draw();
     }
 }
 ```
 
 **Output**
 ```css
-Original: Shape - Dimension: 5, Color: Red
-Cloned: Shape - Dimension: 5, Color: Red
-Modified Cloned: Shape - Dimension: 10, Color: Blue
-Unchanged Original: Shape - Dimension: 5, Color: Red
+Original prototype:
+Drawing a red circle.
+Cloned circle:
+Drawing a red circle.
+Modified cloned circle:
+Drawing a blue circle.
+Original prototype after cloning and modifying:
+Drawing a red circle.
 ```
+
+#### When to use the Prototype Design Pattern
+
+i. **Creating Objects is Costly:** Use the Prototype pattern when creating objects is more expensive or complex than copying existing ones. If object creation involves significant resources, such as database or network calls.
+
+ii. **Variations of Objects:** Use the Prototype pattern when your system needs to support a variety of objects with slight variations. Instead of creating multiple classes for each variation, you can create prototypes and clone them with modifications.
+
+iii. **Dynamic Configuration:** Use the Prototype pattern when your system requires dynamic configuration and you want to create objects with configurations at runtime.
+
+### Pros and Cons of the Prototype Pattern
+### Pros
+i. **Easy Object Cloning:** The pattern enables you to create new objects by copying existing ones, which promotes code reuse. This is especially beneficial when objects have complex or resource-intensive initialization processes.
+
+ii. **Reduced Initialization Overhead:** Since objects are cloned instead of being created from scratch, it can significantly reduce the overhead associated with expensive object initialization.
+
+iii. **Individual Customization:** Cloned objects can be easily customized to suit specific requirements while retaining the common characteristics of the prototype. This allows for flexibility in object creation.
+
+### Cons
+i. **Shallow vs Deep Copy:** In scenarios where objects contain references to other objects (e.g., nested objects), cloning might result in shallow copies by default. This means that changes to the nested objects in a cloned object can affect the original object and vice versa. Deep copying may be required, which can be complex to implement.
+
+ii. **Managing Object State:** If an object has an internal state that should not be shared across clones, careful management of the object state is necessary to ensure that each clone maintains its integrity.
+
+iii. **Compatibility with Serialization:** If you need to clone objects that are serializable, you might encounter challenges related to object serialization and deserialization.
 
 ## 2.2 Observer Design Pattern
 
@@ -686,122 +699,132 @@ iv. **ConcreteObserver:** Concrete Observer implements the observer interface. T
 
 ### Steps to Implement the Observer Design Pattern
 
-#### I. Define the Subject Interface
-The `Channel` interface declares methods for attaching, detaching, and notifying observers. This interface is the foundation of the pattern.
+#### i. Subject
+- The `Subject` interface outlines the operations a subject should support.
+- `addObserver` and `removeObserver` are for managing the list of observers.
+- `notifyObservers` is for informing observers about changes.
 
 ```java
-interface Channel {
-    void subscribe(Subscriber subscriber);
-    void unsubscribe(Subscriber subscriber);
-    void notifySubscribers();
+public interface Subject {
+    void addObserver(Observer observer);
+    void removeObserver(Observer observer);
+    void notifyObservers();
 }
 ```
 
-#### II. Implement the Concrete Subject
-we'll create a `YouTubeChannel` class that will notify its subscribers when a new video is uploaded.
+#### ii. Observer
+- The `Observer` interface defines a contract for objects that want to be notified about changes in the subject.
+- It includes a method `update` that concrete observers must implement to receive and handle updates.
 
 ```java
-class YouTubeChannel implements Channel {
-    private List<Subscriber> subscribers = new ArrayList<>();
-    private String channelName;
-    private String latestVideo;
+public interface Observer {
+    void update(String weather);
+}
+```
 
-    public YouTubeChannel(String channelName) {
-        this.channelName = channelName;
-    }
+#### iii. ConcreteSubject(WeatherStation)
+- `WeatherStation` is the concrete subject implementing the `Subject` interface.
+It maintains a list of observers and provides methods to manage this list.
+- `notifyObservers` iterates through the observers and calls their `update` method, passing the current weather.
+- `setWeather` method updates the weather and notifies observers of the change.
 
-    public void uploadVideo(String videoTitle) {
-        this.latestVideo = videoTitle;
-        notifySubscribers();
+```java
+import java.util.ArrayList;
+import java.util.List;
+
+public class WeatherStation implements Subject {
+    private List<Observer> observers = new ArrayList<>();
+    private String weather;
+
+    @Override
+    public void addObserver(Observer observer) {
+        observers.add(observer);
     }
 
     @Override
-    public void subscribe(Subscriber subscriber) {
-        subscribers.add(subscriber);
+    public void removeObserver(Observer observer) {
+        observers.remove(observer);
     }
 
     @Override
-    public void unsubscribe(Subscriber subscriber) {
-        subscribers.remove(subscriber);
-    }
-
-    @Override
-    public void notifySubscribers() {
-        for (Subscriber subscriber : subscribers) {
-            subscriber.update();
+    public void notifyObservers() {
+        for (Observer observer : observers) {
+            observer.update(weather);
         }
     }
 
-    public String getLatestVideo() {
-        return latestVideo;
-    }
-
-    public String getChannelName() {
-        return channelName;
+    public void setWeather(String newWeather) {
+        this.weather = newWeather;
+        notifyObservers();
     }
 }
 ```
 
-#### III. Define the Observer Interface
-The `Subscriber` interface defines the update method that will be called when the subject changes. This interface ensures that all observers implement a common method for receiving updates.
+#### iv. ConcreteObserver (PhoneDisplay & TVDisplay)
+**PhoneDisplay**
+- `PhoneDisplay` is a concrete observer implementing the `Observer` interface.
+- The `update` method sets the new weather and calls the `display` method.
 
 ```java
-interface Subscriber {
-    void update();
-}
-```
-
-#### IV. Implement the Concrete Observer
-In this example, we'll create a `YoutubeSubscriber` class that represents a subscriber to a YouTube channel.
-
-```java
-YouTubeSubscriber implements Subscriber {
-    private String subscriberName;
-    private YouTubeChannel channel;
-
-    public YouTubeSubscriber(String subscriberName) {
-        this.subscriberName = subscriberName;
-    }
-
-    public void subscribeToChannel(YouTubeChannel channel) {
-        this.channel = channel;
-        channel.subscribe(this);
-    }
+public class PhoneDisplay implements Observer {
+    private String weather;
 
     @Override
-    public void update() {
-        System.out.println(subscriberName + ", a new video titled \"" + channel.getLatestVideo() +
-                "\" has been uploaded to " + channel.getChannelName() + ".");
+    public void update(String weather) {
+        this.weather = weather;
+        display();
+    }
+
+    private void display() {
+        System.out.println("Phone Display: Weather updated - " + weather);
     }
 }
 ```
 
-#### V. The Client Code
-The client code creates instances of the channel and subscribers, attaches the subscribers to the channel, and updates the changes.
+**TVDisplay**
+- `TVDisplay` is another concrete observer similar to `PhoneDisplay`.
 
 ```java
-public class ObserverPattern {
+class TVDisplay implements Observer {
+    private String weather;
+ 
+    @Override
+    public void update(String weather) {
+        this.weather = weather;
+        display();
+    }
+ 
+    private void display() {
+        System.out.println("TV Display: Weather updated - " + weather);
+    }
+}
+```
+
+#### v. The Client Code
+- In `WeatherApp`, a `WeatherStation` is created.
+- Two observers (`PhoneDisplay` and `TVDisplay`) are registered with the weather station using `addObserver`.
+- The `setWeather` method simulates a weather change to `Sunny`, triggering the `update` method in both observers.
+
+```java
+public class WeatherApp {
     public static void main(String[] args) {
-        YouTubeChannel techChannel = new YouTubeChannel("Nemo");
+        WeatherStation weatherStation = new WeatherStation();
 
-        YouTubeSubscriber sub1 = new YouTubeSubscriber("Siddiqur");
-        YouTubeSubscriber sub2 = new YouTubeSubscriber("Rahman");
+        Observer phoneDisplay = new PhoneDisplay();
+        Observer tvDisplay = new TVDisplay();
 
-        sub1.subscribeToChannel(techChannel);
-        sub2.subscribeToChannel(techChannel);
+        weatherStation.addObserver(phoneDisplay);
+        weatherStation.addObserver(tvDisplay);
 
-        techChannel.uploadVideo("Observer Pattern Explained");
-        techChannel.uploadVideo("Prototype Pattern Tutorial");
+        weatherStation.setWeather("Sunny");
     }
 }
 ```
 
 **Output**
 ```css
-Siddiqur, a new video titled "Observer Pattern Explained" has been uploaded to Nemo.
-Rahman, a new video titled "Observer Pattern Explained" has been uploaded to Nemo.
-Siddiqur, a new video titled "Prototype Pattern Tutorial" has been uploaded to Nemo.
-Rahman, a new video titled "Prototype Pattern Tutorial" has been uploaded to Nemo.
+Phone Display: Weather updated - Sunny
+TV Display: Weather updated - Sunny
 ```
 
 ### When to use the Observer Design Pattern?
@@ -812,7 +835,9 @@ ii. **Decoupling:** Use the Observer pattern to achieve loose coupling between o
 
 iii. **Dynamic Composition:** If you need to support dynamic composition of objects with runtime registration and deregistration of observers, the Observer pattern is suitable. New observers can be added or existing ones removed without modifying the subject.
 
-### Advantages
+### Pros and Cons of the Prototype Pattern
+
+### Pros
 
 i. **Loose Coupling:** The subject and observers are loosely coupled. The subject only knows that observers implement a specific interface, allowing for flexibility and reducing dependencies between them.
    
@@ -822,7 +847,7 @@ iii. **Broadcast Communication:** The pattern enables the subject to broadcast u
    
 iv. **Improved Scalability:** The pattern supports the addition of new observers with minimal changes to the existing code. This aligns with the Open/Closed Principle, as new behavior can be added without modifying the subject.
 
-### Disadvantages
+### Cons
 
 i. **Potential Performance Overhead:** If there are many observers, notifying all of them can lead to performance issues, especially if the update operation is costly. This can become problematic in systems with a large number of observers.
    
