@@ -628,12 +628,12 @@ import java.util.Map;
 class PrototypeRegistry {
     private Map<String, ShapePrototype> prototypes = new HashMap<>();
 
-    public void registerPrototype(String key, ShapePrototype prototype) {
-        prototypes.put(key, prototype);
+    public void registerPrototype(String prototypeKey, ShapePrototype prototype) {
+        prototypes.put(prototypeKey, prototype);
     }
 
-    public ShapePrototype getPrototype(String key) {
-        return prototypes.get(key).clone();
+    public ShapePrototype getPrototype(String prototypeKey) {
+        return prototypes.get(prototypeKey).clone();
     }
 }
 
@@ -855,7 +855,7 @@ class ComputerFacade {
 }
 ```
 
-#### III. The Client Code
+#### IV. The Client Code
 The client interacts with the system through the `ComputerFacade` without needing to understand the underlying subsystem classes.
 
 ```java
