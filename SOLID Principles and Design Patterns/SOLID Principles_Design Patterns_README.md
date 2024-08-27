@@ -564,8 +564,11 @@ Design patterns are reusable solutions to common problems in software design. Th
 
 #### Key Characteristics of Design Patterns
 **Reusability:** Patterns can be applied to different projects and problems, saving time and effort in solving similar issues.
+
 **Standardization:** They provide a shared language and understanding among developers, facilitating communication and collaboration.
+
 **Efficiency:** By using established patterns, developers can avoid reinventing the wheel, leading to faster and more reliable development.
+
 **Flexibility:** Patterns are abstract solutions that can be adapted to fit various contexts and requirements.
 
 ## 2.1 Prototype Design Pattern
