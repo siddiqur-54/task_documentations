@@ -13,9 +13,15 @@
 - 2.3 [Facade Design Pattern](#23-facade-design-pattern)
 
 
+# 1. SOLID Principles
+> The SOLID principle was introduced by Robert C. Martin, also known as Uncle Bob and it is a coding standard in programming.
+
+- The SOLID principle helps in reducing tight coupling. Tight coupling means a group of classes are highly dependent on one another which you should avoid in your code.
+- Opposite of tight coupling is loose coupling and your code is considered as a good code when it has loosely-coupled classes.
+- Loosely coupled classes minimize changes in your code, helps in making code more reusable, maintainable, flexible and stable.
 ## 1.1 S: Single Responsibility Principle (SRP)
 
->A class should have a single reason to change, meaning it should be focused on one specific task or responsibility.
+> A class should have a single reason to change, meaning it should be focused on one specific task or responsibility.
 
 By ensuring that a class is dedicated to a single responsibility, it becomes simpler, more focused, and easier to manage. This also makes the class more reusable and maintainable.
 
@@ -96,7 +102,7 @@ Profile of user 'user123' updated with new information: New Profile Info
 
 ## 1.2 O: Open/Closed Principle (OCP)
 
->Software entities such as classes, modules, and functions should be open to extension but closed to modification.
+> Software entities such as classes, modules, and functions should be open to extension but closed to modification.
 
 This principle encourages designing software in a way that allows adding new features or behavior without altering the existing code. This approach helps minimize the risk of introducing bugs or errors when enhancing functionality.
 
@@ -225,7 +231,7 @@ Circle Area: 28.274333882308138
 
 ## 1.3 L: Liskov Substitution Principle (LSP)
 
->Objects of a superclass should be replaceable with objects of its subclasses without affecting the correctness of the program.
+> Objects of a superclass should be replaceable with objects of its subclasses without affecting the correctness of the program.
 
 This principle ensures that if you have a base class and one or more derived classes, instances of the derived classes should be able to replace instances of the base class without causing issues or altering the expected behavior of the program.
 
@@ -323,7 +329,7 @@ Bicycle is ready to ride.
 
 ## 1.4 I: Interface Segregation Principle (ISP)
 
->No client should be forced to depend on interfaces they don't use.
+> No client should be forced to depend on interfaces they don't use.
 
 The Interface Segregation Principle (ISP) aims to prevent the creation of "fat" or "bloated" interfaces that include methods irrelevant to all implementing classes. By breaking down interfaces into smaller, more specific ones, each client only needs to interact with the methods it actually requires. This approach promotes loose coupling and enhances code organization.
 
@@ -457,7 +463,7 @@ Adjusting video brightness to level: 10
 
 ## 1.5 D: Dependency Inversion Principle (DIP)
 
->High-level modules should not depend on low-level modules; both should depend on abstractions.
+> High-level modules should not depend on low-level modules; both should depend on abstractions.
 
 The Dependency Inversion Principle (DIP) asserts that high-level components of a system should not be directly dependent on low-level components. Instead, both should rely on abstractions (e.g., interfaces). This approach minimizes the coupling between different parts of the system and enhances code reusability and flexibility.
 
@@ -553,7 +559,7 @@ Sending email to example@gmail.com via Gmail: Hello!
 Sending email to example@outlook.com via Outlook: Hello!
 ```
 
-# Design Patterns
+# 2. Design Patterns
 
 ## 2.1 Prototype Design Pattern
 The Prototype design pattern is a creational design pattern used when the cost of creating a new object is high, and you need to create multiple instances of objects that are identical or similar to each other. Instead of creating new objects from scratch, the Prototype pattern allows you to clone existing objects.
@@ -561,19 +567,19 @@ The Prototype design pattern is a creational design pattern used when the cost o
 ### Steps to Implement the Protoype Design Pattern
 
 #### I. Prototype Interface
-The `Prototype` interface declares a method for cloning objects. This method is usually named `clone`. The clone method is responsible for creating a copy of the object.
+The `ShapePrototype` interface declares a method for cloning objects. This method is usually named `clone`. The `clone` method is responsible for creating a copy of the object.
 
 ```java
-public interface Prototype {
-    Prototype clone();
+public interface ShapePrototype {
+    ShapePrototype clone();
 }
 ```
 #### II. Concrete Prototype Classes
-Create a class named `Shape` that implements the `Prototype `interface. Implement the clone method to create and return a new instance of `Shape` with the same property values.
+Create a class named `Shape` that implements the `ShapePrototype` interface. Implement the `clone` method to create and return a new instance of `Shape` with the same property values.
 
 **Shape Class**
 ```java
-class Shape implements Prototype {
+class Shape implements ShapePrototype {
     private int dimension;
     private String color;
 
@@ -594,35 +600,65 @@ class Shape implements Prototype {
     public String getColor() {
         return color;
     }
+
+    @Override
+    public String toString() {
+        return "Shape - Dimension: " + dimension + ", Color: " + color;
+    }
 }
 ```
 
-#### III. The Client Code
-Create an instance of Shape and use it as the original prototype. Call the clone method on the original prototype to create a cloned instance. Modify the cloned instance and print its details, ensuring that the original instance remains unchanged.
+#### III. PrototypeRegistry Class
+The `PrototypeRegistry` class is responsible for storing a collection of prototype objects. This allows the client to retrieve and clone these prototypes as needed.
+
+```java
+import java.util.HashMap;
+import java.util.Map;
+
+class PrototypeRegistry {
+    private Map<String, ShapePrototype> prototypes = new HashMap<>();
+
+    public void registerPrototype(String key, ShapePrototype prototype) {
+        prototypes.put(key, prototype);
+    }
+
+    public ShapePrototype getPrototype(String key) {
+        return prototypes.get(key).clone();
+    }
+}
+
+```
+
+#### IV. The Client Code
+Create an instance of `Shape` and register it in the `PrototypeRegistry`. Retrieve and clone the prototype from the registry, modify the cloned instance, and print its details, ensuring that the original instance remains unchanged.
 
 ```java
 public class PrototypePattern {
     public static void main(String[] args) {
-        Shape originalShape = new Shape(5, "Red");
-        System.out.println("Original Shape - Dimension: " + originalShape.getDimension() + ", Color: " + originalShape.getColor());
+        PrototypeRegistry registry = new PrototypeRegistry();
 
-        Shape clonedShape = originalShape.clone();
-        System.out.println("Cloned Shape - Dimension: " + clonedShape.getDimension() + ", Color: " + clonedShape.getColor());
+        Shape originalShape = new Shape(5, "Red");
+        registry.registerPrototype("RedShape", originalShape);
+
+        System.out.println("Original: " + originalShape);
+
+        Shape clonedShape = (Shape) registry.getPrototype("RedShape");
+        System.out.println("Cloned: " + clonedShape);
 
         clonedShape = new Shape(10, "Blue");
-        System.out.println("Modified Cloned Shape - Dimension: " + clonedShape.getDimension() + ", Color: " + clonedShape.getColor());
-        
-        System.out.println("Unchanged Original Shape - Dimension: " + originalShape.getDimension() + ", Color: " + originalShape.getColor());
+        System.out.println("Modified Cloned: " + clonedShape);
+
+        System.out.println("Unchanged Original: " + originalShape);
     }
 }
 ```
 
 **Output**
 ```css
-Original Shape - Dimension: 5, Color: Red
-Cloned Shape - Dimension: 5, Color: Red
-Modified Cloned Shape - Dimension: 10, Color: Blue
-Unchanged Original Shape - Dimension: 5, Color: Red
+Original: Shape - Dimension: 5, Color: Red
+Cloned: Shape - Dimension: 5, Color: Red
+Modified Cloned: Shape - Dimension: 10, Color: Blue
+Unchanged Original: Shape - Dimension: 5, Color: Red
 ```
 
 ## 2.2 Observer Design Pattern
