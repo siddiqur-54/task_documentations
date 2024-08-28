@@ -580,9 +580,7 @@ The Prototype design pattern is a creational design pattern used when the cost o
 
 - ii. **Concrete Prototype:** The Concrete Prototype is a class that implements the prototype interface or extends the abstract class. It’s the class representing a specific type of object that you want to clone.
 
-- iii. **Client:** The Client is the code or module that requests the creation of new objects by interacting with the prototype.
-
-- iv. **Clone Method:** The Clone Method is declared in the prototype interface or abstract class. It specifies how an object should be copied or cloned. It Describes how the object’s internal state should be duplicated to create a new, independent instance.
+- iii. **Clone Method:** The Clone Method is declared in the prototype interface or abstract class. It specifies how an object should be copied or cloned. It Describes how the object’s internal state should be duplicated to create a new, independent instance.
 
 ### Steps to Implement the Protoype Design Pattern
 
@@ -590,9 +588,10 @@ The Prototype design pattern is a creational design pattern used when the cost o
 We define an interface called `Shape` that acts as the prototype.It declares two methods: `clone()` for making a copy of itself and `draw()` for drawing the shape.
 
 ```java
-public interface Shape {
+interface Shape {
     Shape clone();
     void draw();
+    void setColor(String color);
 }
 ```
 
@@ -600,7 +599,7 @@ public interface Shape {
 We implement the `Shape` interface with a concrete class `Circle`. The Circle class has a private field color and a constructor to set the color when creating a circle. It implements the clone() method to create a copy of itself (a new Circle with the same color).
 
 ```java
-public class Circle implements Shape {
+class Circle implements Shape {
     private String color;
  
     public Circle(String color) {
@@ -613,10 +612,11 @@ public class Circle implements Shape {
     }
  
     @Override
-    public String draw() {
-        return "Drawing a " + color + " circle.";
+    public void draw() {
+        System.out.println("Drawing a " + color + " circle.");
     }
 
+    @Override
     public void setColor(String color) {
         this.color = color;
     }
@@ -683,6 +683,184 @@ i. **Shallow vs Deep Copy:** In scenarios where objects contain references to ot
 ii. **Managing Object State:** If an object has an internal state that should not be shared across clones, careful management of the object state is necessary to ensure that each clone maintains its integrity.
 
 iii. **Compatibility with Serialization:** If you need to clone objects that are serializable, you might encounter challenges related to object serialization and deserialization.
+
+**Shallow Copy**
+```java
+interface Shape {
+    Shape clone();
+    void draw();
+    Color getColor();
+}
+
+class Color {
+    private String name;
+    
+    public Color(String name) {
+        this.name = name;
+    }
+    
+    public String getName() {
+        return name;
+    }
+    
+    public void setName(String name) {
+        this.name = name;
+    }
+}
+
+class Circle implements Shape {
+    private Color color;
+ 
+    public Circle(Color color) {
+        this.color = color;
+    }
+ 
+    @Override
+    public Shape clone() {
+        return new Circle(this.color);
+    }
+ 
+    @Override
+    public void draw() {
+        System.out.println("Drawing a " + color.getName() + " circle.");
+    }
+
+    @Override
+    public Color getColor() {
+        return color;
+    }
+    
+    public void setColor(Color color) {
+        this.color = color;
+    }
+}
+
+public class PrototypeShallow {
+    public static void main(String[] args) {
+        Color red = new Color("red");
+        Shape circlePrototype = new Circle(red);
+        Shape clonedCircle = circlePrototype.clone();
+        
+        System.out.println("Original prototype:");
+        circlePrototype.draw();
+        
+        System.out.println("Cloned circle:");
+        clonedCircle.draw();
+        
+        clonedCircle.getColor().setName("blue");
+        
+        System.out.println("Modified cloned circle:");
+        clonedCircle.draw();
+        
+        System.out.println("Original prototype after modifying the cloned object:");
+        circlePrototype.draw();
+    }
+}
+```
+
+**Output**
+```css
+Original prototype:
+Drawing a red circle.
+Cloned circle:
+Drawing a red circle.
+Modified cloned circle:
+Drawing a blue circle.
+Original prototype after modifying the cloned object:
+Drawing a blue circle.
+```
+
+**Deep Copy**
+```java
+interface Shape {
+    Shape clone();
+    void draw();
+}
+
+class Color {
+    private String name;
+    
+    public Color(String name) {
+        this.name = name;
+    }
+    
+    public String getName() {
+        return name;
+    }
+    
+    public void setName(String name) {
+        this.name = name;
+    }
+    
+    public Color(Color other) {
+        this.name = other.name;
+    }
+}
+
+class Circle implements Shape {
+    private Color color;
+ 
+    public Circle(Color color) {
+        this.color = color;
+    }
+ 
+    public Circle(Circle other) {
+        this.color = new Color(other.color);
+    }
+ 
+    @Override
+    public Shape clone() {
+        return new Circle(this);
+    }
+ 
+    @Override
+    public void draw() {
+        System.out.println("Drawing a " + color.getName() + " circle.");
+    }
+
+    public Color getColor() {
+        return color;
+    }
+    
+    public void setColor(Color color) {
+        this.color = color;
+    }
+}
+
+public class PrototypeDeep {
+    public static void main(String[] args) {
+        Color red = new Color("red");
+        Shape circlePrototype = new Circle(red);
+        Shape clonedCircle = circlePrototype.clone();
+        
+        System.out.println("Original prototype:");
+        circlePrototype.draw();
+        
+        System.out.println("Cloned circle:");
+        clonedCircle.draw();
+        
+        ((Circle) clonedCircle).getColor().setName("blue");
+        
+        System.out.println("Modified cloned circle:");
+        clonedCircle.draw();
+        
+        System.out.println("Original prototype after modifying the cloned object:");
+        circlePrototype.draw();
+    }
+}
+```
+
+**Output**
+```css
+Original prototype:
+Drawing a red circle.
+Cloned circle:
+Drawing a red circle.
+Modified cloned circle:
+Drawing a blue circle.
+Original prototype after modifying the cloned object:
+Drawing a red circle.
+```
 
 ## 2.2 Observer Design Pattern
 
