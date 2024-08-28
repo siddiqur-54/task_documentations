@@ -1136,7 +1136,7 @@ iii. **Providing high-level views:** Facades offer simplified interfaces to lowe
 
 iv. **Integrating multiple APIs:** A facade can combine multiple APIs into a single interface, streamlining interactions and reducing code duplication.
 
-### Pros and Cons of the Prototype Pattern
+### Pros and Cons of the Facade Pattern
 ### Pros
 i. **Simplified Interface:** Provides a clear and concise interface to a complex system, making it easier to understand and use. Hides the internal details and intricacies of the system, reducing cognitive load for clients.
 
