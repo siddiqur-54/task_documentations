@@ -591,7 +591,6 @@ We define an interface called `Shape` that acts as the prototype.It declares two
 interface Shape {
     Shape clone();
     void draw();
-    void setColor(String color);
 }
 ```
 
@@ -616,7 +615,6 @@ class Circle implements Shape {
         System.out.println("Drawing a " + color + " circle.");
     }
 
-    @Override
     public void setColor(String color) {
         this.color = color;
     }
@@ -630,18 +628,18 @@ An instance of `Circle` is created with the color "red". This instance serves as
 public class PrototypePattern {
     public static void main(String[] args) {
         Shape circlePrototype = new Circle("red");
-        Shape redCircle = circlePrototype.clone();
+        Shape clonedCircle = circlePrototype.clone();
         
         System.out.println("Original prototype:");
         circlePrototype.draw();
         
         System.out.println("Cloned circle:");
-        redCircle.draw();
+        clonedCircle.draw();
         
-        redCircle.setColor("blue");
+        ((Circle)clonedCircle).setColor("blue");
         
         System.out.println("Modified cloned circle:");
-        redCircle.draw();
+        clonedCircle.draw();
         
         System.out.println("Original prototype after cloning and modifying:");
         circlePrototype.draw();
@@ -689,7 +687,6 @@ iii. **Compatibility with Serialization:** If you need to clone objects that are
 interface Shape {
     Shape clone();
     void draw();
-    Color getColor();
 }
 
 class Color {
@@ -725,7 +722,6 @@ class Circle implements Shape {
         System.out.println("Drawing a " + color.getName() + " circle.");
     }
 
-    @Override
     public Color getColor() {
         return color;
     }
@@ -747,7 +743,7 @@ public class PrototypeShallow {
         System.out.println("Cloned circle:");
         clonedCircle.draw();
         
-        clonedCircle.getColor().setName("blue");
+        ((Circle)clonedCircle).getColor().setName("blue");
         
         System.out.println("Modified cloned circle:");
         clonedCircle.draw();
@@ -839,7 +835,7 @@ public class PrototypeDeep {
         System.out.println("Cloned circle:");
         clonedCircle.draw();
         
-        ((Circle) clonedCircle).getColor().setName("blue");
+        ((Circle)clonedCircle).getColor().setName("blue");
         
         System.out.println("Modified cloned circle:");
         clonedCircle.draw();
@@ -1038,6 +1034,17 @@ iv. **Memory Leaks:** If observers are not properly removed from the subject whe
 ## 2.3 Facade Design Pattern
 The Facade Design Pattern provides a simplified interface to a complex system of classes, libraries, or frameworks. This pattern is particularly useful when dealing with complex systems where clients require a simplified interface to interact with the system's core functionality.
 
+### Component of Facade Method Design Pattern
+
+i. **Facade**
+- Facade knows which subsystem classes are responsible for a request.
+- It delegate client requests to appropriate subsystem objects.
+
+ii. **Subsystem classes**
+- It implement subsystem functionality.
+- It handle work assigned by the Facade object.
+- It have no knowledge of the facade; that is, they keep no references to it.
+
 ### Steps to Implement the Facade Design Pattern
 #### I. Define the Subsystem Classes
 Each of the subsystem classes (`Memory`, `HardDrive`, `CPU`) handles a specific part of the system's functionality.
@@ -1116,3 +1123,30 @@ Memory: Loading data at position 0
 CPU: Jumping to position 0
 CPU: Executing instructions.
 ComputerFacade: Computer has started.
+```
+
+### When to use Facade Method Design Pattern
+
+i. **Simplifying Complex External Systems:** A facade encapsulates database connection, query execution, and result processing, offering a clean interface to the application.
+A facade simplifies the usage of external APIs by hiding the complexities of authentication, request formatting, and response parsing.
+
+ii. **Decoupling subsystems:** Facades define clear boundaries between subsystems, reducing dependencies and promoting modularity.
+
+iii. **Providing high-level views:** Facades offer simplified interfaces to lower-level subsystems, making them easier to understand and use.
+
+iv. **Integrating multiple APIs:** A facade can combine multiple APIs into a single interface, streamlining interactions and reducing code duplication.
+
+### Pros and Cons of the Prototype Pattern
+### Pros
+i. **Simplified Interface:** Provides a clear and concise interface to a complex system, making it easier to understand and use. Hides the internal details and intricacies of the system, reducing cognitive load for clients.
+
+ii. **Reduced Coupling:** Decouples clients from the underlying system, making them less dependent on its internal structure. Promotes modularity and reusability of code components. Facilitates independent development and testing of different parts of the system.
+
+iii. **Improved Maintainability:** Easier to change or extend the underlying system without affecting clients, as long as the facade interface remains consistent. Allows for refactoring and optimization of the subsystem without impacting client code.
+
+### Cons
+i. **Increased Complexity:** Introducing a facade layer adds an extra abstraction level, potentially increasing the overall complexity of the system. This can make the code harder to understand and debug, especially for developers unfamiliar with the pattern.
+
+ii. **Reduced Flexibility:** The facade acts as a single point of access to the underlying system. This can limit the flexibility for clients who need to bypass the facade or access specific functionalities hidden within the subsystem.
+
+iii. **Potential Performance Overhead:** Adding an extra layer of indirection through the facade can introduce a slight performance overhead, especially for frequently used operations. This may not be significant for most applications, but it’s worth considering in performance-critical scenarios.
