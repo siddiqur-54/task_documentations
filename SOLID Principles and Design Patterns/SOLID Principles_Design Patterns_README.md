@@ -584,10 +584,9 @@ iii. **ConcreteSubject:** `ConcreteSubjects` are specific implementations of the
 
 iv. **ConcreteObserver:** `ConcreteObserver` implements the `observer` interface. They register with a concrete subject and react when notified of a state change.
 
-### Implementation of the Observer Design Pattern
-
 ![Observer Pattern Diagram](https://github.com/siddiqur-54/task_documentations/blob/main/images/Solid%20Principles%20and%20Design%20Patterns/observer_diagram.png)
 
+### Implementation of the Observer Design Pattern
 
 #### i. Subject
 - The `Subject` interface outlines the operations a subject (`WeatherStation`) should support.
@@ -762,9 +761,9 @@ The Prototype design pattern is a creational design pattern used when the cost o
 
 - iv.  **Client:** The `Client` is the code or module that requests the creation of new objects by interacting with the prototype. It initiates the cloning process without being aware of the concrete classes involved.
 
-### Implementation of the Protoype Design Pattern
-
 ![Prototype Pattern Diagram](https://github.com/siddiqur-54/task_documentations/blob/main/images/Solid%20Principles%20and%20Design%20Patterns/prototype_diagram.png)
+
+### Implementation of the Protoype Design Pattern
 
 #### i. Prototype Interface (Shape)
 We define an interface called `Shape` that acts as the prototype. It declares two methods: `clone()` for making a copy of itself and `draw()` for drawing the shape.
@@ -1045,11 +1044,7 @@ iii. **Compatibility with Serialization:** If you need to clone objects that are
 ## 2.3 Facade Design Pattern
 The Facade Design Pattern provides a simplified interface to a complex system of classes, libraries, or frameworks. This pattern is particularly useful when dealing with complex systems where clients require a simplified interface to interact with the system's core functionality.
 
-![Facade Pattern Diagram](https://github.com/siddiqur-54/task_documentations/blob/main/images/Solid%20Principles%20and%20Design%20Patterns/facade_pattern.jpg)
-
-
 ### Component of Facade Method Design Pattern
-
 
 i. **Subsystem classes**
 - It implement subsystem functionality.
@@ -1060,7 +1055,10 @@ ii. **Facade**
 - Facade knows which subsystem classes are responsible for a request.
 - It delegate client requests to appropriate subsystem objects.
 
+![Facade Pattern Diagram](https://github.com/siddiqur-54/task_documentations/blob/main/images/Solid%20Principles%20and%20Design%20Patterns/facade_pattern.jpg)
+
 ### Implementation of the Facade Design Pattern
+
 #### I. Define the Subsystem Classes
 Each of the subsystem classes (`Memory`, `HardDrive`, `CPU`) handles a specific part of the system's functionality.
 
