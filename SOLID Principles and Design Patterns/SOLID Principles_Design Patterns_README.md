@@ -725,7 +725,7 @@ iii. **Change Propagation:** When changes in the state of one object should auto
 
 iv. **Dynamic Composition:** If you need to support dynamic composition of objects with runtime registration and deregistration of observers, the Observer pattern is suitable. New observers can be added or existing ones removed without modifying the subject.
 
-### Pros and Cons of the Prototype Pattern
+### Pros and Cons of the Observer Design Pattern
 
 ### Pros
 
@@ -842,7 +842,8 @@ ii. **Variations of Objects:** Use the Prototype pattern when your system needs 
 
 iii. **Reducing Initialization Overhead:** Use the Prototype pattern when you want to reduce the overhead of initializing an object. Creating a clone can be faster than creating an object from scratch, especially when the initialization process is resource-intensive.
 
-### Pros and Cons of the Prototype Pattern
+### Pros and Cons of the Prototype Design Pattern
+
 ### Pros
 i. **Easy Object Cloning:** The pattern enables you to create new objects by copying existing ones, which promotes code reuse. This is especially beneficial when objects have complex or resource-intensive initialization processes.
 
@@ -1138,7 +1139,7 @@ CPU: Executing instructions.
 ComputerFacade: Computer has started.
 ```
 
-### When to use Facade Method Design Pattern
+### When to use Facade Design Pattern
 
 i. **Simplifying Complex External Systems:** A facade encapsulates database connection, query execution, and result processing, offering a clean interface to the application.
 A facade simplifies the usage of external APIs by hiding the complexities of authentication, request formatting, and response parsing.
@@ -1149,7 +1150,7 @@ iii. **Providing high-level views:** Facades offer simplified interfaces to lowe
 
 iv. **Integrating multiple APIs:** A facade can combine multiple APIs into a single interface, streamlining interactions and reducing code duplication.
 
-### Pros and Cons of the Facade Pattern
+### Pros and Cons of the Facade Design Pattern
 ### Pros
 i. **Simplified Interface:** Provides a clear and concise interface to a complex system, making it easier to understand and use. Hides the internal details and intricacies of the system, reducing cognitive load for clients.
 
