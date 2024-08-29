@@ -8,8 +8,8 @@
 - 1.5 [D: Dependency Inversion Principle (DIP)](#15-d-dependency-inversion-principle-dip)
 
 ## 2. Design Patterns
-- 2.1 [Prototype Design Pattern](#21-prototype-design-pattern)
-- 2.2 [Observer Design Pattern](#22-observer-design-pattern)
+- 2.1 [Observer Design Pattern](#21-observer-design-pattern)
+- 2.2 [Prototype Design Pattern](#22-prototype-design-pattern)
 - 2.3 [Facade Design Pattern](#23-facade-design-pattern)
 
 
@@ -571,310 +571,26 @@ Design patterns are reusable solutions to common problems in software design. Th
 
 **Flexibility:** Patterns are abstract solutions that can be adapted to fit various contexts and requirements.
 
-## 2.1 Prototype Design Pattern
-The Prototype design pattern is a creational design pattern used when the cost of creating a new object is high, and you need to create multiple instances of objects that are identical or similar to each other. Instead of creating new objects from scratch, the Prototype pattern allows you to clone existing objects.
-
-### Components of Prototype Design Pattern
-
-- i. **Prototype Interface:** The Prototype Interface or Abstract Class declares the method(s) for cloning an object. It defines the common interface that concrete prototypes must implement.
-
-- ii. **Concrete Prototype:** The Concrete Prototype is a class that implements the prototype interface or extends the abstract class. It’s the class representing a specific type of object that you want to clone.
-
-- iii. **Clone Method:** The Clone Method is declared in the prototype interface or abstract class. It specifies how an object should be copied or cloned. It Describes how the object’s internal state should be duplicated to create a new, independent instance.
-
-### Steps to Implement the Protoype Design Pattern
-
-#### i. Prototype Interface (Shape)
-We define an interface called `Shape` that acts as the prototype.It declares two methods: `clone()` for making a copy of itself and `draw()` for drawing the shape.
-
-```java
-interface Shape {
-    Shape clone();
-    void draw();
-}
-```
-
-#### ii. Concrete Prototype (Circle)
-We implement the `Shape` interface with a concrete class `Circle`. The Circle class has a private field color and a constructor to set the color when creating a circle. It implements the clone() method to create a copy of itself (a new Circle with the same color).
-
-```java
-class Circle implements Shape {
-    private String color;
- 
-    public Circle(String color) {
-        this.color = color;
-    }
- 
-    @Override
-    public Shape clone() {
-        return new Circle(this.color);
-    }
- 
-    @Override
-    public void draw() {
-        System.out.println("Drawing a " + color + " circle.");
-    }
-
-    public void setColor(String color) {
-        this.color = color;
-    }
-}
-```
-
-#### iii. The Client Code
-An instance of `Circle` is created with the color "red". This instance serves as the prototype for creating new Circle objects. The `clone()` method of the circlePrototype is called to create a new Circle instance with the same color as the prototype ("red").
-
-```java
-public class PrototypePattern {
-    public static void main(String[] args) {
-        Shape circlePrototype = new Circle("red");
-        Shape clonedCircle = circlePrototype.clone();
-        
-        System.out.println("Original prototype:");
-        circlePrototype.draw();
-        
-        System.out.println("Cloned circle:");
-        clonedCircle.draw();
-        
-        ((Circle)clonedCircle).setColor("blue");
-        
-        System.out.println("Modified cloned circle:");
-        clonedCircle.draw();
-        
-        System.out.println("Original prototype after cloning and modifying:");
-        circlePrototype.draw();
-    }
-}
-```
-
-**Output**
-```css
-Original prototype:
-Drawing a red circle.
-Cloned circle:
-Drawing a red circle.
-Modified cloned circle:
-Drawing a blue circle.
-Original prototype after cloning and modifying:
-Drawing a red circle.
-```
-
-#### When to use the Prototype Design Pattern
-
-i. **Creating Objects is Costly:** Use the Prototype pattern when creating objects is more expensive or complex than copying existing ones. If object creation involves significant resources, such as database or network calls.
-
-ii. **Variations of Objects:** Use the Prototype pattern when your system needs to support a variety of objects with slight variations. Instead of creating multiple classes for each variation, you can create prototypes and clone them with modifications.
-
-iii. **Dynamic Configuration:** Use the Prototype pattern when your system requires dynamic configuration and you want to create objects with configurations at runtime.
-
-### Pros and Cons of the Prototype Pattern
-### Pros
-i. **Easy Object Cloning:** The pattern enables you to create new objects by copying existing ones, which promotes code reuse. This is especially beneficial when objects have complex or resource-intensive initialization processes.
-
-ii. **Reduced Initialization Overhead:** Since objects are cloned instead of being created from scratch, it can significantly reduce the overhead associated with expensive object initialization.
-
-iii. **Individual Customization:** Cloned objects can be easily customized to suit specific requirements while retaining the common characteristics of the prototype. This allows for flexibility in object creation.
-
-### Cons
-i. **Shallow vs Deep Copy:** In scenarios where objects contain references to other objects (e.g., nested objects), cloning might result in shallow copies by default. This means that changes to the nested objects in a cloned object can affect the original object and vice versa. Deep copying may be required, which can be complex to implement.
-
-ii. **Managing Object State:** If an object has an internal state that should not be shared across clones, careful management of the object state is necessary to ensure that each clone maintains its integrity.
-
-iii. **Compatibility with Serialization:** If you need to clone objects that are serializable, you might encounter challenges related to object serialization and deserialization.
-
-**Shallow Copy**
-```java
-interface Shape {
-    Shape clone();
-    void draw();
-}
-
-class Color {
-    private String name;
-    
-    public Color(String name) {
-        this.name = name;
-    }
-    
-    public String getName() {
-        return name;
-    }
-    
-    public void setName(String name) {
-        this.name = name;
-    }
-}
-
-class Circle implements Shape {
-    private Color color;
- 
-    public Circle(Color color) {
-        this.color = color;
-    }
- 
-    @Override
-    public Shape clone() {
-        return new Circle(this.color);
-    }
- 
-    @Override
-    public void draw() {
-        System.out.println("Drawing a " + color.getName() + " circle.");
-    }
-
-    public Color getColor() {
-        return color;
-    }
-    
-    public void setColor(Color color) {
-        this.color = color;
-    }
-}
-
-public class PrototypeShallow {
-    public static void main(String[] args) {
-        Color red = new Color("red");
-        Shape circlePrototype = new Circle(red);
-        Shape clonedCircle = circlePrototype.clone();
-        
-        System.out.println("Original prototype:");
-        circlePrototype.draw();
-        
-        System.out.println("Cloned circle:");
-        clonedCircle.draw();
-        
-        ((Circle)clonedCircle).getColor().setName("blue");
-        
-        System.out.println("Modified cloned circle:");
-        clonedCircle.draw();
-        
-        System.out.println("Original prototype after modifying the cloned object:");
-        circlePrototype.draw();
-    }
-}
-```
-
-**Output**
-```css
-Original prototype:
-Drawing a red circle.
-Cloned circle:
-Drawing a red circle.
-Modified cloned circle:
-Drawing a blue circle.
-Original prototype after modifying the cloned object:
-Drawing a blue circle.
-```
-
-**Deep Copy**
-```java
-interface Shape {
-    Shape clone();
-    void draw();
-}
-
-class Color {
-    private String name;
-    
-    public Color(String name) {
-        this.name = name;
-    }
-    
-    public String getName() {
-        return name;
-    }
-    
-    public void setName(String name) {
-        this.name = name;
-    }
-    
-    public Color(Color other) {
-        this.name = other.name;
-    }
-}
-
-class Circle implements Shape {
-    private Color color;
- 
-    public Circle(Color color) {
-        this.color = color;
-    }
- 
-    public Circle(Circle other) {
-        this.color = new Color(other.color);
-    }
- 
-    @Override
-    public Shape clone() {
-        return new Circle(this);
-    }
- 
-    @Override
-    public void draw() {
-        System.out.println("Drawing a " + color.getName() + " circle.");
-    }
-
-    public Color getColor() {
-        return color;
-    }
-    
-    public void setColor(Color color) {
-        this.color = color;
-    }
-}
-
-public class PrototypeDeep {
-    public static void main(String[] args) {
-        Color red = new Color("red");
-        Shape circlePrototype = new Circle(red);
-        Shape clonedCircle = circlePrototype.clone();
-        
-        System.out.println("Original prototype:");
-        circlePrototype.draw();
-        
-        System.out.println("Cloned circle:");
-        clonedCircle.draw();
-        
-        ((Circle)clonedCircle).getColor().setName("blue");
-        
-        System.out.println("Modified cloned circle:");
-        clonedCircle.draw();
-        
-        System.out.println("Original prototype after modifying the cloned object:");
-        circlePrototype.draw();
-    }
-}
-```
-
-**Output**
-```css
-Original prototype:
-Drawing a red circle.
-Cloned circle:
-Drawing a red circle.
-Modified cloned circle:
-Drawing a blue circle.
-Original prototype after modifying the cloned object:
-Drawing a red circle.
-```
-
-## 2.2 Observer Design Pattern
+## 2.1 Observer Design Pattern
 
 The Observer design pattern is a behavioral design pattern that allows one object (the subject) to notify other objects (the observers) about changes in its state. This pattern is useful for scenarios where changes in one object should trigger updates in other dependent objects.
 
 ### Components of Observer Design Pattern
-i. **Subject:** The subject maintains a list of observers (subscribers or listeners). It Provides methods to register and unregister observers dynamically and defines a method to notify observers of changes in its state.
+i. **Subject:** The `subject` maintains a list of `observers` (subscribers or listeners). It Provides methods to register and unregister observers dynamically and defines a method to notify observers of changes in its state.
 
-ii. **Observer:** Observer defines an interface with an update method that concrete observers must implement and ensures a common or consistent way for concrete observers to receive updates from the subject.
+ii. **Observer:** `Observer` defines an interface with an update method that concrete observers must implement and ensures a common or consistent way for concrete observers to receive updates from the subject.
 
-iii. **ConcreteSubject:** ConcreteSubjects are specific implementations of the subject. They hold the actual state or data that observers want to track. When this state changes, concrete subjects notify their observers.
+iii. **ConcreteSubject:** `ConcreteSubjects` are specific implementations of the `Subject`. They hold the actual state or data that observers want to track. When this state changes, concrete subjects notify their observers.
 
-iv. **ConcreteObserver:** Concrete Observer implements the observer interface. They register with a concrete subject and react when notified of a state change.
+iv. **ConcreteObserver:** `ConcreteObserver` implements the `observer` interface. They register with a concrete subject and react when notified of a state change.
 
-### Steps to Implement the Observer Design Pattern
+### Implementation of the Observer Design Pattern
+
+![Observer Pattern Diagram](https://github.com/siddiqur-54/task_documentations/blob/main/images/Solid%20Principles%20and%20Design%20Patterns/observer_diagram.png)
+
 
 #### i. Subject
-- The `Subject` interface outlines the operations a subject should support.
+- The `Subject` interface outlines the operations a subject (`WeatherStation`) should support.
 - `addObserver` and `removeObserver` are for managing the list of observers.
 - `notifyObservers` is for informing observers about changes.
 
@@ -887,7 +603,7 @@ public interface Subject {
 ```
 
 #### ii. Observer
-- The `Observer` interface defines a contract for objects that want to be notified about changes in the subject.
+- The `Observer` interface defines a contract for objects that want to be notified about changes in the subject (`WeatherStation`).
 - It includes a method `update` that concrete observers must implement to receive and handle updates.
 
 ```java
@@ -898,7 +614,6 @@ public interface Observer {
 
 #### iii. ConcreteSubject(WeatherStation)
 - `WeatherStation` is the concrete subject implementing the `Subject` interface.
-It maintains a list of observers and provides methods to manage this list.
 - `notifyObservers` iterates through the observers and calls their `update` method, passing the current weather.
 - `setWeather` method updates the weather and notifies observers of the change.
 
@@ -1007,7 +722,9 @@ i. **One-to-Many Dependence:** Use the Observer pattern when there is a one-to-m
 
 ii. **Decoupling:** Use the Observer pattern to achieve loose coupling between objects. This allows the subject (publisher) and observers (subscribers) to interact without being aware of each other’s specific details.
 
-iii. **Dynamic Composition:** If you need to support dynamic composition of objects with runtime registration and deregistration of observers, the Observer pattern is suitable. New observers can be added or existing ones removed without modifying the subject.
+iii. **Change Propagation:** When changes in the state of one object should automatically trigger updates in other objects, the Observer pattern is beneficial.
+
+iv. **Dynamic Composition:** If you need to support dynamic composition of objects with runtime registration and deregistration of observers, the Observer pattern is suitable. New observers can be added or existing ones removed without modifying the subject.
 
 ### Pros and Cons of the Prototype Pattern
 
@@ -1030,22 +747,320 @@ ii. **Unexpected Updates:** Observers may receive updates unexpectedly, which co
 iii. **Complex Debugging:** Because observers are updated automatically, it can be difficult to trace the flow of updates and understand how changes propagate through the system, leading to potential difficulties in debugging.
    
 iv. **Memory Leaks:** If observers are not properly removed from the subject when they are no longer needed, it can lead to memory leaks, as the subject may keep references to unused observers.
-   
+
+
+## 2.2 Prototype Design Pattern
+The Prototype design pattern is a creational design pattern used when the cost of creating a new object is high, and you need to create multiple instances of objects that are identical or similar to each other. Instead of creating new objects from scratch, the Prototype pattern allows you to clone existing objects.
+
+### Components of Prototype Design Pattern
+
+- i. **Prototype Interface:** The `Prototype` interface declares the method(s) for cloning an object. It defines the common interface that concrete prototypes must implement.
+
+- ii. **Concrete Prototype:** The `Concrete Prototype` is a class that implements the prototype interface or extends the abstract class. It’s the class representing a specific type of object that you want to clone.
+
+- iii. **Clone Method:** The `clone` method specifies how an object should be copied or cloned. It Describes how the object’s internal state should be duplicated to create a new, independent instance.
+
+- iv.  **Client:** The `Client` is the code or module that requests the creation of new objects by interacting with the prototype. It initiates the cloning process without being aware of the concrete classes involved.
+
+### Implementation of the Protoype Design Pattern
+
+![Prototype Pattern Diagram](https://github.com/siddiqur-54/task_documentations/blob/main/images/Solid%20Principles%20and%20Design%20Patterns/prototype_diagram.png)
+
+#### i. Prototype Interface (Shape)
+We define an interface called `Shape` that acts as the prototype. It declares two methods: `clone()` for making a copy of itself and `draw()` for drawing the shape.
+
+```java
+interface Shape {
+    Shape clone();
+    void draw();
+}
+```
+
+#### ii. Concrete Prototype (Circle)
+We implement the `Shape` interface with a concrete class `Circle`. The Circle class has a private field color and a constructor to set the `color` when creating a circle. It implements the `clone()` method to create a copy of itself (a new Circle with the same color).
+
+```java
+public class Circle implements Shape {
+    private String color;
+ 
+    public Circle(String color) {
+        this.color = color;
+    }
+ 
+    @Override
+    public Shape clone() {
+        return new Circle(this.color);
+    }
+ 
+    @Override
+    public void draw() {
+        System.out.println("Drawing a " + color + " circle.");
+    }
+}
+```
+
+#### iii. The Client (ShapeClient)
+We create a client class, `ShapeClient`, which will use the prototype to create new shapes. The client has a field `shapePrototype` representing the prototype it will use. The constructor takes a Shape prototype, and there’s a method `createShape()` that creates a new shape using the prototype’s `clone()` method.
+
+```java
+class ShapeClient {
+    private Shape shapePrototype;
+
+    public ShapeClient(Shape shapePrototype) {
+        this.shapePrototype = shapePrototype;
+    }
+
+    public Shape createShape() {
+        return shapePrototype.clone();
+    }
+}
+```
+
+#### iv. The Driver Code
+We create a `Circle` object as a prototype with the color `red`. A `ShapeClient` is then set up with this prototype to clone and create a new Circle object. Finally, the newly created circle is drawn, demonstrating the efficient replication of objects based on a prototype.
+
+```java
+public class PrototypePattern {
+    public static void main(String[] args) {
+        Shape circlePrototype = new Circle("red");
+        ShapeClient client = new ShapeClient(circlePrototype);
+        Shape redCircle = client.createShape();
+        redCircle.draw();
+    }
+}
+```
+
+**Output**
+```css
+Drawing a red circle.
+```
+
+#### When to use the Prototype Design Pattern
+
+i. **Creating Objects is Costly:** Use the Prototype pattern when creating objects is more expensive or complex than copying existing ones. If object creation involves significant resources, such as database or network calls.
+
+ii. **Variations of Objects:** Use the Prototype pattern when your system needs to support a variety of objects with slight variations. Instead of creating multiple classes for each variation, you can create prototypes and clone them with modifications.
+
+iii. **Reducing Initialization Overhead:** Use the Prototype pattern when you want to reduce the overhead of initializing an object. Creating a clone can be faster than creating an object from scratch, especially when the initialization process is resource-intensive.
+
+### Pros and Cons of the Prototype Pattern
+### Pros
+i. **Easy Object Cloning:** The pattern enables you to create new objects by copying existing ones, which promotes code reuse. This is especially beneficial when objects have complex or resource-intensive initialization processes.
+
+ii. **Reduced Initialization Overhead:** Since objects are cloned instead of being created from scratch, it can significantly reduce the overhead associated with expensive object initialization.
+
+iii. **Individual Customization:** Cloned objects can be easily customized to suit specific requirements while retaining the common characteristics of the prototype. This allows for flexibility in object creation.
+
+### Cons
+i. **Shallow vs Deep Copy:** In scenarios where objects contain references to other objects (e.g., nested objects), cloning might result in shallow copies by default. This means that changes to the nested objects in a cloned object can affect the original object and vice versa. Deep copying may be required, which can be complex to implement.
+
+<details>
+<summary><b>Example of Shallow Copy</b></summary>
+
+```java
+interface Shape {
+    Shape clone();
+    void draw();
+}
+
+class Color {
+    private String name;
+    
+    public Color(String name) {
+        this.name = name;
+    }
+    
+    public String getName() {
+        return name;
+    }
+    
+    public void setName(String name) {
+        this.name = name;
+    }
+}
+
+class Circle implements Shape {
+    private Color color;
+ 
+    public Circle(Color color) {
+        this.color = color;
+    }
+ 
+    @Override
+    public Shape clone() {
+        return new Circle(this.color);
+    }
+ 
+    @Override
+    public void draw() {
+        System.out.println("Drawing a " + color.getName() + " circle.");
+    }
+
+    public Color getColor() {
+        return color;
+    }
+    
+    public void setColor(Color color) {
+        this.color = color;
+    }
+}
+
+public class PrototypeShallow {
+    public static void main(String[] args) {
+        Color red = new Color("red");
+        Shape circlePrototype = new Circle(red);
+        Shape clonedCircle = circlePrototype.clone();
+        
+        System.out.println("Original prototype:");
+        circlePrototype.draw();
+        
+        System.out.println("Cloned circle:");
+        clonedCircle.draw();
+        
+        ((Circle)clonedCircle).getColor().setName("blue");
+        
+        System.out.println("Modified cloned circle:");
+        clonedCircle.draw();
+        
+        System.out.println("Original prototype after modifying the cloned object:");
+        circlePrototype.draw();
+    }
+}
+```
+
+**Output**
+```css
+Original prototype:
+Drawing a red circle.
+Cloned circle:
+Drawing a red circle.
+Modified cloned circle:
+Drawing a blue circle.
+Original prototype after modifying the cloned object:
+Drawing a blue circle.
+```
+</details>
+
+<details>
+<summary><b>Example of Deep Copy</b></summary>
+
+```java
+interface Shape {
+    Shape clone();
+    void draw();
+}
+
+class Color {
+    private String name;
+    
+    public Color(String name) {
+        this.name = name;
+    }
+    
+    public String getName() {
+        return name;
+    }
+    
+    public void setName(String name) {
+        this.name = name;
+    }
+    
+    public Color(Color other) {
+        this.name = other.name;
+    }
+}
+
+class Circle implements Shape {
+    private Color color;
+ 
+    public Circle(Color color) {
+        this.color = color;
+    }
+ 
+    public Circle(Circle other) {
+        this.color = new Color(other.color);
+    }
+ 
+    @Override
+    public Shape clone() {
+        return new Circle(this);
+    }
+ 
+    @Override
+    public void draw() {
+        System.out.println("Drawing a " + color.getName() + " circle.");
+    }
+
+    public Color getColor() {
+        return color;
+    }
+    
+    public void setColor(Color color) {
+        this.color = color;
+    }
+}
+
+public class PrototypeDeep {
+    public static void main(String[] args) {
+        Color red = new Color("red");
+        Shape circlePrototype = new Circle(red);
+        Shape clonedCircle = circlePrototype.clone();
+        
+        System.out.println("Original prototype:");
+        circlePrototype.draw();
+        
+        System.out.println("Cloned circle:");
+        clonedCircle.draw();
+        
+        ((Circle)clonedCircle).getColor().setName("blue");
+        
+        System.out.println("Modified cloned circle:");
+        clonedCircle.draw();
+        
+        System.out.println("Original prototype after modifying the cloned object:");
+        circlePrototype.draw();
+    }
+}
+```
+
+**Output**
+```css
+Original prototype:
+Drawing a red circle.
+Cloned circle:
+Drawing a red circle.
+Modified cloned circle:
+Drawing a blue circle.
+Original prototype after modifying the cloned object:
+Drawing a red circle.
+```
+</details>
+</br>
+
+ii. **Managing Object State:** If an object has an internal state that should not be shared across clones, careful management of the object state is necessary to ensure that each clone maintains its integrity.
+
+iii. **Compatibility with Serialization:** If you need to clone objects that are serializable, you might encounter challenges related to object serialization and deserialization.
+
+
 ## 2.3 Facade Design Pattern
 The Facade Design Pattern provides a simplified interface to a complex system of classes, libraries, or frameworks. This pattern is particularly useful when dealing with complex systems where clients require a simplified interface to interact with the system's core functionality.
 
+![Facade Pattern Diagram](https://github.com/siddiqur-54/task_documentations/blob/main/images/Solid%20Principles%20and%20Design%20Patterns/facade_pattern.jpg)
+
+
 ### Component of Facade Method Design Pattern
 
-i. **Facade**
-- Facade knows which subsystem classes are responsible for a request.
-- It delegate client requests to appropriate subsystem objects.
 
-ii. **Subsystem classes**
+i. **Subsystem classes**
 - It implement subsystem functionality.
 - It handle work assigned by the Facade object.
 - It have no knowledge of the facade; that is, they keep no references to it.
 
-### Steps to Implement the Facade Design Pattern
+ii. **Facade**
+- Facade knows which subsystem classes are responsible for a request.
+- It delegate client requests to appropriate subsystem objects.
+
+### Implementation of the Facade Design Pattern
 #### I. Define the Subsystem Classes
 Each of the subsystem classes (`Memory`, `HardDrive`, `CPU`) handles a specific part of the system's functionality.
 
