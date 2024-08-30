@@ -1121,13 +1121,13 @@ The Facade Design Pattern provides a simplified interface to a complex system of
 ### Component of Facade Method Design Pattern
 
 i. **Subsystem classes**
-- It implement subsystem functionality.
-- It handle work assigned by the Facade object.
-- It have no knowledge of the facade; that is, they keep no references to it.
+Subsystem Classes are responsible for implementing the core functionality of the subsystem. They handle the specific tasks assigned to them by the Facade object. These classes operate independently of the Facade; they do not maintain any references to it. This separation ensures that subsystem classes remain unaware of the Facade and its higher-level operations, promoting loose coupling and modularity.
 
 ii. **Facade**
-- Facade knows which subsystem classes are responsible for a request.
-- It delegate client requests to appropriate subsystem objects.
+Facade serves as an intermediary between the client and the subsystem classes. It is aware of the various subsystem classes and understands which ones are needed to fulfill a request. The Facade delegates client requests to the appropriate subsystem objects, thereby simplifying the client's interaction with the system. This central point of access streamlines client operations and abstracts the complexities of the underlying subsystem.
+
+iii. **Client**
+Client is the entity that interacts with the Facade to request operations. By communicating solely with the Facade, the client avoids dealing directly with the complex subsystem classes, which enhances ease of use and reduces potential errors. The client benefits from a simplified interface while the Facade manages the complexity of coordinating subsystem interactions.
 
 ![Facade Pattern Diagram](https://github.com/siddiqur-54/task_documentations/blob/main/images/Solid%20Principles%20and%20Design%20Patterns/facade_pattern.jpg)
 
