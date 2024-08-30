@@ -20,10 +20,13 @@
 - Opposite of tight coupling is loose coupling and your code is considered as a good code when it has loosely-coupled classes.
 - Loosely coupled classes minimize changes in your code, helps in making code more reusable, maintainable, flexible and stable.
 ## 1.1 S: Single Responsibility Principle (SRP)
+🔼 [Back to Top](#table-of-contents)
 
 > A class should have a single reason to change, meaning it should be focused on one specific task or responsibility.
 
-By ensuring that a class is dedicated to a single responsibility, it becomes simpler, more focused, and easier to manage. This also makes the class more reusable and maintainable.
+- Ensuring that a class is dedicated to a single responsibility makes it simpler and more focused.
+- A class with a single responsibility is easier to manage, understand, and modify.
+- Classes become more reusable and maintainable as they are not burdened with multiple unrelated tasks.
 
 ### Example of Not Maintaining SRP
 
@@ -59,7 +62,13 @@ User authenticated successfully.
 Profile of user 'user123' updated with new information: New Profile Info
 ```
 
-This class violates the SRP because it has multiple responsibilities: authentication and profile management.
+**Issues:**
+
+- **Multiple Responsibilities:** The `UserManager` class violates the SRP because it handles more than one responsibility: authentication and profile management.
+
+- **Difficult Maintenance:** Modifying or extending any of the responsibilities (authentication or profile management) requires changes to the UserManager class, making it harder to maintain.
+
+- **Low Reusability:** Since the `UserManager` class handles multiple tasks, it is less reusable in other parts of the system where only one of the tasks is needed.
 
 ### Example of Maintaining SRP
 
@@ -100,11 +109,21 @@ User authenticated successfully.
 Profile of user 'user123' updated with new information: New Profile Info
 ```
 
+**Issues Solved:**
+
+- **Single Responsibility:** Each class now has a single responsibility: `AuthenticationManager` handles user authentication, and `UserProfileManager` handles user profile management.
+
+- **Improved Maintainability:** Modifying or extending the authentication process or profile management can be done independently, without affecting other parts of the code.
+
+- **Higher Reusability:** The `AuthenticationManager` and `UserProfileManager` classes can be reused independently in different parts of the system where only one of the functionalities is needed.
+
 ## 1.2 O: Open/Closed Principle (OCP)
+🔼 [Back to Top](#table-of-contents)
 
 > Software entities such as classes, modules, and functions should be open to extension but closed to modification.
 
-This principle encourages designing software in a way that allows adding new features or behavior without altering the existing code. This approach helps minimize the risk of introducing bugs or errors when enhancing functionality.
+- The principle encourages designing software so that new features or behaviors can be added without altering existing code.
+- By avoiding changes to existing code, the risk of introducing bugs or errors when enhancing functionality is reduced.
 
 ### Example of Not Maintaining OCP
 
@@ -171,12 +190,15 @@ public class ShapeCalculator {
 Rectangle Area: 35.0
 Circle Area: 28.274333882308138
 ```
+**Issues**
 
-In this design, adding support for a new shape, such as a triangle, would require modifying the existing method calculateArea. This violates the Open/Closed Principle because the existing code must be changed to introduce new functionality.
+- **Fragile Code:** Modifying the `calculateArea` method to add new shapes increases the risk of introducing errors or breaking existing functionality.
+
+- **Poor Extensibility:** The design does not support easy extension. Every time a new shape is introduced, the `ShapeCalculator` class must be modified, making it difficult to maintain and extend.
 
 ### Example of Maintaining OCP
 
-To comply with the OCP, we can refactor the code by creating an abstract base class or interface for shapes and then implementing specific shape classes. This way, new shapes can be added without changing the existing code.
+To comply with the OCP, we can refactor the code by creating an abstract base class or interface for shapes and then implementing specific shape classes.
 
 ```java
 abstract class Shape {
@@ -229,11 +251,18 @@ Rectangle Area: 35.0
 Circle Area: 28.274333882308138
 ```
 
+**Issues Solved:**
+
+- **Robustness:** The design is more robust, as it minimizes the risk of breaking existing functionality when adding new features.
+
+- **Improved Extensibility:** The code is easily extendable. Adding new shapes is straightforward and does not require changes to existing classes, making the system more maintainable.
+
 ## 1.3 L: Liskov Substitution Principle (LSP)
+🔼 [Back to Top](#table-of-contents)
 
 > Objects of a superclass should be replaceable with objects of its subclasses without affecting the correctness of the program.
 
-This principle ensures that if you have a base class and one or more derived classes, instances of the derived classes should be able to replace instances of the base class without causing issues or altering the expected behavior of the program.
+- This principle ensures that if you have a base class and one or more derived classes, instances of the derived classes should be able to replace instances of the base class without causing issues or altering the expected behavior of the program.
 
 ### Example of Not Maintaining LSP
 
@@ -284,7 +313,11 @@ Car engine started.
 Error: Bicycles do not have engines.
 ```
 
-In this example, the Bicycle class violates the Liskov Substitution Principle because it provides an implementation for the startEngine method that doesn’t apply to bicycles. If you replace a Vehicle instance with a Bicycle instance, it could lead to errors or unexpected behavior since a bicycle doesn’t have an engine.
+**Issues**
+
+- **Unexpected Behavior:** Replacing a `Vehicle` instance with a `Bicycle` instance can lead to errors or unexpected behavior, as bicycles do not have engines.
+
+- **Fragile Code:** The design is fragile and prone to errors, as the base class (`Vehicle`) assumes that all vehicles have an engine, which is not true for bicycles.
 
 ### Example of Maintaining LSP
 
@@ -327,15 +360,23 @@ Car engine started.
 Bicycle is ready to ride.
 ```
 
+**Issues Solved:**
+
+- **Behavioral Consistency:** Replacing a `Vehicle` instance with any of its subclasses (`Car` or `Bicycle`) will not cause errors or unexpected behavior.
+
+- **Robust and Flexible Design:** The code is more robust and flexible, as it allows for the correct behavior of each vehicle type while maintaining consistency in how the start method is used.
+
 ## 1.4 I: Interface Segregation Principle (ISP)
+🔼 [Back to Top](#table-of-contents)
 
 > No client should be forced to depend on interfaces they don't use.
 
-The Interface Segregation Principle (ISP) aims to prevent the creation of "fat" or "bloated" interfaces that include methods irrelevant to all implementing classes. By breaking down interfaces into smaller, more specific ones, each client only needs to interact with the methods it actually requires. This approach promotes loose coupling and enhances code organization.
+- The ISP aims to prevent the creation of `fat` or `bloated` interfaces that include methods irrelevant to all implementing classes.
+- By breaking down interfaces into smaller, more specific ones, each client only needs to interact with the methods it actually requires. This approach promotes loose coupling and improves code organization.
 
 ### Example of Not Maintaining ISP
 
-Consider a media player application that handles different types of media files, such as audio files (MP3, WAV) and video files (MP4, AVI).
+Consider the following design where a `MediaPlayer` interface handles different types of media files, such as audio and video files.
 
 ```java
 interface MediaPlayer {
@@ -383,11 +424,15 @@ Playing audio file: song.mp3
 Error: AudioPlayer cannot play video.
 ```
 
-In this scenario, any class that implements the MediaPlayer interface would be required to implement all methods, even if some are irrelevant to its functionality. For instance, an audio player would have to provide implementations for playVideo and adjustVideoBrightness, which are not applicable to audio playback.
+**Issues**
+
+- **Unnecessary Methods:** The `MediaPlayer` interface includes methods that not all implementing classes need, leading to `fat` interfaces.
+
+- **Potential Errors:** Implementing irrelevant methods can lead to errors or unhandled exceptions, as seen in the example where the `AudioPlayer` cannot play videos.
 
 ### Example of Maintaining ISP
 
-To adhere to the ISP, we can break the large interface into smaller, more focused interfaces:
+To adhere to the ISP, we can break the large interface into smaller, more focused interfaces.
 
 ```java
 interface AudioPlayer {
@@ -461,16 +506,24 @@ Playing video file: documentary.mp4
 Adjusting video brightness to level: 10
 ```
 
+**Issues Solved:**
+
+- **No Unnecessary Methods:** Classes only implement the methods they actually use, avoiding the need to handle irrelevant methods.
+
+- **Flexible and Maintainable Design:** The code is more flexible and maintainable, allowing different types of media players to implement only the relevant interfaces without being burdened by unnecessary methods.
+
 ## 1.5 D: Dependency Inversion Principle (DIP)
+🔼 [Back to Top](#table-of-contents)
 
 > High-level modules should not depend on low-level modules; both should depend on abstractions.
 
-The Dependency Inversion Principle (DIP) asserts that high-level components of a system should not be directly dependent on low-level components. Instead, both should rely on abstractions (e.g., interfaces). This approach minimizes the coupling between different parts of the system and enhances code reusability and flexibility.
+- The Dependency Inversion Principle (DIP) asserts that high-level components of a system should rely on abstractions (e.g., interfaces) rather than directly on low-level components.
+- This approach minimizes coupling between different parts of the system.
+- It enhances code reusability and flexibility by allowing easy replacement of low-level components without affecting high-level components.
 
 ### Example of Not Maintaining DIP
 
-Consider a scenario where we have an `EmailService` class responsible for sending emails using a specific email provider, such as Gmail.
-
+Consider a scenario where we have an `EmailService` class responsible for sending emails by directly depends on a `GmailClient` class.
 ```java
 class GmailClient {
     public void sendEmail(String recipient, String message) {
@@ -503,11 +556,14 @@ public class EmailServiceTest {
 Sending email to test@example.com via Gmail: Hello!
 ```
 
-In this design, the EmailService class directly depends on the GmailClient class, which is a low-level module. This tight coupling makes it difficult to change the email provider or add new ones without modifying the EmailService class.
+**Issues**
+- **Tight Coupling:** The EmailService class is tightly coupled with the GmailClient class. If you want to switch to a different email provider, such as Outlook, you need to modify the EmailService class.
+- **Limited Flexibility:** The current design restricts the ability to add or switch email providers without altering the EmailService class.
+- **Difficulty in Testing:** Testing the EmailService class in isolation becomes harder since it directly depends on the concrete GmailClient class.
 
 ### Example of Maintaining DIP
 
-To follow the Dependency Inversion Principle, we should introduce an abstraction (interface) for email clients and have the EmailService class depend on this abstraction. Then, specific implementations of email clients can depend on the abstraction.
+we can introduce an abstraction for email clients (`EmailClient`)  and have the EmailService class depend on this abstraction.
 
 ```java
 interface EmailClient {
@@ -559,6 +615,13 @@ Sending email to example@gmail.com via Gmail: Hello!
 Sending email to example@outlook.com via Outlook: Hello!
 ```
 
+**Issues Solved:**
+- **Reduced Coupling:** The EmailService class now depends on the EmailClient interface rather than on a specific implementation.
+- **Increased Flexibility:** You can easily switch to different email providers by creating new classes that implement the EmailClient interface without changing the EmailService class.
+- **Easier Testing:** The EmailService class can now be easily tested by passing in a mock implementation of the EmailClient interface, making unit tests more straightforward.
+- **Better Maintainability:** The code is easier to maintain and extend, as changes in low-level implementations do not require modifications in the high-level modules.
+
+
 # 2. Design Patterns
 Design patterns are reusable solutions to common problems in software design. They represent best practices used by experienced object-oriented software developers. Design patterns provide a standard terminology and are specific to particular scenarios.
 
@@ -572,6 +635,7 @@ Design patterns are reusable solutions to common problems in software design. Th
 **Flexibility:** Patterns are abstract solutions that can be adapted to fit various contexts and requirements.
 
 ## 2.1 Observer Design Pattern
+🔼 [Back to Top](#table-of-contents)
 
 The Observer design pattern is a behavioral design pattern that allows one object (the subject) to notify other objects (the observers) about changes in its state. This pattern is useful for scenarios where changes in one object should trigger updates in other dependent objects.
 
@@ -749,6 +813,8 @@ iv. **Memory Leaks:** If observers are not properly removed from the subject whe
 
 
 ## 2.2 Prototype Design Pattern
+🔼 [Back to Top](#table-of-contents)
+
 The Prototype design pattern is a creational design pattern used when the cost of creating a new object is high, and you need to create multiple instances of objects that are identical or similar to each other. Instead of creating new objects from scratch, the Prototype pattern allows you to clone existing objects.
 
 ### Components of Prototype Design Pattern
@@ -1043,6 +1109,8 @@ iii. **Compatibility with Serialization:** If you need to clone objects that are
 
 
 ## 2.3 Facade Design Pattern
+🔼 [Back to Top](#table-of-contents)
+
 The Facade Design Pattern provides a simplified interface to a complex system of classes, libraries, or frameworks. This pattern is particularly useful when dealing with complex systems where clients require a simplified interface to interact with the system's core functionality.
 
 ### Component of Facade Method Design Pattern
