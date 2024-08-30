@@ -1118,7 +1118,7 @@ iii. **Compatibility with Serialization:** If you need to clone objects that are
 
 The Facade Design Pattern provides a simplified interface to a complex system of classes, libraries, or frameworks. This pattern is particularly useful when dealing with complex systems where clients require a simplified interface to interact with the system's core functionality.
 
-### Component of Facade Method Design Pattern
+### Components of Facade Method Design Pattern
 
 i. **Subsystem classes**
 Subsystem Classes are responsible for implementing the core functionality of the subsystem. They handle the specific tasks assigned to them by the Facade object. These classes operate independently of the Facade; they do not maintain any references to it. This separation ensures that subsystem classes remain unaware of the Facade and its higher-level operations, promoting loose coupling and modularity.
