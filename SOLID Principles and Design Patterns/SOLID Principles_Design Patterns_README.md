@@ -790,9 +790,12 @@ i. **One-to-Many Dependence:** Use the Observer pattern when there is a one-to-m
 
 ii. **Decoupling:** Use the Observer pattern to achieve loose coupling between objects. This allows the subject (publisher) and observers (subscribers) to interact without being aware of each other’s specific details.
 
-iii. **Change Propagation:** When changes in the state of one object should automatically trigger updates in other objects, the Observer pattern is beneficial.
+iii. **Dynamic Composition:** If you need to support dynamic composition of objects with runtime registration and deregistration of observers, the Observer pattern is suitable. New observers can be added or existing ones removed without modifying the subject.
 
-iv. **Dynamic Composition:** If you need to support dynamic composition of objects with runtime registration and deregistration of observers, the Observer pattern is suitable. New observers can be added or existing ones removed without modifying the subject.
+iv. **Real-World Project Implementations:**
+- Real-Time Notifications System
+- Stock Market Application
+- Weather Monitoring System
 
 ### Pros and Cons of the Observer Design Pattern
 
@@ -912,6 +915,11 @@ i. **Creating Objects is Costly:** Use the Prototype pattern when creating objec
 ii. **Variations of Objects:** Use the Prototype pattern when your system needs to support a variety of objects with slight variations. Instead of creating multiple classes for each variation, you can create prototypes and clone them with modifications.
 
 iii. **Reducing Initialization Overhead:** Use the Prototype pattern when you want to reduce the overhead of initializing an object. Creating a clone can be faster than creating an object from scratch, especially when the initialization process is resource-intensive.
+
+iv. **Real-World Project Implementations:**
+- Document Management Systems
+- Game Development
+- Data Caching Systems
 
 ### Pros and Cons of the Prototype Design Pattern
 
@@ -1221,7 +1229,10 @@ ii. **Decoupling subsystems:** Facades define clear boundaries between subsystem
 
 iii. **Providing high-level views:** Facades offer simplified interfaces to lower-level subsystems, making them easier to understand and use.
 
-iv. **Integrating multiple APIs:** A facade can combine multiple APIs into a single interface, streamlining interactions and reducing code duplication.
+iv. **Real-World Project Implementations:**
+- Banking System
+- Automation System
+- E-commerce Platform
 
 ### Pros and Cons of the Facade Design Pattern
 ### Pros
