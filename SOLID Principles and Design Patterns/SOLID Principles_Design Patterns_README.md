@@ -663,7 +663,7 @@ iv. **ConcreteObserver:** `ConcreteObserver` implements the `observer` interface
 - `notifyObservers` is for informing observers about changes.
 
 ```java
-public interface Subject {
+interface Subject {
     void addObserver(Observer observer);
     void removeObserver(Observer observer);
     void notifyObservers();
@@ -675,7 +675,7 @@ public interface Subject {
 - It includes a method `update` that concrete observers must implement to receive and handle updates.
 
 ```java
-public interface Observer {
+interface Observer {
     void update(String weather);
 }
 ```
@@ -689,7 +689,7 @@ public interface Observer {
 import java.util.ArrayList;
 import java.util.List;
 
-public class WeatherStation implements Subject {
+class WeatherStation implements Subject {
     private List<Observer> observers = new ArrayList<>();
     private String weather;
 
@@ -723,7 +723,7 @@ public class WeatherStation implements Subject {
 - The `update` method sets the new weather and calls the `display` method.
 
 ```java
-public class PhoneDisplay implements Observer {
+class PhoneDisplay implements Observer {
     private String weather;
 
     @Override
