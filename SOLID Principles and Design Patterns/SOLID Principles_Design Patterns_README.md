@@ -983,7 +983,7 @@ interface Shape {
 We implement the `Shape` interface with a concrete class `Circle`. The Circle class has a private field color and a constructor to set the `color` when creating a circle. It implements the `clone()` method to create a copy of itself (a new Circle with the same color).
 
 ```java
-public class Circle implements Shape {
+class Circle implements Shape {
     private String color;
  
     public Circle(String color) {
