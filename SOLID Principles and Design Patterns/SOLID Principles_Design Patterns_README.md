@@ -557,13 +557,16 @@ Sending email to test@example.com via Gmail: Hello!
 ```
 
 **Issues**
-- **Tight Coupling:** The EmailService class is tightly coupled with the GmailClient class. If you want to switch to a different email provider, such as Outlook, you need to modify the EmailService class.
-- **Limited Flexibility:** The current design restricts the ability to add or switch email providers without altering the EmailService class.
-- **Difficulty in Testing:** Testing the EmailService class in isolation becomes harder since it directly depends on the concrete GmailClient class.
+
+- **Tight Coupling:** The `EmailService` class is tightly coupled with the `GmailClient` class. If you want to switch to a different email provider, such as Outlook, you need to modify the `EmailService` class.
+
+- **Limited Flexibility:** The current design restricts the ability to add or switch email providers without altering the `EmailService` class.
+
+- **Difficulty in Testing:** Testing the `EmailService` class in isolation becomes harder since it directly depends on the concrete `GmailClient` class.
 
 ### Example of Maintaining DIP
 
-we can introduce an abstraction for email clients (`EmailClient`)  and have the EmailService class depend on this abstraction.
+we can introduce an abstraction for email clients (`EmailClient`)  and have the `EmailService` class depend on this abstraction.
 
 ```java
 interface EmailClient {
@@ -600,26 +603,28 @@ public class EmailServiceTest {
     public static void main(String[] args) {
         EmailClient gmailClient = new GmailClient();
         EmailService emailService = new EmailService(gmailClient);
-        emailService.sendEmail("example@gmail.com", "Hello!");
+        emailService.sendEmail("test1@example.com", "Hello!");
 
         EmailClient outlookClient = new OutlookClient();
         emailService = new EmailService(outlookClient);
-        emailService.sendEmail("example@outlook.com", "Hello!");
+        emailService.sendEmail("test2@example.com", "Hello!");
     }
 }
 ```
 
 **Output**
 ```css
-Sending email to example@gmail.com via Gmail: Hello!
-Sending email to example@outlook.com via Outlook: Hello!
+Sending email to test1@example.com via Gmail: Hello!
+Sending email to test2@example.com via Outlook: Hello!
 ```
 
 **Issues Solved:**
-- **Reduced Coupling:** The EmailService class now depends on the EmailClient interface rather than on a specific implementation.
-- **Increased Flexibility:** You can easily switch to different email providers by creating new classes that implement the EmailClient interface without changing the EmailService class.
-- **Easier Testing:** The EmailService class can now be easily tested by passing in a mock implementation of the EmailClient interface, making unit tests more straightforward.
-- **Better Maintainability:** The code is easier to maintain and extend, as changes in low-level implementations do not require modifications in the high-level modules.
+
+- **Reduced Coupling:** The `EmailService` class now depends on the `EmailClient` interface rather than on a specific implementation.
+
+- **Increased Flexibility:** You can easily switch to different email providers by creating new classes that implement the `EmailClient` interface without changing the `EmailService` class.
+
+- **Easier Testing:** The `EmailService` class can now be easily tested by passing in a mock implementation of the `EmailClient` interface, making unit tests more straightforward.
 
 
 # 2. Design Patterns
@@ -637,7 +642,7 @@ Design patterns are reusable solutions to common problems in software design. Th
 ## 2.1 Observer Design Pattern
 🔼 [Back to Top](#table-of-contents)
 
-The Observer design pattern is a behavioral design pattern that allows one object (the subject) to notify other objects (the observers) about changes in its state. This pattern is useful for scenarios where changes in one object should trigger updates in other dependent objects.
+The Observer design pattern is a behavioral design pattern that allows one object (the `subject`) to notify other objects (the `observers`) about changes in its state. This pattern is useful for scenarios where changes in one object should trigger updates in other dependent objects.
 
 ### Components of Observer Design Pattern
 i. **Subject:** The `subject` maintains a list of `observers` (subscribers or listeners). It Provides methods to register and unregister observers dynamically and defines a method to notify observers of changes in its state.
