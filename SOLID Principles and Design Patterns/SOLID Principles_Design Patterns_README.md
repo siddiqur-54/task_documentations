@@ -9,8 +9,8 @@
 
 ## 2. Design Patterns
 - 2.1 [Observer Design Pattern](#21-observer-design-pattern)
-- 2.2 [Prototype Design Pattern](#22-prototype-design-pattern)
-- 2.3 [Facade Design Pattern](#23-facade-design-pattern)
+- 2.2 [Facade Design Pattern](#22-facade-design-pattern)
+- 2.3 [Prototype Design Pattern](#23-prototype-design-pattern)
 
 
 # 1. SOLID Principles
@@ -820,7 +820,137 @@ iii. **Complex Debugging:** Because observers are updated automatically, it can 
 iv. **Memory Leaks:** If observers are not properly removed from the subject when they are no longer needed, it can lead to memory leaks, as the subject may keep references to unused observers.
 
 
-## 2.2 Prototype Design Pattern
+## 2.2 Facade Design Pattern
+🔼 [Back to Top](#table-of-contents)
+
+The Facade Design Pattern provides a simplified interface to a complex system of classes, libraries, or frameworks. This pattern is particularly useful when dealing with complex systems where clients require a simplified interface to interact with the system's core functionality.
+
+### Components of Facade Method Design Pattern
+
+i. **Subsystem classes**
+Subsystem Classes are responsible for implementing the core functionality of the subsystem. They handle the specific tasks assigned to them by the Facade object. These classes operate independently of the Facade; they do not maintain any references to it. This separation ensures that subsystem classes remain unaware of the Facade and its higher-level operations, promoting loose coupling and modularity.
+
+ii. **Facade**
+Facade serves as an intermediary between the client and the subsystem classes. It is aware of the various subsystem classes and understands which ones are needed to fulfill a request. The Facade delegates client requests to the appropriate subsystem objects, thereby simplifying the client's interaction with the system. This central point of access streamlines client operations and abstracts the complexities of the underlying subsystem.
+
+iii. **Client**
+Client is the entity that interacts with the Facade to request operations. By communicating solely with the Facade, the client avoids dealing directly with the complex subsystem classes, which enhances ease of use and reduces potential errors. The client benefits from a simplified interface while the Facade manages the complexity of coordinating subsystem interactions.
+
+![Facade Pattern Diagram](https://github.com/siddiqur-54/task_documentations/blob/main/images/Solid%20Principles%20and%20Design%20Patterns/facade_pattern.jpg)
+
+### Implementation of the Facade Design Pattern
+
+#### I. Define the Subsystem Classes
+Each of the subsystem classes (`Memory`, `HardDrive`, `CPU`) handles a specific part of the system's functionality.
+
+**Memory Class**
+```java
+class Memory {
+    public void load(long position, byte[] data) {
+        System.out.println("Memory: Loading data at position " + position);
+    }
+}
+```
+
+**HardDrive Class**
+```java
+class HardDrive {
+    public byte[] read(long lba, int size) {
+        System.out.println("HardDrive: Reading data from sector " + lba + " with size " + size);
+        return new byte[size];
+    }
+}
+```
+
+**CPU Class**
+```java
+class CPU {
+    public void freeze() { System.out.println("CPU: Freezing processor."); }
+    public void jump(long position) { System.out.println("CPU: Jumping to position " + position); }
+    public void execute() { System.out.println("CPU: Executing instructions."); }
+}
+```
+
+#### II. Create the Facade Class
+The `ComputerFacade` class provides a simplified interface to interact with the subsystem classes.
+```java
+class ComputerFacade {
+    private CPU cpu;
+    private Memory memory;
+    private HardDrive hardDrive;
+
+    public ComputerFacade() {
+        this.cpu = new CPU();
+        this.memory = new Memory();
+        this.hardDrive = new HardDrive();
+    }
+
+    public void start() {
+        System.out.println("ComputerFacade: Starting the computer...");
+        cpu.freeze();
+        memory.load(0, hardDrive.read(0, 1024));
+        cpu.jump(0);
+        cpu.execute();
+        System.out.println("ComputerFacade: Computer has started.");
+    }
+}
+```
+
+#### IV. The Client Code
+The client interacts with the system through the `ComputerFacade` without needing to understand the underlying subsystem classes.
+
+```java
+public class FacadePattern {
+    public static void main(String[] args) {
+        ComputerFacade computer = new ComputerFacade();
+        computer.start();
+    }
+}
+```
+
+**Output**
+```css
+ComputerFacade: Starting the computer...
+CPU: Freezing processor.
+HardDrive: Reading data from sector 0 with size 1024
+Memory: Loading data at position 0
+CPU: Jumping to position 0
+CPU: Executing instructions.
+ComputerFacade: Computer has started.
+```
+
+### When to use Facade Design Pattern
+
+i. **Simplifying Complex External Systems:** A facade encapsulates database connection, query execution, and result processing, offering a clean interface to the application.
+A facade simplifies the usage of external APIs by hiding the complexities of authentication, request formatting, and response parsing.
+
+ii. **Decoupling subsystems:** Facades define clear boundaries between subsystems, reducing dependencies and promoting modularity.
+
+iii. **Providing high-level views:** Facades offer simplified interfaces to lower-level subsystems, making them easier to understand and use.
+
+iv. **Real-World Project Implementations:**
+- Banking System
+- Automation System
+- E-commerce Platform
+
+### Pros and Cons of the Facade Design Pattern
+### Pros
+i. **Simplified Interface:** Provides a clear and concise interface to a complex system, making it easier to understand and use. Hides the internal details and intricacies of the system, reducing cognitive load for clients.
+
+ii. **Reduced Coupling:** Decouples clients from the underlying system, making them less dependent on its internal structure. Promotes modularity and reusability of code components. Facilitates independent development and testing of different parts of the system.
+
+iii. **Improved Maintainability:** Easier to change or extend the underlying system without affecting clients, as long as the facade interface remains consistent. Allows for refactoring and optimization of the subsystem without impacting client code.
+
+### Cons
+i. **Increased Complexity:** Introducing a facade layer adds an extra abstraction level, potentially increasing the overall complexity of the system. This can make the code harder to understand and debug, especially for developers unfamiliar with the pattern.
+
+ii. **Reduced Flexibility:** The facade acts as a single point of access to the underlying system. This can limit the flexibility for clients who need to bypass the facade or access specific functionalities hidden within the subsystem.
+
+iii. **Potential Performance Overhead:** Adding an extra layer of indirection through the facade can introduce a slight performance overhead, especially for frequently used operations. This may not be significant for most applications, but it’s worth considering in performance-critical scenarios.
+
+
+
+## 2.3 Prototype Design Pattern
 🔼 [Back to Top](#table-of-contents)
 
 The Prototype design pattern is a creational design pattern used when the cost of creating a new object is high, and you need to create multiple instances of objects that are identical or similar to each other. Instead of creating new objects from scratch, the Prototype pattern allows you to clone existing objects.
@@ -1119,132 +1249,3 @@ Drawing a red circle.
 ii. **Managing Object State:** If an object has an internal state that should not be shared across clones, careful management of the object state is necessary to ensure that each clone maintains its integrity.
 
 iii. **Compatibility with Serialization:** If you need to clone objects that are serializable, you might encounter challenges related to object serialization and deserialization.
-
-
-## 2.3 Facade Design Pattern
-🔼 [Back to Top](#table-of-contents)
-
-The Facade Design Pattern provides a simplified interface to a complex system of classes, libraries, or frameworks. This pattern is particularly useful when dealing with complex systems where clients require a simplified interface to interact with the system's core functionality.
-
-### Components of Facade Method Design Pattern
-
-i. **Subsystem classes**
-Subsystem Classes are responsible for implementing the core functionality of the subsystem. They handle the specific tasks assigned to them by the Facade object. These classes operate independently of the Facade; they do not maintain any references to it. This separation ensures that subsystem classes remain unaware of the Facade and its higher-level operations, promoting loose coupling and modularity.
-
-ii. **Facade**
-Facade serves as an intermediary between the client and the subsystem classes. It is aware of the various subsystem classes and understands which ones are needed to fulfill a request. The Facade delegates client requests to the appropriate subsystem objects, thereby simplifying the client's interaction with the system. This central point of access streamlines client operations and abstracts the complexities of the underlying subsystem.
-
-iii. **Client**
-Client is the entity that interacts with the Facade to request operations. By communicating solely with the Facade, the client avoids dealing directly with the complex subsystem classes, which enhances ease of use and reduces potential errors. The client benefits from a simplified interface while the Facade manages the complexity of coordinating subsystem interactions.
-
-![Facade Pattern Diagram](https://github.com/siddiqur-54/task_documentations/blob/main/images/Solid%20Principles%20and%20Design%20Patterns/facade_pattern.jpg)
-
-### Implementation of the Facade Design Pattern
-
-#### I. Define the Subsystem Classes
-Each of the subsystem classes (`Memory`, `HardDrive`, `CPU`) handles a specific part of the system's functionality.
-
-**Memory Class**
-```java
-class Memory {
-    public void load(long position, byte[] data) {
-        System.out.println("Memory: Loading data at position " + position);
-    }
-}
-```
-
-**HardDrive Class**
-```java
-class HardDrive {
-    public byte[] read(long lba, int size) {
-        System.out.println("HardDrive: Reading data from sector " + lba + " with size " + size);
-        return new byte[size];
-    }
-}
-```
-
-**CPU Class**
-```java
-class CPU {
-    public void freeze() { System.out.println("CPU: Freezing processor."); }
-    public void jump(long position) { System.out.println("CPU: Jumping to position " + position); }
-    public void execute() { System.out.println("CPU: Executing instructions."); }
-}
-```
-
-#### II. Create the Facade Class
-The `ComputerFacade` class provides a simplified interface to interact with the subsystem classes.
-```java
-class ComputerFacade {
-    private CPU cpu;
-    private Memory memory;
-    private HardDrive hardDrive;
-
-    public ComputerFacade() {
-        this.cpu = new CPU();
-        this.memory = new Memory();
-        this.hardDrive = new HardDrive();
-    }
-
-    public void start() {
-        System.out.println("ComputerFacade: Starting the computer...");
-        cpu.freeze();
-        memory.load(0, hardDrive.read(0, 1024));
-        cpu.jump(0);
-        cpu.execute();
-        System.out.println("ComputerFacade: Computer has started.");
-    }
-}
-```
-
-#### IV. The Client Code
-The client interacts with the system through the `ComputerFacade` without needing to understand the underlying subsystem classes.
-
-```java
-public class FacadePattern {
-    public static void main(String[] args) {
-        ComputerFacade computer = new ComputerFacade();
-        computer.start();
-    }
-}
-```
-
-**Output**
-```css
-ComputerFacade: Starting the computer...
-CPU: Freezing processor.
-HardDrive: Reading data from sector 0 with size 1024
-Memory: Loading data at position 0
-CPU: Jumping to position 0
-CPU: Executing instructions.
-ComputerFacade: Computer has started.
-```
-
-### When to use Facade Design Pattern
-
-i. **Simplifying Complex External Systems:** A facade encapsulates database connection, query execution, and result processing, offering a clean interface to the application.
-A facade simplifies the usage of external APIs by hiding the complexities of authentication, request formatting, and response parsing.
-
-ii. **Decoupling subsystems:** Facades define clear boundaries between subsystems, reducing dependencies and promoting modularity.
-
-iii. **Providing high-level views:** Facades offer simplified interfaces to lower-level subsystems, making them easier to understand and use.
-
-iv. **Real-World Project Implementations:**
-- Banking System
-- Automation System
-- E-commerce Platform
-
-### Pros and Cons of the Facade Design Pattern
-### Pros
-i. **Simplified Interface:** Provides a clear and concise interface to a complex system, making it easier to understand and use. Hides the internal details and intricacies of the system, reducing cognitive load for clients.
-
-ii. **Reduced Coupling:** Decouples clients from the underlying system, making them less dependent on its internal structure. Promotes modularity and reusability of code components. Facilitates independent development and testing of different parts of the system.
-
-iii. **Improved Maintainability:** Easier to change or extend the underlying system without affecting clients, as long as the facade interface remains consistent. Allows for refactoring and optimization of the subsystem without impacting client code.
-
-### Cons
-i. **Increased Complexity:** Introducing a facade layer adds an extra abstraction level, potentially increasing the overall complexity of the system. This can make the code harder to understand and debug, especially for developers unfamiliar with the pattern.
-
-ii. **Reduced Flexibility:** The facade acts as a single point of access to the underlying system. This can limit the flexibility for clients who need to bypass the facade or access specific functionalities hidden within the subsystem.
-
-iii. **Potential Performance Overhead:** Adding an extra layer of indirection through the facade can introduce a slight performance overhead, especially for frequently used operations. This may not be significant for most applications, but it’s worth considering in performance-critical scenarios.
