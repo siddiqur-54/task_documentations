@@ -146,69 +146,78 @@ In the `Employees` table:
 - `{Department}` in the `Employees` table references `Department ID` in the `Departments` table. It ensures that each department in the `Employees` table matches an existing department in the `Departments` table.
 
 
-### Functional Dependencies
-A `Functional Dependency (FD)` is a fundamental concept in relational database design that describes the relationship between attributes in a relational table. It specifies how one attribute or a group of attributes (the determinant) uniquely determines another attribute or set of attributes.
+## Functional Dependencies
 
-- Given a relation (table) \( R \) with attributes \( \{A_1, A_2, ..., A_n\} \), a functional dependency \( X \rightarrow Y \) is defined as follows:
-- **X** and **Y** are subsets of the attributes of \( R \).
-- **X** is called the determinant, and **Y** is the dependent.
-- **\( X \rightarrow Y \)** means that if two tuples (rows) of \( R \) agree on the attributes in \( X \), then they must also agree on the attributes in \( Y \).
+A **Functional Dependency (FD)** is a fundamental concept in relational database design that describes the relationship between attributes in a relational table. It specifies how one attribute or a group of attributes (the determinant) uniquely determines another attribute or set of attributes.
+
+- Given a relation (table) `R` with attributes `{A_1, A_2, ..., A_n}`, a functional dependency `X → Y` is defined as follows:
+  - **X** and **Y** are subsets of the attributes of `R`.
+  - **X** is called the determinant, and **Y** is the dependent.
+  - **X → Y** means that if two tuples (rows) of `R` agree on the attributes in **X**, then they must also agree on the attributes in **Y**.
 
 In other words, if you know the value of **X**, you can uniquely determine the value of **Y**.
 
-#### Properties of Functional Dependencies
-- **Reflexivity**: If \( Y \subseteq X \), then \( X \rightarrow Y \).
-- **Augmentation**: If \( X \rightarrow Y \), then \( XZ \rightarrow YZ \) for any attribute set \( Z \).
-- **Transitivity**: If \( X \rightarrow Y \) and \( Y \rightarrow Z \), then \( X \rightarrow Z \).
+### Properties of Functional Dependencies
 
-**Examples**
+- **Reflexivity**: If `Y ⊆ X`, then `X → Y`.
+- **Augmentation**: If `X → Y`, then `XZ → YZ` for any attribute set `Z`.
+- **Transitivity**: If `X → Y` and `Y → Z`, then `X → Z`.
+
+### Examples
+
 Consider the following table `Students`:
 
-| Student ID | Name      | Major      | Advisor    |
-|-----------|-----------|------------|------------|
-| 1         | Alice     | CS         | Dr. Smith  |
-| 2         | Bob       | Math       | Dr. Jones  |
-| 3         | Charlie   | CS         | Dr. Smith  |
-| 4         | Dave      | Math       | Dr. Jones  |
+| Student ID | Name    | Major | Advisor  |
+|------------|---------|-------|----------|
+| 1          | Alice   | CS    | Dr. Smith|
+| 2          | Bob     | Math  | Dr. Jones|
+| 3          | Charlie | CS    | Dr. Smith|
+| 4          | Dave    | Math  | Dr. Jones|
 
 #### Functional Dependencies in This Table
+
 - **Student ID → Name, Major, Advisor**: Knowing the `Student ID` uniquely determines `Name`, `Major`, and `Advisor`.
 - **Name → Major, Advisor**: Assuming each name is unique, knowing the `Name` will determine the `Major` and `Advisor`.
 
-#### Key Points
+### Key Points
+
 i. **Determinants**: The attributes on the left side of the arrow in a functional dependency.
 ii. **Dependents**: The attributes on the right side of the arrow in a functional dependency.
 iii. **Closure**: The set of all attributes functionally determined by a given set of attributes.
 
 ### Closure of Attributes
-The closure of a set of attributes \( X \), denoted \( X^+ \), is the set of attributes that can be functionally determined by \( X \). It is computed using the given functional dependencies.
+
+The closure of a set of attributes `X`, denoted `X^+`, is the set of attributes that can be functionally determined by `X`. It is computed using the given functional dependencies.
 
 #### Steps to Compute Closure
-i. Initialize the closure \( X^+ \) to \( X \).
-ii. For each functional dependency \( X \rightarrow Y \) where \( X \subseteq X^+ \), add \( Y \) to \( X^+ \).
+
+i. Initialize the closure `X^+` to `X`.
+ii. For each functional dependency `X → Y` where `X ⊆ X^+`, add `Y` to `X^+`.
 iii. Repeat until no more attributes can be added.
 
 **Example**
+
 Given the functional dependencies:
-- \( StudentID \rightarrow Name, Major, Advisor \)
-- \( Name \rightarrow Major, Advisor \)
+- `StudentID → Name, Major, Advisor`
+- `Name → Major, Advisor`
 
-To find \( \{StudentID\}^+ \):
-i. Start with \( \{StudentID\}^+ = \{StudentID\} \).
-ii. Apply \( StudentID \rightarrow Name, Major, Advisor \): Add `Name`, `Major`, `Advisor`.
-iii. Final closure: \( \{StudentID\}^+ = \{StudentID, Name, Major, Advisor\} \).
+To find `{StudentID}^+`:
+i. Start with `{StudentID}^+ = {StudentID}`.
+ii. Apply `StudentID → Name, Major, Advisor`: Add `Name`, `Major`, `Advisor`.
+iii. Final closure: `{StudentID}^+ = {StudentID, Name, Major, Advisor}`.
 
-**Simple Dependency**
-- **Functional Dependency**: \( \{EmployeeID\} \rightarrow \{Name, Department\} \)
+### Simple Dependency
+
+- **Functional Dependency**: `{EmployeeID} → {Name, Department}`
   - Knowing `EmployeeID` determines `Name` and `Department`.
 
-**Composite Key**
-- **Functional Dependency**: \( \{CourseID, StudentID\} \rightarrow \{Grade\} \)
+### Composite Key
+
+- **Functional Dependency**: `{CourseID, StudentID} → {Grade}`
   - Knowing the combination of `CourseID` and `StudentID` determines the `Grade`.
 
 
 ## Normalization
-
 Normalization is a process in database design that organizes data to minimize redundancy and improve data integrity. The primary goal is to decompose tables into smaller tables and define relationships between them to ensure that the database remains consistent and efficient.
 
 ### Key Normal Forms
@@ -347,3 +356,57 @@ To eliminate partial dependencies, decompose the table into smaller tables:
 #### Benefits of 2NF
 - **Eliminates Redundancy**: By removing partial dependencies, 2NF helps avoid redundant data and ensures that non-key attributes are correctly related to the entire primary key.
 - **Enhances Data Integrity**: Ensures that non-prime attributes are fully dependent on the complete primary key, which improves the consistency and accuracy of the data.
+
+### Third Normal Form (3NF)
+The Third Normal Form (3NF) builds on the Second Normal Form (2NF) by addressing transitive dependencies. It ensures that all non-key attributes are not only fully functionally dependent on the primary key but also that they are independent of each other. This further refines the structure of a database to ensure that it is free from unnecessary redundancy and maintains data integrity. A table is in Third Normal Form (3NF) if:
+
+1. **It is in Second Normal Form (2NF)**: The table must first meet the requirements of 2NF, meaning it already eliminates partial dependencies.
+2. **No Transitive Dependency**: All non-key attributes must be directly dependent on the primary key and not on other non-key attributes. In other words, non-key attributes should not be dependent on other non-key attributes.
+
+#### Key Concepts
+- **Transitive Dependency**: A transitive dependency occurs when a non-key attribute depends on another non-key attribute rather than depending directly on the primary key.
+- **Non-Transitive Dependency**: To be in 3NF, non-key attributes must be fully functionally dependent only on the primary key and not on other non-key attributes.
+
+**Example**
+
+Consider the following table `EmployeeDetails`:
+
+| EmployeeID | Name      | Department | DepartmentHead       |
+|------------|-----------|------------|----------------|
+| 1          | Alice     | HR         | John Doe       |
+| 2          | Bob       | IT         | Jane Smith     |
+| 3          | Charlie   | HR         | John Doe       |
+| 4          | David     | IT         | Jane Smith     |
+
+In this table:
+- **Primary Key**: `EmployeeID`
+- **Non-Key Attributes**: `Name`, `Department`, `DepartmentHead`
+
+**Transitive Dependency**:
+- `DepartmentHead` is dependent on `Department`, which is a non-key attribute.
+- `Department` is dependent on `EmployeeID` (the primary key), but `DepartmentHead` depends indirectly on `EmployeeID` through `Department`.
+
+#### Decomposition to Achieve 3NF
+To eliminate transitive dependencies, decompose the table into smaller tables:
+
+**Table 1: Employees**
+
+| EmployeeID | Name      | Department |
+|------------|-----------|------------|
+| 1          | Alice     | HR         |
+| 2          | Bob       | IT         |
+| 3          | Charlie   | HR         |
+| 4          | David     | IT         |
+
+**Table 2: Departments**
+
+| Department | DepartmentHead       |
+|------------|----------------|
+| HR         | John Doe       |
+| IT         | Jane Smith     |
+
+#### Benefits of 3NF
+
+- **Eliminates Transitive Dependencies**: By ensuring that non-key attributes are dependent only on the primary key, 3NF removes transitive dependencies that could lead to redundant data.
+- **Reduces Redundancy**: Ensures that data is not duplicated across different parts of the database, improving overall efficiency.
+- **Improves Data Integrity**: Ensures that all non-key attributes are directly related to the primary key, leading to a more accurate and consistent dataset.
