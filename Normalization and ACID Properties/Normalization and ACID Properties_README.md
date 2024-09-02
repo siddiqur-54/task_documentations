@@ -203,7 +203,9 @@ A **Functional Dependency (FD)** is a fundamental concept in relational database
 **Key Points**
 
 i. **Determinants**: The attributes on the left side of the arrow in a functional dependency.
+
 ii. **Dependents**: The attributes on the right side of the arrow in a functional dependency.
+
 iii. **Closure**: The set of all attributes functionally determined by a given set of attributes.
 
 In other words, if you know the value of **X**, you can uniquely determine the value of **Y**.
@@ -239,7 +241,9 @@ The closure of a set of attributes `X`, denoted `X`<sup>+</sup>, is the set of a
 ### Steps to Compute Closure
 
 i. Initialize the closure `X`<sup>+</sup> to `X`.
+
 ii. For each functional dependency `X → Y` where `X ⊆ X`<sup>+</sup>, add `Y` to `X`<sup>+</sup>.
+
 iii. Repeat until no more attributes can be added.
 
 **Example**
@@ -250,7 +254,9 @@ Given the functional dependencies:
 
 To find `{StudentID}`<sup>+</sup>:
 i. Start with `{StudentID}`<sup>+</sup> = `{StudentID}`.
+
 ii. Apply `StudentID → Name, Major, Advisor`: Add `Name`, `Major`, `Advisor`.
+
 iii. Final closure: `{StudentID}`<sup>+</sup> = `{StudentID, Name, Major, Advisor}`.
 
 ### Simple Dependency
@@ -303,12 +309,15 @@ vi. **Fifth Normal Form (5NF)**
 The First Normal Form (1NF) is the foundational step in the normalization process. It focuses on ensuring that a table is structured in such a way that it adheres to the basic principles of relational databases. A table is said to be in First Normal Form (1NF) if:
 
 i. **Atomic Values**: Each column contains only atomic (indivisible) values. This means that every cell in the table holds a single value, not a set or list of values.
+
 ii. **Unique Rows**: Each row in the table is unique. There must be a primary key or a unique identifier for each row to ensure no duplicate records.
+
 iii. **Consistent Data Type**: Each column must contain values of a consistent data type. For example, a column meant to store dates should not have any text or numeric data.
 
 ### Key Points
 
 - **Atomicity**: This means breaking down columns that contain multiple values into separate columns or rows. For example, instead of having a single column for "PhoneNumbers" that stores multiple phone numbers separated by commas, you would create separate rows or columns for each phone number.
+
 - **Primary Key**: There must be a primary key that uniquely identifies each record in the table. This ensures that each row is distinct and can be uniquely referenced.
 
 **Example**
@@ -339,6 +348,7 @@ In this revised table:
 ### Benefits of 1NF
 
 - **Reduces Redundancy**: By ensuring that each column contains only atomic values, 1NF helps reduce duplication of data and maintains consistency.
+
 - **Simplifies Data Management**: A table in 1NF is easier to query, update, and maintain, as each piece of data is stored in its most basic form.
 
 ## 3.2 Second Normal Form (2NF)
@@ -347,11 +357,13 @@ In this revised table:
 The Second Normal Form (2NF) builds upon the First Normal Form (1NF) by addressing partial dependencies. It ensures that all non-key attributes are fully functionally dependent on the entire primary key, which is especially important for tables with composite keys. A table is in Second Normal Form (2NF) if:
 
 i. **It is in First Normal Form (1NF)**: The table must first meet the requirements of 1NF, which means it has atomic values and unique rows.
+
 ii. **Full Functional Dependency**: All non-key attributes are fully functionally dependent on the entire primary key. This means that each non-key attribute must be dependent on the whole composite key and not just a part of it.
 
 ### Key Points
 
 - **Prime Attributes**: Attributes that are part of any candidate key. In a table with a composite key, these are the attributes that form the key itself.
+
 - **Non-Prime Attributes**: Attributes that are not part of any candidate key. These are the attributes that are dependent on the prime attributes.
 
 ### Partial Dependency
@@ -419,10 +431,12 @@ To eliminate partial dependencies, decompose the table into smaller tables:
 The Third Normal Form (3NF) builds on the Second Normal Form (2NF) by addressing transitive dependencies. It ensures that all non-key attributes are not only fully functionally dependent on the primary key but also that they are independent of each other. This further refines the structure of a database to ensure that it is free from unnecessary redundancy and maintains data integrity. A table is in Third Normal Form (3NF) if:
 
 i. **It is in Second Normal Form (2NF)**: The table must first meet the requirements of 2NF, meaning it already eliminates partial dependencies.
+
 ii. **No Transitive Dependency**: All non-key attributes must be directly dependent on the primary key and not on other non-key attributes. In other words, non-key attributes should not be dependent on other non-key attributes.
 
 ### Key Points
 - **Transitive Dependency**: A transitive dependency occurs when a non-key attribute depends on another non-key attribute rather than depending directly on the primary key.
+
 - **Non-Transitive Dependency**: To be in 3NF, non-key attributes must be fully functionally dependent only on the primary key and not on other non-key attributes.
 
 **Example**
