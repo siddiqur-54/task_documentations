@@ -506,7 +506,7 @@ Therefore, the database is **consistent**. Inconsistency occurs in case **T1** c
 ## 4.3 Isolation
 🔼 [Back to Top](#table-of-contents)
 
-The term `isolation` means separation. In DBMS, Isolation is the property of a database where no data should affect the other one and may occur concurrently. It means if two operations are being performed on two different databases, they may not affect the value of one another. This property ensures that multiple transactions can occur concurrently without leading to the inconsistency of the database state. Transactions occur independently without interference. Changes occurring in a particular transaction will not be visible to any other transaction until that particular change in that transaction is written to memory or has been committed. This property ensures that the execution of transactions concurrently will result in a state that is equivalent to a state achieved these were executed serially in some order.
+The term `isolation` means separation. In DBMS, Isolation is the property of a database where no data should affect the other one and may occur concurrently. It means if two operations are being performed on two different databases, they may not affect the value of one another. Changes occurring in a particular transaction will not be visible to any other transaction until that particular change in that transaction is written to memory or has been committed. This property ensures that the execution of transactions concurrently will result in a state that is equivalent to a state achieved these were executed serially in some order.
 
 **Example**
 
@@ -524,7 +524,7 @@ This results in database inconsistency, due to a loss of 50 units. Hence, transa
 ## 4.4 Durability:
 🔼 [Back to Top](#table-of-contents)
 
-`Durability` ensures the permanency of something. In DBMS, the term `durability` ensures that the data after the successful execution of the operation becomes permanent in the database. These updates now become permanent and are stored in non-volatile memory. The effects of the transaction, thus, are never lost. The durability of the data should be so perfect that even if the system fails or leads to a crash, the database still survives.  However, if gets lost, it becomes the responsibility of the recovery manager for ensuring the durability of the database. For committing the values, the COMMIT command must be used every time we make changes.
+`Durability` ensures the permanency of something. In DBMS, the term `durability` ensures that the data after the successful execution of the operation becomes permanent in the database. These updates now become permanent and are stored in non-volatile memory. The effects of the transaction, thus, are never lost. The durability of the data should be so perfect that even if the system fails or leads to a crash, the database still survives.  For committing the values, the COMMIT command must be used every time we make changes.
 
 **Some important points:**
 
@@ -540,14 +540,19 @@ Overall, ACID properties provide a framework for ensuring data consistency, inte
 ### Advantages of ACID Properties
 
 i. **Data Consistency:** ACID properties ensure that the data remains consistent and accurate after any transaction execution.
+
 ii. **Data Integrity:** ACID properties maintain the integrity of the data by ensuring that any changes to the database are permanent and cannot be lost.
+
 iii. **Concurrency Control:** ACID properties help to manage multiple transactions occurring concurrently by preventing interference between them.
+
 iv. **Recovery:** ACID properties ensure that in case of any failure or crash, the system can recover the data up to the point of failure or crash.
 
 ### Disadvantages of ACID Properties
 
 i. **Performance:** The ACID properties can cause a performance overhead in the system, as they require additional processing to ensure data consistency and integrity.
+
 ii. **Scalability:** The ACID properties may cause scalability issues in large distributed systems where multiple transactions occur concurrently.
+
 iii. **Complexity:** Implementing the ACID properties can increase the complexity of the system and require significant expertise and resources.
 
 Overall, the advantages of ACID properties in DBMS outweigh the disadvantages. They provide a reliable and consistent approach to data management, ensuring data integrity, accuracy, and reliability. However, in some cases, the overhead of implementing ACID properties can cause performance and scalability issues. Therefore, it’s important to balance the benefits of ACID properties against the specific needs and requirements of the system.
