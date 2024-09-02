@@ -12,10 +12,16 @@
 - 2.2 [Closure of Attributes](#22-closure-of-attributes)
 
 ## 3. Normalization
-
 - 3.1 [First Normal Form (1NF)](#31-first-normal-form-1nf)
 - 3.2 [Second Normal Form (1NF)](#32-second-normal-form-2nf)
 - 3.3 [Third Normal Form (3NF)](#33-third-normal-form-3nf)
+
+## 4. ACID Properties
+
+- 4.1 [Atomicity](#41-atomicity)
+- 4.2 [Consistency](#42-consistency)
+- 4.3 [Isolation](#43-isolation)
+- 4.4 [Durability](#44-durability)
 
 # 1. Different Kinds of Keys
 In relational databases, keys are crucial for identifying and establishing relationships between tables. Here’s a breakdown of the different types of keys you'll encounter:
@@ -194,6 +200,12 @@ A **Functional Dependency (FD)** is a fundamental concept in relational database
   - **X** is called the determinant, and **Y** is the dependent.
   - **X → Y** means that if two tuples (rows) of `R` agree on the attributes in **X**, then they must also agree on the attributes in **Y**.
 
+**Key Points**
+
+i. **Determinants**: The attributes on the left side of the arrow in a functional dependency.
+ii. **Dependents**: The attributes on the right side of the arrow in a functional dependency.
+iii. **Closure**: The set of all attributes functionally determined by a given set of attributes.
+
 In other words, if you know the value of **X**, you can uniquely determine the value of **Y**.
 
 ### Properties of Functional Dependencies
@@ -218,10 +230,6 @@ Consider the following table `Students`:
 - **StudentID → Name, Major, Advisor**: Knowing the `StudentID` uniquely determines `Name`, `Major`, and `Advisor`.
 - **Name → Major, Advisor**: Assuming each name is unique, knowing the `Name` will determine the `Major` and `Advisor`.
 
-### Key Points
-i. **Determinants**: The attributes on the left side of the arrow in a functional dependency.
-ii. **Dependents**: The attributes on the right side of the arrow in a functional dependency.
-iii. **Closure**: The set of all attributes functionally determined by a given set of attributes.
 
 ## 2.2 Closure of Attributes
 🔼 [Back to Top](#table-of-contents)
@@ -460,3 +468,86 @@ To eliminate transitive dependencies, decompose the table into smaller tables:
 - **Eliminates Transitive Dependencies**: By ensuring that non-key attributes are dependent only on the primary key, 3NF removes transitive dependencies that could lead to redundant data.
 - **Reduces Redundancy**: Ensures that data is not duplicated across different parts of the database, improving overall efficiency.
 - **Improves Data Integrity**: Ensures that all non-key attributes are directly related to the primary key, leading to a more accurate and consistent dataset.
+
+
+# 4. ACID Properties
+A transaction is a single logical unit of work that accesses and possibly modifies the contents of a database. Transactions access data using read and write operations. In order to maintain consistency in a database, before and after the transaction, certain properties are followed. These are called ACID properties.
+
+![](https://media.geeksforgeeks.org/wp-content/cdn-uploads/20191121102921/ACID-Properties.jpg)
+
+## 4.1 Atomicity
+🔼 [Back to Top](#table-of-contents)
+
+The term `atomicity` defines that the data remains atomic. It means if any operation is performed on the data, either it should be performed or executed completely or should not be executed at all. It further means that the operation should not break in between or execute partially. In the case of executing operations on the transaction, the operation should be completely executed and not partially. Each transaction is considered as one unit and either runs to completion or is not executed at all. It involves the following two operations.
+- **Abort:** If a transaction aborts, changes made to the database are not visible.  
+- **Commit:** If a transaction commits, changes made are visible.
+
+Atomicity is also known as the `All or nothing rule`.
+
+**Example**
+Consider the following transaction **T** consisting of **T1** and **T2**: Transfer of 100 from account **X** to account **Y**.
+
+![](https://media.geeksforgeeks.org/wp-content/uploads/11-6.jpg)
+
+If the transaction fails after completion of **T1** but before completion of **T2** ( say, after **write(X)** but before **write(Y)** ), then the amount has been deducted from **X** but not added to **Y**. This results in an inconsistent database state. Therefore, the transaction must be executed in its entirety in order to ensure the correctness of the database state.
+
+## 4.2 Consistency
+🔼 [Back to Top](#table-of-contents)
+
+The word `consistency` means that the value should remain preserved always. In DBMS, the integrity of the data should be maintained, which means if a change in the database is made, it should remain preserved always. In the case of transactions, the integrity of the data is very essential so that the database remains consistent before and after the transaction. The data should always be correct. It refers to the correctness of a database.
+
+**Example**
+
+Referring to the example above, The total amount before and after the transaction must be maintained.  
+Total = 500 + 200 = 700 (**before T occurs**)  
+Total = 400 + 300 = 700 (**after T occurs**)  
+Therefore, the database is **consistent**. Inconsistency occurs in case **T1** completes but **T2** fails. As a result, T is incomplete.
+
+## 4.3 Isolation
+🔼 [Back to Top](#table-of-contents)
+
+The term `isolation` means separation. In DBMS, Isolation is the property of a database where no data should affect the other one and may occur concurrently. It means if two operations are being performed on two different databases, they may not affect the value of one another. This property ensures that multiple transactions can occur concurrently without leading to the inconsistency of the database state. Transactions occur independently without interference. Changes occurring in a particular transaction will not be visible to any other transaction until that particular change in that transaction is written to memory or has been committed. This property ensures that the execution of transactions concurrently will result in a state that is equivalent to a state achieved these were executed serially in some order.
+
+**Example**
+
+Let **X** = 500, **Y** = 500.  
+Consider two transactions **T** and **T".**
+
+![](https://media.geeksforgeeks.org/wp-content/uploads/20210402015259/isolation-300x137.jpg)
+
+Suppose **T** has been executed till **Read (Y)** and then **T"** starts. As a result, interleaving of operations takes place due to which **T"** reads the correct value of **X** but the incorrect value of **Y** and sum computed by  
+**T": (X+Y = 50,000+500=50,500)** 
+is thus not consistent with the sum at end of the transaction:  
+**T: (X+Y = 50,000 + 450 = 50,450)**.  
+This results in database inconsistency, due to a loss of 50 units. Hence, transactions must take place in isolation and changes should be visible only after they have been made to the main memory.
+
+## 4.4 Durability:
+🔼 [Back to Top](#table-of-contents)
+
+`Durability` ensures the permanency of something. In DBMS, the term `durability` ensures that the data after the successful execution of the operation becomes permanent in the database. These updates now become permanent and are stored in non-volatile memory. The effects of the transaction, thus, are never lost. The durability of the data should be so perfect that even if the system fails or leads to a crash, the database still survives.  However, if gets lost, it becomes the responsibility of the recovery manager for ensuring the durability of the database. For committing the values, the COMMIT command must be used every time we make changes.
+
+**Some important points:**
+
+| **Property**   | **Responsibility for Maintaining Properties** |
+|----------------|-----------------------------------------------|
+| Atomicity      | Transaction Manager                           |
+| Consistency    | Application Programmer                        |
+| Isolation      | Concurrency Control Manager                   |
+| Durability     | Recovery Manager                              |
+
+Overall, ACID properties provide a framework for ensuring data consistency, integrity, and reliability in DBMS. They ensure that transactions are executed in a reliable and consistent manner, even in the presence of system failures, network issues, or other problems. These properties make DBMS a reliable and efficient tool for managing data in modern organizations.
+
+### Advantages of ACID Properties
+
+i. **Data Consistency:** ACID properties ensure that the data remains consistent and accurate after any transaction execution.
+ii. **Data Integrity:** ACID properties maintain the integrity of the data by ensuring that any changes to the database are permanent and cannot be lost.
+iii. **Concurrency Control:** ACID properties help to manage multiple transactions occurring concurrently by preventing interference between them.
+iv. **Recovery:** ACID properties ensure that in case of any failure or crash, the system can recover the data up to the point of failure or crash.
+
+### Disadvantages of ACID Properties
+
+i. **Performance:** The ACID properties can cause a performance overhead in the system, as they require additional processing to ensure data consistency and integrity.
+ii. **Scalability:** The ACID properties may cause scalability issues in large distributed systems where multiple transactions occur concurrently.
+iii. **Complexity:** Implementing the ACID properties can increase the complexity of the system and require significant expertise and resources.
+
+Overall, the advantages of ACID properties in DBMS outweigh the disadvantages. They provide a reliable and consistent approach to data management, ensuring data integrity, accuracy, and reliability. However, in some cases, the overhead of implementing ACID properties can cause performance and scalability issues. Therefore, it’s important to balance the benefits of ACID properties against the specific needs and requirements of the system.
