@@ -189,7 +189,7 @@ iii. **Closure**: The set of all attributes functionally determined by a given s
 
 ## Closure of Attributes
 
-The closure of a set of attributes `X`, denoted `X`^+^, is the set of attributes that can be functionally determined by `X`. It is computed using the given functional dependencies.
+The closure of a set of attributes `X`, denoted `X`<sup>+</sup>, is the set of attributes that can be functionally determined by `X`. It is computed using the given functional dependencies.
 
 ### Steps to Compute Closure
 
