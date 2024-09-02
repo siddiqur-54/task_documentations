@@ -1,12 +1,30 @@
-# Normalization and ACID Properties
+# Table of Contents
 
-## Different Kinds of Keys
+## 1. Different Kinds of Keys
+- 1.1 [Super Key](#11-super-key)
+- 1.2 [Candidate Key](#12-candidate-key)
+- 1.3 [Primary Key](#13-primary-key)
+- 1.4 [Composite Key](#14-composite-key)
+- 1.5 [Foreign Key](#15-foreign-key)
+
+## 2. Functional Dependencies
+- 2.1 [Functional Dependency](#21-functional-dependency)
+- 2.2 [Closure of Attributes](#22-closure-of-attributes)
+
+## 3. Normalization
+
+- 3.1 [First Normal Form (1NF)](#31-first-normal-form-1nf)
+- 3.2 [Second Normal Form (1NF)](#32-second-normal-form-2nf)
+- 3.3 [Third Normal Form (3NF)](#33-third-normal-form-3nf)
+
+# 1. Different Kinds of Keys
 In relational databases, keys are crucial for identifying and establishing relationships between tables. Here’s a breakdown of the different types of keys you'll encounter:
 
-### Super Key
+## 1.1 Super Key
+🔼 [Back to Top](#table-of-contents)
 A `super key` is a fundamental concept used to uniquely identify a record within a table. A `super key` is a set of one or more columns (attributes) that can uniquely identify a row in a table. This means that no two rows can have the same combination of values in the columns that make up the super key.
 
-#### Characteristics of Super Keys
+### Properties of Super Key
 - **Uniqueness**: Every super key must ensure that the combination of values within it uniquely identifies a single row in the table.
 - **Includes Primary Key**: Every table's primary key is a super key, but not every super key is a primary key.
 - **Multiple Super Keys**: A table can have multiple super keys, each capable of uniquely identifying records.
@@ -22,7 +40,7 @@ Consider a table `Employees`:
 | 3  | Charlie   | VLSI       | 555-9012     | charlie@example.com |
 | 4  | Alice     | HR         | 555-3456     | alice.hr@example.com|
 
-#### Super Keys in This Table:
+### Super Keys in This Table:
 - `(ID)`, `(Email)`, `(PhoneNumber)`: Uniquely identifies each row.
 - `(Name, Department)`: Individually, `Name` and `Department` do not uniquely identify rows, but together they do.
 
@@ -37,14 +55,15 @@ If `X` is a super key in a relational table, then any superset of `X` is also a 
   - Adding the `Department` column to the `Email` column creates a superset, which still uniquely identifies each row.
   - Thus, `(Email, Department)` is also a super key.
 
-### Candidate Key
+## 1.2 Candidate Key
+🔼 [Back to Top](#table-of-contents)
 A `candidate key` is a minimal super key. It is a set of one or more columns that can uniquely identify each record in a table, and none of its proper subsets can be a super key. In other words, a candidate key is a super key without any extraneous attributes.
 - Let `R` be a relation (table) with attributes `{A1, A2, ..., An}`. A subset `X` of `{A1, A2, ..., An}` is a **super key** if for any two distinct tuples (rows) `t1` and `t2` in `R`, `t1[X] ≠ t2[X]`.
 - A subset `X` of `{A1, A2, ..., An}` is a candidate key if:
   1. `X` is a super key.
   2. No proper subset of `X` is a super key.
 
-#### Key Characteristics
+### Properties of Candidate Key
 - **Uniqueness**: A candidate key uniquely identifies each record in a table.
 - **Minimality**: No proper subset of a candidate key can uniquely identify records, meaning there are no redundant attributes.
 
@@ -72,11 +91,12 @@ Consider the `Employees` table:
         - `{Name}` is not a super key.
     - So, `{Email, Name}` is not a candidate key.
 
-### Primary Key
+## 1.3 Primary Key
+🔼 [Back to Top](#table-of-contents)
 A `primary key` is a candidate key chosen to uniquely identify each record in a table.
 - It satisfies the conditions of a `candidate key` and is selected as the primary method for record identification.
 
-#### Key Characteristics
+#### Properties of Primary Key
 - **Uniqueness**: Ensures that each row is uniquely identified.
 - **Non-null**: All values in the primary key columns must be non-null.
 - **Single Primary Key**: Each table can have only one primary key.
@@ -93,16 +113,14 @@ In the `Employees` table, `ID` could be selected as the primary key:
 
 - **Primary Key**: `{ID}` is a primary key as it uniquely identifies each row and is not null.
 
-### Composite Key
+## 1.4 Composite Key
+🔼 [Back to Top](#table-of-contents)
 A `composite key` is a super key formed by combining multiple columns to ensure uniqueness.
 - None of the individual columns in the composite key alone can uniquely identify the records.
 
-#### Key Characteristics
+### Properties of Composite Key
 - **Uniqueness**: The combination of columns in the composite key must uniquely identify each record.
 - **Multi-column**: Involves more than one column.
-
-**Formal Definition**
-
 
 **Example**
 In the `Employees` table, `{Name, Department}` could be a composite key if neither `Name` nor `Department` alone can uniquely identify each row:
@@ -116,11 +134,12 @@ In the `Employees` table, `{Name, Department}` could be a composite key if neith
 
 - **Composite Key**: `{Name, Department}` together uniquely identifies each record.
 
-### Foreign Key
+## 1.5 Foreign Key
+🔼 [Back to Top](#table-of-contents)
 A `foreign key` is a column or set of columns in one table that references the primary key of another table. It is used to establish and enforce a link between the data in the two tables, ensuring referential integrity.
 - It must either match an existing value in the referenced table or be null.
 
-#### Key Characteristics
+### Properties of Foreign Key
 - **Referential Integrity**: Ensures that the value in the foreign key column matches a value in the primary key column of another table or is null.
 - **Relationship**: Creates a relationship between tables, enabling data to be related.
 
@@ -146,8 +165,9 @@ In the `Employees` table:
 - `{Department}` in the `Employees` table references `Department ID` in the `Departments` table. It ensures that each department in the `Employees` table matches an existing department in the `Departments` table.
 
 
-## Functional Dependencies
-
+# 2. Functional Dependencies
+## 2.1 Functional Dependency
+🔼 [Back to Top](#table-of-contents)
 A **Functional Dependency (FD)** is a fundamental concept in relational database design that describes the relationship between attributes in a relational table. It specifies how one attribute or a group of attributes (the determinant) uniquely determines another attribute or set of attributes.
 
 - Given a relation (table) `R` with attributes `{A_1, A_2, ..., A_n}`, a functional dependency `X → Y` is defined as follows:
@@ -163,40 +183,35 @@ In other words, if you know the value of **X**, you can uniquely determine the v
 - **Augmentation**: If `X → Y`, then `XZ → YZ` for any attribute set `Z`.
 - **Transitivity**: If `X → Y` and `Y → Z`, then `X → Z`.
 
-### Examples
-
+**Examples**
 Consider the following table `Students`:
 
-| Student ID | Name    | Major | Advisor  |
+| StudentID | Name    | Major | Advisor  |
 |------------|---------|-------|----------|
 | 1          | Alice   | CS    | Dr. Smith|
 | 2          | Bob     | Math  | Dr. Jones|
 | 3          | Charlie | CS    | Dr. Smith|
 | 4          | Dave    | Math  | Dr. Jones|
 
-#### Functional Dependencies in This Table
-
-- **Student ID → Name, Major, Advisor**: Knowing the `Student ID` uniquely determines `Name`, `Major`, and `Advisor`.
+### Functional Dependencies in This Table
+- **StudentID → Name, Major, Advisor**: Knowing the `StudentID` uniquely determines `Name`, `Major`, and `Advisor`.
 - **Name → Major, Advisor**: Assuming each name is unique, knowing the `Name` will determine the `Major` and `Advisor`.
 
 ### Key Points
-
 i. **Determinants**: The attributes on the left side of the arrow in a functional dependency.
 ii. **Dependents**: The attributes on the right side of the arrow in a functional dependency.
 iii. **Closure**: The set of all attributes functionally determined by a given set of attributes.
 
-## Closure of Attributes
-
+## 2.2 Closure of Attributes
+🔼 [Back to Top](#table-of-contents)
 The closure of a set of attributes `X`, denoted `X`<sup>+</sup>, is the set of attributes that can be functionally determined by `X`. It is computed using the given functional dependencies.
 
 ### Steps to Compute Closure
-
 i. Initialize the closure `X`<sup>+</sup> to `X`.
 ii. For each functional dependency `X → Y` where `X ⊆ X`<sup>+</sup>, add `Y` to `X`<sup>+</sup>.
 iii. Repeat until no more attributes can be added.
 
 **Example**
-
 Given the functional dependencies:
 - `StudentID → Name, Major, Advisor`
 - `Name → Major, Advisor`
@@ -207,25 +222,21 @@ ii. Apply `StudentID → Name, Major, Advisor`: Add `Name`, `Major`, `Advisor`.
 iii. Final closure: `{StudentID}`<sup>+</sup> = `{StudentID, Name, Major, Advisor}`.
 
 ### Simple Dependency
-
 - **Functional Dependency**: `{EmployeeID} → {Name, Department}`
   - Knowing `EmployeeID` determines `Name` and `Department`.
 
 ### Composite Key
-
 - **Functional Dependency**: `{CourseID, StudentID} → {Grade}`
   - Knowing the combination of `CourseID` and `StudentID` determines the `Grade`.
 ## Normalization
 Normalization is a process in database design that organizes data to minimize redundancy and improve data integrity. The primary goal is to decompose tables into smaller tables and define relationships between them to ensure that the database remains consistent and efficient.
 
 
-
-
-
-## Normalization
+# 3. Normalization
+🔼 [Back to Top](#table-of-contents)
 Normalization is a process in database design that organizes data to minimize redundancy and improve data integrity. The primary goal is to decompose tables into smaller tables and define relationships between them to ensure that the database remains consistent and efficient.
 
-### Key Normal Forms
+## Key Normal Forms
 
 i. **First Normal Form (1NF)**
    - Ensures that the table has a primary key and that all attributes contain only atomic (indivisible) values.
@@ -251,20 +262,20 @@ vi. **Fifth Normal Form (5NF)**
    - Ensures that no redundancy exists.
 
 
-### First Normal Form (1NF)
+## 3.1 First Normal Form (1NF)
+🔼 [Back to Top](#table-of-contents)
 The First Normal Form (1NF) is the foundational step in the normalization process. It focuses on ensuring that a table is structured in such a way that it adheres to the basic principles of relational databases. A table is said to be in First Normal Form (1NF) if:
 
-1. **Atomic Values**: Each column contains only atomic (indivisible) values. This means that every cell in the table holds a single value, not a set or list of values.
-2. **Unique Rows**: Each row in the table is unique. There must be a primary key or a unique identifier for each row to ensure no duplicate records.
-3. **Consistent Data Type**: Each column must contain values of a consistent data type. For example, a column meant to store dates should not have any text or numeric data.
+i. **Atomic Values**: Each column contains only atomic (indivisible) values. This means that every cell in the table holds a single value, not a set or list of values.
+ii. **Unique Rows**: Each row in the table is unique. There must be a primary key or a unique identifier for each row to ensure no duplicate records.
+iii. **Consistent Data Type**: Each column must contain values of a consistent data type. For example, a column meant to store dates should not have any text or numeric data.
 
-#### Properties of 1NF
+### Properties of 1NF
 
 - **Atomicity**: This means breaking down columns that contain multiple values into separate columns or rows. For example, instead of having a single column for "PhoneNumbers" that stores multiple phone numbers separated by commas, you would create separate rows or columns for each phone number.
 - **Primary Key**: There must be a primary key that uniquely identifies each record in the table. This ensures that each row is distinct and can be uniquely referenced.
 
 **Example**
-
 Consider a table `Employees` with the following structure:
 
 | ID | Name      | PhoneNumbers          |
@@ -288,30 +299,30 @@ In this revised table:
 - Each `PhoneNumber` value is atomic (single value per cell).
 - Each row is unique, with `EmployeeID` and `PhoneNumber` forming a composite primary key.
 
-#### Benefits of 1NF
+### Benefits of 1NF
 
 - **Reduces Redundancy**: By ensuring that each column contains only atomic values, 1NF helps reduce duplication of data and maintains consistency.
 - **Simplifies Data Management**: A table in 1NF is easier to query, update, and maintain, as each piece of data is stored in its most basic form.
 
-### Second Normal Form (2NF)
+## 3.2 Second Normal Form (2NF)
+🔼 [Back to Top](#table-of-contents)
 The Second Normal Form (2NF) builds upon the First Normal Form (1NF) by addressing partial dependencies. It ensures that all non-key attributes are fully functionally dependent on the entire primary key, which is especially important for tables with composite keys. A table is in Second Normal Form (2NF) if:
 
 1. **It is in First Normal Form (1NF)**: The table must first meet the requirements of 1NF, which means it has atomic values and unique rows.
 2. **Full Functional Dependency**: All non-key attributes are fully functionally dependent on the entire primary key. This means that each non-key attribute must be dependent on the whole composite key and not just a part of it.
 
-#### Key Concepts
+### Key Concepts
 
 - **Prime Attributes**: Attributes that are part of any candidate key. In a table with a composite key, these are the attributes that form the key itself.
 - **Non-Prime Attributes**: Attributes that are not part of any candidate key. These are the attributes that are dependent on the prime attributes.
 
-#### Partial Dependency
+### Partial Dependency
 
 Partial dependency occurs when a non-prime attribute is dependent on only a part of a composite key, rather than on the whole composite key. To achieve 2NF, such partial dependencies must be removed.
 - Let `X` be a candidate key and `Y` a non-prime attribute.
 - A partial dependency exists if `Y` is dependent on a proper subset of `X`.
 
-### Example
-
+**Example**
 Consider a table `CourseRegistrations`:
 
 | StudentID | CourseID | StudentName | CourseName    |
@@ -330,7 +341,7 @@ In this table:
 - `StudentName` is dependent only on `StudentID` (part of the composite key).
 - `CourseName` is dependent only on `CourseID` (part of the composite key).
 
-#### Decomposition to Achieve 2NF
+### Decomposition to Achieve 2NF
 To eliminate partial dependencies, decompose the table into smaller tables:
 
 **Table 1: StudentDetails**
@@ -358,22 +369,23 @@ To eliminate partial dependencies, decompose the table into smaller tables:
 | 2         | 101      |
 | 3         | 103      |
 
-#### Benefits of 2NF
+
+### Benefits of 2NF
 - **Eliminates Redundancy**: By removing partial dependencies, 2NF helps avoid redundant data and ensures that non-key attributes are correctly related to the entire primary key.
 - **Enhances Data Integrity**: Ensures that non-prime attributes are fully dependent on the complete primary key, which improves the consistency and accuracy of the data.
 
-### Third Normal Form (3NF)
+### 3.3 Third Normal Form (3NF)
+🔼 [Back to Top](#table-of-contents)
 The Third Normal Form (3NF) builds on the Second Normal Form (2NF) by addressing transitive dependencies. It ensures that all non-key attributes are not only fully functionally dependent on the primary key but also that they are independent of each other. This further refines the structure of a database to ensure that it is free from unnecessary redundancy and maintains data integrity. A table is in Third Normal Form (3NF) if:
 
 1. **It is in Second Normal Form (2NF)**: The table must first meet the requirements of 2NF, meaning it already eliminates partial dependencies.
 2. **No Transitive Dependency**: All non-key attributes must be directly dependent on the primary key and not on other non-key attributes. In other words, non-key attributes should not be dependent on other non-key attributes.
 
-#### Key Concepts
+### Key Concepts
 - **Transitive Dependency**: A transitive dependency occurs when a non-key attribute depends on another non-key attribute rather than depending directly on the primary key.
 - **Non-Transitive Dependency**: To be in 3NF, non-key attributes must be fully functionally dependent only on the primary key and not on other non-key attributes.
 
 **Example**
-
 Consider the following table `EmployeeDetails`:
 
 | EmployeeID | Name      | Department | DepartmentHead       |
@@ -391,7 +403,7 @@ In this table:
 - `DepartmentHead` is dependent on `Department`, which is a non-key attribute.
 - `Department` is dependent on `EmployeeID` (the primary key), but `DepartmentHead` depends indirectly on `EmployeeID` through `Department`.
 
-#### Decomposition to Achieve 3NF
+### Decomposition to Achieve 3NF
 To eliminate transitive dependencies, decompose the table into smaller tables:
 
 **Table 1: Employees**
@@ -410,7 +422,7 @@ To eliminate transitive dependencies, decompose the table into smaller tables:
 | HR         | John Doe       |
 | IT         | Jane Smith     |
 
-#### Benefits of 3NF
+### Benefits of 3NF
 
 - **Eliminates Transitive Dependencies**: By ensuring that non-key attributes are dependent only on the primary key, 3NF removes transitive dependencies that could lead to redundant data.
 - **Reduces Redundancy**: Ensures that data is not duplicated across different parts of the database, improving overall efficiency.
