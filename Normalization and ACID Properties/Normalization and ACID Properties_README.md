@@ -39,7 +39,7 @@ If `X` is a super key in a relational table, then any superset of `X` is also a 
 
 ### Candidate Key
 A `candidate key` is a minimal super key. It is a set of one or more columns that can uniquely identify each record in a table, and none of its proper subsets can be a super key. In other words, a candidate key is a super key without any extraneous attributes.
-- Let `R` be a relation (table) with attributes `{A1, A2, ..., An}`. A subset `X` of `{A1, A2, ..., An}` is a **super key** if for any two distinct tuples (rows) `t1` and `t2` in `R`, `t1[X] ≠ t2[X]`.
+- Let `R` be a relation (table) with attributes `{A1, A2, ..., An}`. A subset `X` of `{A1, A2, ..., An}` is a `super key` if for any two distinct tuples (rows) `t1` and `t2` in `R`, `t1[X] ≠ t2[X]`.
 - A subset `X` of `{A1, A2, ..., An}` is a candidate key if:
   1. `X` is a super key.
   2. No proper subset of `X` is a super key.
@@ -185,15 +185,15 @@ i. **Determinants**: The attributes on the left side of the arrow in a functiona
 ii. **Dependents**: The attributes on the right side of the arrow in a functional dependency.
 iii. **Closure**: The set of all attributes functionally determined by a given set of attributes.
 
-### Closure of Attributes
+## Closure of Attributes
 
-The closure of a set of attributes `X`, denoted `X^+`, is the set of attributes that can be functionally determined by `X`. It is computed using the given functional dependencies.
+The closure of a set of attributes `X`, denoted `X<sup>+</sup>`, is the set of attributes that can be functionally determined by `X`. It is computed using the given functional dependencies.
 
-#### Steps to Compute Closure
+### Steps to Compute Closure
 
-i. Initialize the closure `X^+` to `X`.
-ii. For each functional dependency `X → Y` where `X ⊆ X^+`, add `Y` to `X^+`.
-iii. Repeat until no more attributes can be added.
+1. Initialize the closure `X<sup>+</sup>` to `X`.
+2. For each functional dependency `X → Y` where `X ⊆ X<sup>+</sup>`, add `Y` to `X<sup>+</sup>`.
+3. Repeat until no more attributes can be added.
 
 **Example**
 
@@ -201,10 +201,10 @@ Given the functional dependencies:
 - `StudentID → Name, Major, Advisor`
 - `Name → Major, Advisor`
 
-To find `{StudentID}^+`:
-i. Start with `{StudentID}^+ = {StudentID}`.
-ii. Apply `StudentID → Name, Major, Advisor`: Add `Name`, `Major`, `Advisor`.
-iii. Final closure: `{StudentID}^+ = {StudentID, Name, Major, Advisor}`.
+To find `{StudentID}<sup>+</sup>`:
+1. Start with `{StudentID}<sup>+</sup> = {StudentID}`.
+2. Apply `StudentID → Name, Major, Advisor`: Add `Name`, `Major`, `Advisor`.
+3. Final closure: `{StudentID}<sup>+</sup> = {StudentID, Name, Major, Advisor}`.
 
 ### Simple Dependency
 
@@ -215,7 +215,6 @@ iii. Final closure: `{StudentID}^+ = {StudentID, Name, Major, Advisor}`.
 
 - **Functional Dependency**: `{CourseID, StudentID} → {Grade}`
   - Knowing the combination of `CourseID` and `StudentID` determines the `Grade`.
-
 
 ## Normalization
 Normalization is a process in database design that organizes data to minimize redundancy and improve data integrity. The primary goal is to decompose tables into smaller tables and define relationships between them to ensure that the database remains consistent and efficient.
