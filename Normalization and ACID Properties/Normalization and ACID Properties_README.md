@@ -13,7 +13,7 @@
 
 ## 3. Normalization
 - 3.1 [First Normal Form (1NF)](#31-first-normal-form-1nf)
-- 3.2 [Second Normal Form (1NF)](#32-second-normal-form-2nf)
+- 3.2 [Second Normal Form (2NF)](#32-second-normal-form-2nf)
 - 3.3 [Third Normal Form (3NF)](#33-third-normal-form-3nf)
 
 ## 4. ACID Properties
