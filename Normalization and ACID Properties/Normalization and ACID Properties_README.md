@@ -273,11 +273,6 @@ iii. Final closure: `{StudentID}`<sup>+</sup> = `{StudentID, Name, Major, Adviso
 - **Functional Dependency**: `{CourseID, StudentID} → {Grade}`
   - Knowing the combination of `CourseID` and `StudentID` determines the `Grade`.
 
-
-## Normalization
-Normalization is a process in database design that organizes data to minimize redundancy and improve data integrity. The primary goal is to decompose tables into smaller tables and define relationships between them to ensure that the database remains consistent and efficient.
-
-
 # 3. Normalization
 🔼 [Back to Top](#table-of-contents)
 
@@ -495,6 +490,7 @@ A transaction is a fundamental concept representing a set of logically related o
 
 ## 4.1 What does a Transaction mean in DBMS?
 🔼 [Back to Top](#table-of-contents)
+
 - Transaction can be defined as a set of logically related operations.
 -   It is the result of a request made by the user to access the contents of the databaseand perform operations on it.
 -   It consists of various operations and has various states in its completion journey.
@@ -502,6 +498,7 @@ A transaction is a fundamental concept representing a set of logically related o
 
 ## 4.2 Operations of Transaction
 🔼 [Back to Top](#table-of-contents)
+
 A user can make different types of requests to access and modify the contents of a database. So, we have different types of operations relating to a transaction. They are discussed as follows:
 
 i. **Read(X)**
