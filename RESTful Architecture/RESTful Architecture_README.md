@@ -1,9 +1,46 @@
-# Table of Contents
+# RESTful Architecture
 
+## Table of Contents
+
+## 1. Introduction to REST
+- 1.1 [What is REST?](#11-what-is-rest)
+- 1.2 [History and Evolution of REST](#12-history-and-evolution-of-rest)
+- 1.3 [Core Principles of REST](#13-core-principles-of-rest)
+- 1.4 [REST vs SOAP](#14-rest-vs-soap)
+
+## 2. REST Architecture Constraints
+- 2.1 [Uniform Interface](#21-uniform-interface)
+- 2.2 [Client - Server Architecture](#22-client-server-architecture)
+- 2.3 [Statelessness](#23-statelessness)
+- 2.4 [Cacheability](#24-cacheability)
+- 2.5 [Layered System](#25-layered-system)
+- 2.6 [Code on Demand (Optional)](#26-code-on-demand-optional)
+
+## 3. What is a Resource?
+- 3.1 [Singleton and Collection Resources](#31-singleton-and-collection-resources)
+- 3.2 [Collection and Sub-collection Resources](#32-collection-and-sub-collection-resources)
+- 3.3 [URI](#33-uri)
+- 3.4 [URI Naming Conventions](#34-uri-naming-conventions)
+- 3.5 [Consistent Naming Conventions](#35-consistent-naming-conventions)
+
+
+## 4. HTTP Methods
+- 4.1 [HTTP GET](#41-http-get)
+- 4.2 [HTTP POST](#42-http-post)
+- 4.3 [HTTP PUT](#43-http-put)
+- 4.4 [HTTP DELETE](#44-http-delete)
+- 4.5 [HTTP PATCH](#45-http-patch)
+- 4.6 [Glossary](#46-glossary)
+- 4.3 [HTTP PUT](#43-http-put)
+- 4.4 [HTTP DELETE](#44-http-delete)
+
+## 5. [REST Specific HTTP Status Codes](#5-rest-specific-http-status-codes)
+
+## 6. [REST Security Design Principles](#6-rest-security-design-principles)
 
 # 1. Introduction to REST
 
-## 1.1 What is REST (Representational State Transfer)?
+## 1.1 What is REST?
 
 REST, or Representational State Transfer, is an architectural style for designing networked applications. It is a set of constraints used for building scalable and maintainable web services.
 
@@ -15,10 +52,12 @@ REST is commonly used in web development for APIs that allow clients (like web b
 
 
 ## 1.2 History and Evolution of REST
+🔼 [Back to Top](#table-of-contents)
 
 REST was introduced in 2000 by Roy Fielding in his Ph.D. [dissertation](https://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm) titled "Architectural Styles and the Design of Network-based Software Architectures." Fielding, who was a co-author of the HTTP specification, designed REST to guide the evolution of the web. REST has since become the standard for building web services, especially due to its simplicity compared to SOAP.
 
 ## 1.3 Core Principles of REST
+🔼 [Back to Top](#table-of-contents)
 
 REST is based on some constraints and principles that promote simplicity, scalability, and statelessness in the design. The six guiding principles or [constraints of the RESTful architecture](https://restfulapi.net/rest-architectural-constraints/) are:
 ![](https://restfulapi.net/wp-content/uploads/What-is-REST.png)
@@ -36,7 +75,8 @@ REST is based on some constraints and principles that promote simplicity, scalab
 6. **Code on Demand (Optional)**: Servers can send executable code (e.g., JavaScript) to clients to enhance functionality.
 
 
-## REST vs. SOAP
+## 1.4 REST vs SOAP
+🔼 [Back to Top](#table-of-contents)
 
 | Aspect            | REST                            | SOAP                          |
 |-------------------|---------------------------------|-------------------------------|
@@ -72,7 +112,7 @@ This is one of the most important principles of REST, ensuring that the API inte
 Example of Uniform Interface:  
 A `GET` request to `/users/123` returns a JSON representation of a user resource. The response might also contain links (HATEOAS) to related actions like updating or deleting the user.
 
-## 2.2 Client-Server Architecture
+## 2.2 Client - Server Architecture
 🔼 [Back to Top](#table-of-contents)
 
 The client-server design pattern enforces the separation of concerns.
@@ -93,7 +133,8 @@ Each HTTP request to a RESTful service must contain all the information needed t
 
 ![](https://restfulapi.net/wp-content/uploads/Stateless-REST-API-1024x576.png)
 
-### What is a Stateless REST API?
+### 2.3.1 What is a Stateless REST API?
+🔼 [Back to Top](#table-of-contents)
 
 A stateless REST API adheres to the principle of statelessness as defined by the REST architectural style. Stateless REST APIs do not establish or maintain client sessions. Clients are responsible for providing all necessary information in each request, such as authentication tokens, credentials, or context data. The server does not store client-specific session data.
 
@@ -109,7 +150,8 @@ To enable clients to access these stateless APIs, it is necessary that servers a
 
 To become stateless, do not store even the authentication/authorization details of the client. Provide authentication credentials with each request. Thus each request MUST be stand-alone and should not be affected by the previous conversation that happened with the same client in the past.
 
-### Application State vs Resource State
+### 2.3.2 Application State vs Resource State
+🔼 [Back to Top](#table-of-contents)
 
 It is important to understand the between the application state and the resource state. Both are completely different things.
 
@@ -119,7 +161,8 @@ It is important to understand the between the application state and the resource
 
 > REST statelessness means being free from the application state.
 
-### Advantages of Stateless APIs
+### 2.3.3 Advantages of Stateless APIs
+🔼 [Back to Top](#table-of-contents)
 
 Stateless APIs are often simpler to develop, test, and maintain because they do not require managing session state or tracking client interactions.
 
@@ -150,7 +193,7 @@ Optimizing the network using caching improves the overall quality-of-service in 
 -  **Reduce load on servers**
 -  **Hide network failures**
 
-### Caching in REST APIs
+### 2.4.1 Caching in REST APIs
 
 Being cacheable is one of the architectural constraints of REST.
 
@@ -161,7 +204,7 @@ Being cacheable is one of the architectural constraints of REST.
 
 > Please note that  **[HTTP dates are always expressed in GMT](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Last-Modified)**, never in local time.
 
-### Cache Control Headers
+### 2.4.2 Cache Control Headers
 
 Below given are main HTTP response headers that we can use to  **control caching behavior**:
 
@@ -285,10 +328,10 @@ REST APIs use  [Uniform Resource Identifiers](https://en.wikipedia.org/wiki/Unif
 
 Below are a few tips to get you going when creating the resource URIs for your new API.
 
-## 3.4 Best Practices
-🔼 [Back to Top](#table-of-contents)
+## 3.4 URI Naming Conventions
 
-### Use nouns to represent resources
+### 3.4.1 Use nouns to represent resources
+🔼 [Back to Top](#table-of-contents)
 
 RESTful URI should refer to a resource that is a thing (noun) instead of referring to an action (verb) because nouns have properties that verbs do not have – similarly, resources have attributes. Some examples of a resource are:
 
@@ -354,12 +397,12 @@ Use “plural” name to denote store resource archetype.
 /song-management/users/{id}/playlists
 ```
 
-## 3.5 Consistency is the key
+## 3.5 Consistent Naming Conventions
 🔼 [Back to Top](#table-of-contents)
 
 Use consistent resource naming conventions and URI formatting for minimum ambiguity and maximum readability and maintainability. You may implement the below design hints to achieve consistency:
 
-### Use forward slash (/) to indicate hierarchical relationships
+### 3.5.1 Use forward slash (/) to indicate hierarchical relationships
 
 The forward-slash (/) character is used in the path portion of the URI to indicate a hierarchical relationship between resources. e.g.
 
@@ -371,7 +414,7 @@ The forward-slash (/) character is used in the path portion of the URI to indica
 /device-management/managed-devices/{id}/scripts/{id}
 ```
 
-### Do not use trailing forward slash (/) in URIs
+### 3.5.2 Do not use trailing forward slash (/) in URIs
 
 As the last character within a URI’s path, a forward slash (/) adds no semantic value and may confuse. It’s better to drop it from the URI.
 
@@ -380,7 +423,7 @@ http://api.example.com/device-management/managed-devices/
 http://api.example.com/device-management/managed-devices         /*This is much better version*/
 ```
 
-### Use hyphens (-) to improve the readability of URIs
+### 3.5.3 Use hyphens (-) to improve the readability of URIs
 
 To make your URIs easy for people to scan and interpret, use the hyphen (-) character to improve the readability of names in long-path segments.
 
@@ -389,7 +432,7 @@ http://api.example.com/devicemanagement/manageddevices/
 http://api.example.com/device-management/managed-devices 	/*This is much better version*/
 ```
 
-### Do not use underscores ( _ )
+### 3.5.4 Do not use underscores ( _ )
 
 It’s possible to use an underscore in place of a hyphen to be used as a separator – But depending on the application’s font, it is possible that the underscore (_) character can either get partially obscured or completely hidden in some browsers or screens.
 
@@ -401,7 +444,7 @@ http://api.example.com/inventory-management/managed-entities/{id}/install-script
 http://api.example.com/inventory-management/managedEntities/{id}/installScriptLocation  //Less readable
 ```
 
-### Use lowercase letters in URIs
+### 3.5.5 Use lowercase letters in URIs
 
 When convenient, lowercase letters should be consistently preferred in URI paths.
 
@@ -414,6 +457,7 @@ http://api.example.org/My-Folder/my-doc       //3
 In the above examples, 1 and 2 are the same, but 3 is not as it uses **My-Folder** in capital letters.
 
 ## 3.6 Do not use file extensions
+🔼 [Back to Top](#table-of-contents)
 
 File extensions look bad and do not add any advantage. Removing them decreases the length of URIs as well. No reason to keep them.
 
@@ -510,7 +554,7 @@ HTTP GET http://www.appdomain.com/users/123
 HTTP GET http://www.appdomain.com/users/123/address
 ```
 
-## 2. HTTP POST
+## 4.2 HTTP POST
 🔼 [Back to Top](#table-of-contents)
 
 Use POST APIs  **to create new subordinate resources**, e.g., a file is subordinate to a directory containing it or a row is subordinate to a database table.
@@ -533,7 +577,7 @@ HTTP POST http://www.appdomain.com/users
 HTTP POST http://www.appdomain.com/users/123/accounts
 ```
 
-## 3. HTTP PUT
+## 4.3 HTTP PUT
 🔼 [Back to Top](#table-of-contents)
 
 Use PUT APIs primarily  **to update an existing resource (if the resource does not exist, then API may decide to create a new resource or not)**.
@@ -554,7 +598,7 @@ HTTP PUT http://www.appdomain.com/users/123/accounts/456
 
 > The  [difference between the POST and PUT APIs](https://restfulapi.net/rest-put-vs-post/)  can be observed in request URIs. POST requests are made on resource collections, whereas PUT requests are made on a single resource.
 
-## 4. HTTP DELETE
+## 4.4 HTTP DELETE
 🔼 [Back to Top](#table-of-contents)
 
 As the name applies, DELETE APIs  **delete the resources**  (identified by the Request-URI).
@@ -637,7 +681,8 @@ The  **purpose of distinguishing between safe and unsafe methods**  is to allow 
 
 Safe methods allow user agents to represent other methods, such as  _POST, PUT and DELETE_, in a unique way so that the user is made aware of the fact that a possibly unsafe action is being requested – and they can update/delete the resource on the server and so should be used carefully.
 
-### 4.7 Idempotent Methods
+### 4.6.2 Idempotent Methods
+🔼 [Back to Top](#table-of-contents)
 
 The term idempotent is used more comprehensively to describe an  **operation that will produce the same results if executed once or multiple times**.
 
@@ -650,6 +695,7 @@ With non-idempotent operations, the algorithm may have to keep track of whether 
 Like the definition of  _safe methods_, the idempotent property only applies to what has been requested by the user; a server is free to log each request separately or retain a revision control history.
 
 # 5. REST Specific HTTP Status Codes
+🔼 [Back to Top](#table-of-contents)
 
 REST APIs use the  **Status-Line**  part of an HTTP response message to inform clients of their request’s overarching result.  [RFC 2616](https://www.ietf.org/rfc/rfc2616.txt)  defines the  [Status-Line syntax](https://www.w3.org/Protocols/rfc2616/rfc2616-sec6.html#sec6.1)  as shown below:
 
@@ -795,5 +841,68 @@ The API response is the generic error message, given when an unexpected conditio
 #### 501 (Not Implemented)
 
 The server either does not recognize the request method, or it cannot fulfill the request. Usually, this implies future availability (e.g., a new feature of a web-service API).
+
+
+
+## 6. REST Security Design Principles
+🔼 [Back to Top](#table-of-contents)
+
+The paper  [“The Protection of Information in Computer Systems” by Jerome Saltzer and Michael Schroeder](http://web.mit.edu/Saltzer/www/publications/protection/), put forth eight design principles for securing information in computer systems, as described in the following sections:
+
+-   **Least Privilege:** An entity should only have the required set of permissions to perform the actions for which they are authorized, and no more. Permissions can be added as needed and should be revoked when no longer in use.
+-   **Fail-Safe Defaults:** A user’s default access level to any resource in the system should be “denied” unless they’ve been granted a “permit” explicitly.
+-   **The economy of Mechanism:** The design should be as simple as possible. All the component interfaces and the interactions between them should be simple enough to understand.
+-   **Complete Mediation:** A system should validate access rights to all its resources to ensure that they’re allowed and should not rely on the cached permission matrix. If the access level to a given resource is being revoked, but that isn’t reflected in the permission matrix, it would violate the security.
+-   **Open Design:** This principle highlights the importance of building a system in an open manner—with no secret, confidential algorithms.
+-   **Separation of Privilege:** Granting permissions to an entity should not be purely based on a single condition, a combination of conditions based on the type of resource is a better idea.
+-   **Least Common Mechanism:** It concerns the risk of sharing state among different components. If one can corrupt the shared state, it can then corrupt all the other components that depend on it.
+-   **Psychological Acceptability:** It states that security mechanisms should not make the resource more difficult to access than if the security mechanisms were not present. In short, security should not make worse the user experience.
+
+Below given points may serve as a checklist for designing the security mechanism for REST APIs.
+
+#### Keep it Simple
+
+Secure an API/System – just how secure it needs to be. Every time you make the solution more complex “unnecessarily,” you are also likely to leave a hole.
+
+#### Always Use HTTPS
+
+By always using  [SSL](https://www.digicert.com/ssl/), the authentication credentials can be simplified to a randomly generated access token. The token is delivered in the username field of HTTP Basic Auth. It’s relatively simple to use, and you get a lot of security features for free.
+
+If you use  [HTTP 2](https://http2.github.io/), to improve performance – you can even  [send multiple requests over a single connection](https://en.wikipedia.org/wiki/HTTP_persistent_connection), that way you avoid the complete TCP and SSL handshake overhead on later requests.
+
+#### Use Password Hash
+
+Passwords must always be hashed to protect the system (or minimize the damage) even if it is compromised in some hacking attempts. There are many such  [hashing algorithms](https://howtodoinjava.com/security/how-to-generate-secure-password-hash-md5-sha-pbkdf2-bcrypt-examples/)  that can prove really effective for password security e.g. PBKDF2, bcrypt, and scrypt algorithms.
+
+#### Never expose information on URLs
+
+Usernames, passwords, session tokens, and API keys should not appear in the URL, as this can be captured in web server logs, which makes them easily exploitable.
+
+```
+https://api.domain.com/user-management/users/{id}/someAction?apiKey=abcd123456789  //Very BAD !!
+```
+
+The above URL exposes the API key. So, never use this form of security.
+
+#### Consider OAuth
+
+Though  [basic auth](https://en.wikipedia.org/wiki/Basic_access_authentication)  is good enough for most of the APIs and if implemented correctly, it’s secure as well – yet you may want to consider  [OAuth](https://tools.ietf.org/html/rfc6749)  as well.
+
+The OAuth 2.0 authorization framework enables a third-party application to obtain limited access to an HTTP service, either on behalf of a resource owner by orchestrating an approval interaction between the resource owner and the HTTP service, or by allowing the third-party application to obtain access on its behalf.
+
+#### Consider Adding Timestamp in Request
+
+Along with other request parameters, you may add a request timestamp as an HTTP custom header in API requests.
+
+The server will compare the current timestamp to the request timestamp and only accepts the request if it is after a reasonable timeframe (30 seconds, perhaps).
+
+This will prevent very basic  [replay attacks](https://en.wikipedia.org/wiki/Replay_attack)  from people who are trying to  [brute force](https://en.wikipedia.org/wiki/Brute-force_attack)  your system without changing this timestamp.
+
+#### Input Parameter Validation
+
+Validate request parameters on the very first step, before it reaches application logic. Put strong validation checks and reject the request immediately if validation fails.
+
+## References
+- [restfulapi.net](https://restfulapi.net)
 
 ---
